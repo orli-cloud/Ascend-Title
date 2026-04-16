@@ -378,104 +378,59 @@
     </div>
   </section>
 
-  <!-- ========== FOOTER ========== -->
-  <footer class="footer">
-    <!-- Giant A watermark -->
-    <svg class="footer-chevron" aria-hidden="true"><use href="#chevron-a" fill="url(#silver)"/></svg>
+  <!-- ========== FOOTER (scroll-morph — slant grows to fill like hero) ========== -->
+  <footer class="footer" id="footer">
+    <div class="footer-sticky">
+      <!-- Navy base -->
+      <div class="footer-navy" aria-hidden="true"></div>
+      <!-- Image layer, clipped to a growing parallelogram (same effect as hero) -->
+      <div class="footer-shape" aria-hidden="true"></div>
 
-    <!-- Top: huge heading + contact card -->
-    <div class="footer-hero container">
-      <div class="footer-hero-left">
-        <span class="footer-eyebrow">
-          <span class="dot"></span>Available in all 50 states
-        </span>
-        <h3 class="footer-hero-title">
-          Let's close your<br>
-          <em>next deal</em> together.
-        </h3>
-      </div>
-      <div class="footer-card">
-        <div class="footer-card-row">
-          <span class="footer-card-label">Call</span>
-          <a href="tel:7189878543" class="footer-card-val">718.987.8543</a>
+      <!-- Content fades in as the shape fills -->
+      <div class="footer-content container">
+        <div class="footer-main">
+          <div class="footer-col footer-col--intro">
+            <h2 class="footer-heading">We close<br>nationally.</h2>
+            <a href="#contact" class="footer-brief">
+              <span>Start a project</span>
+              <svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg>
+            </a>
+            <a href="mailto:info@ascendtitle.com" class="footer-email">info@ascendtitle.com</a>
+          </div>
+          <div class="footer-col">
+            <h5 class="footer-label">Quick Links</h5>
+            <a href="#about">About</a>
+            <a href="#services">Services</a>
+            <a href="#resources">Resources</a>
+            <a href="#contact">Contact</a>
+          </div>
+          <div class="footer-col">
+            <h5 class="footer-label">Services</h5>
+            <a href="#">Commercial</a>
+            <a href="#">Residential</a>
+            <a href="#">National</a>
+            <a href="#">Full Escrow</a>
+          </div>
+          <div class="footer-col">
+            <h5 class="footer-label">Socials</h5>
+            <a href="#">Instagram</a>
+            <a href="#">LinkedIn</a>
+            <a href="#">Facebook</a>
+          </div>
         </div>
-        <div class="footer-card-row">
-          <span class="footer-card-label">Email</span>
-          <a href="mailto:info@ascendtitle.com" class="footer-card-val">info@ascendtitle.com</a>
+
+        <div class="footer-divider"></div>
+
+        <div class="footer-bottom">
+          <span>&copy; 2026 Ascend Title</span>
+          <a href="#">Privacy &amp; Terms</a>
         </div>
-        <div class="footer-card-row">
-          <span class="footer-card-label">Visit</span>
-          <span class="footer-card-val">1600 Ave of the States, Lakewood, NJ</span>
-        </div>
-        <a href="#" class="btn btn-ghost btn-sm" data-magnetic>
-          <span class="btn-arrow btn-arrow-left"><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></span>
-          <span class="btn-label">Start a project</span>
-          <span class="btn-arrow btn-arrow-right"><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></span>
-        </a>
       </div>
     </div>
 
-    <!-- Middle: nav columns -->
-    <div class="footer-main container">
-      <div class="footer-col footer-col-brand">
-        <img src="Logo/Logo white.png" alt="Ascend Title" class="footer-logo-img" />
-        <p class="footer-tag">A national title and escrow firm built on four decades of precision, trust, and unmatched expertise.</p>
-        <div class="footer-socials">
-          <a href="#" aria-label="LinkedIn">Li</a>
-          <a href="#" aria-label="Instagram">Ig</a>
-          <a href="#" aria-label="Facebook">Fb</a>
-        </div>
-      </div>
-      <div class="footer-col">
-        <h4>Explore</h4>
-        <a href="#home"><span>Home</span><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></a>
-        <a href="#about"><span>About</span><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></a>
-        <a href="#services"><span>Services</span><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></a>
-        <a href="#contact"><span>Contact</span><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></a>
-      </div>
-      <div class="footer-col">
-        <h4>Services</h4>
-        <a href="#"><span>Commercial</span><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></a>
-        <a href="#"><span>Residential</span><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></a>
-        <a href="#"><span>National</span><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></a>
-        <a href="#"><span>Full Escrow</span><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></a>
-      </div>
-      <div class="footer-col">
-        <h4>Newsletter</h4>
-        <p class="footer-newsletter-sub">Industry updates and closing insights. No spam.</p>
-        <form class="footer-newsletter" onsubmit="event.preventDefault();">
-          <input type="email" placeholder="Your email" aria-label="Email address" required>
-          <button type="submit" aria-label="Subscribe">
-            <svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg>
-          </button>
-        </form>
-      </div>
-    </div>
-
-    <!-- Marquee -->
-    <div class="footer-marquee" aria-hidden="true">
-      <div class="marquee-track">
-        <span>A Higher Standard of Closing</span><svg class="marquee-chev"><use href="#chevron-a"/></svg>
-        <span>Trust · Precision · Expertise</span><svg class="marquee-chev"><use href="#chevron-a"/></svg>
-        <span>Licensed in All 50 States</span><svg class="marquee-chev"><use href="#chevron-a"/></svg>
-        <span>A Higher Standard of Closing</span><svg class="marquee-chev"><use href="#chevron-a"/></svg>
-        <span>Trust · Precision · Expertise</span><svg class="marquee-chev"><use href="#chevron-a"/></svg>
-        <span>Licensed in All 50 States</span><svg class="marquee-chev"><use href="#chevron-a"/></svg>
-      </div>
-    </div>
-
-    <!-- Bottom -->
-    <div class="footer-bottom container">
-      <span>&copy; 2026 Ascend Title · All rights reserved</span>
-      <span class="footer-bottom-links">
-        <a href="#">Privacy</a>
-        <a href="#">Terms</a>
-        <a href="#">Disclosures</a>
-      </span>
-      <a href="#home" class="footer-up" aria-label="Back to top">
-        <span>Back to top</span>
-        <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1 L11 7 L7 7 L7 11 L5 11 L5 7 L1 7 Z" fill="currentColor"/></svg>
-      </a>
+    <!-- Giant brand text at the very bottom -->
+    <div class="footer-brand" aria-hidden="true">
+      <span class="footer-brand-word">ASCEND</span>
     </div>
   </footer>
 
