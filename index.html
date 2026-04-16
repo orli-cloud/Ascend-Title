@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ascend Title — A Higher Standard of Closing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="Logo/Favicon.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ========== Inline SVG defs (reusable chevron mark) ========== -->
+  <svg width="0" height="0" aria-hidden="true" style="position:absolute">
+    <defs>
+      <symbol id="chevron-a" viewBox="0 0 100 100">
+        <path d="M42 10 L58 10 L90 90 L75 90 L50 28 L25 90 L10 90 Z" fill="currentColor"/>
+      </symbol>
+      <symbol id="arrow" viewBox="0 0 24 10">
+        <line x1="0" y1="5" x2="22" y2="5" stroke="currentColor" stroke-width="1" />
+        <polyline points="17,0.5 22.5,5.1 17,9.7" stroke="currentColor" fill="none" stroke-width="1"/>
+      </symbol>
+      <linearGradient id="silver" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#f5f9ff"/>
+        <stop offset="40%" stop-color="#c9d6e5"/>
+        <stop offset="70%" stop-color="#8aa3c0"/>
+        <stop offset="100%" stop-color="#e8eef5"/>
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <!-- Custom cursor -->
+  <div class="cursor" aria-hidden="true"></div>
+  <div class="cursor-dot" aria-hidden="true"></div>
+
+  <!-- Progress bar -->
+  <div class="progress" aria-hidden="true"><span></span></div>
+
+  <!-- ========== HERO + NAV ========== -->
+  <header class="hero" id="home">
+    <div class="hero-bg" aria-hidden="true">
+      <div class="bg-image"></div>
+      <div class="bg-overlay"></div>
+      <div class="bg-shimmer"></div>
+      <div class="bg-lines">
+        <span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+
+    <!-- Giant chevron watermark -->
+    <svg class="chevron-watermark chevron-hero" aria-hidden="true">
+      <use href="#chevron-a" fill="url(#silver)"/>
+    </svg>
+
+    <nav class="nav" aria-label="Main">
+      <a href="#home" class="logo" aria-label="Ascend Title home">
+        <img src="Logo/Logo white.png" alt="Ascend Title" class="logo-img" />
+      </a>
+      <ul class="nav-links">
+        <li><a href="#home" class="nav-link active"><span>Home</span></a></li>
+        <li><a href="#about" class="nav-link"><span>About</span></a></li>
+        <li><a href="#services" class="nav-link"><span>Services</span></a></li>
+        <li><a href="#resources" class="nav-link"><span>Resources</span></a></li>
+        <li><a href="#login" class="nav-link"><span>Login</span></a></li>
+        <li><a href="#contact" class="nav-link"><span>Contact</span></a></li>
+      </ul>
+      <a href="tel:7189878543" class="nav-phone">
+        <span>718.987.8543</span>
+        <svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg>
+      </a>
+      <button class="nav-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+
+    <div class="hero-inner">
+      <div class="hero-meta">
+        <span class="hero-tag"><span class="tag-dot"></span>Est. 1985 · Lakewood, NJ</span>
+      </div>
+
+      <h1 class="hero-title">
+        <span class="line"><span class="word">A</span> <span class="word">Higher</span></span>
+        <span class="line"><span class="word">Standard</span> <span class="word">of</span></span>
+        <span class="line"><span class="word">Closing</span><span class="title-rule"></span></span>
+      </h1>
+
+      <div class="hero-row">
+        <p class="hero-sub">
+          Unrivaled expertise in commercial<br>and residential title insurance.
+        </p>
+
+        <a href="#about" class="btn btn-ghost" data-magnetic>
+          <span class="btn-fill"></span>
+          <span class="btn-label"><span data-text="Get Started">Get Started</span></span>
+          <span class="btn-icon">
+            <svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg>
+          </span>
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-scroll" aria-hidden="true">
+      <span class="scroll-label">Scroll</span>
+      <span class="scroll-line"></span>
+    </div>
+  </header>
+
+  <!-- ========== ABOUT ========== -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="about-head">
+        <span class="eyebrow reveal"><span class="eyebrow-dash"></span>About</span>
+        <span class="about-meta reveal">01 / 06</span>
+      </div>
+      <h2 class="about-title reveal">
+        Ascend Title is a national title and escrow firm built on four decades of experience.
+        <span class="about-muted">We navigate complex commercial and residential transactions across all 50 states.</span>
+      </h2>
+    </div>
+  </section>
+
+  <!-- ========== SERVICES ========== -->
+  <section class="services" id="services">
+    <div class="container">
+      <ul class="service-list">
+        <li class="service-row reveal">
+          <span class="service-num">01</span>
+          <div class="service-body">
+            <h3 class="service-title">Commercial Services</h3>
+            <p class="service-desc">Our team brings unmatched experience in commercial real estate, navigating the complexities of property law and intricate transactions to ensure every deal closes without complications.</p>
+          </div>
+          <span class="service-arrow">
+            <svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg>
+          </span>
+        </li>
+        <li class="service-row reveal">
+          <span class="service-num">02</span>
+          <div class="service-body">
+            <h3 class="service-title">Residential Services</h3>
+            <p class="service-desc">From first homes to seasoned investments, we guide every residential transaction with expert clarity, deep knowledge, and a focus on protecting your interests at every turn.</p>
+          </div>
+          <span class="service-arrow">
+            <svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg>
+          </span>
+        </li>
+        <li class="service-row reveal">
+          <span class="service-num">03</span>
+          <div class="service-body">
+            <h3 class="service-title">National Services</h3>
+            <p class="service-desc">Our team leverages deep knowledge of local laws and regulations across all 50 states, adapting seamlessly to each jurisdiction. With years of experience handling transactions nationwide, we manage every detail, ensuring smooth, reliable closings across the country.</p>
+          </div>
+          <span class="service-arrow">
+            <svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg>
+          </span>
+        </li>
+        <li class="service-row reveal">
+          <span class="service-num">04</span>
+          <div class="service-body">
+            <h3 class="service-title">Closing Services</h3>
+            <p class="service-desc">Our team prepares the closing documents required for a smooth closing, handling all essential paperwork to ensure your transaction reaches the closing table efficiently and without delays.</p>
+          </div>
+          <span class="service-arrow">
+            <svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg>
+          </span>
+        </li>
+        <li class="service-row reveal">
+          <span class="service-num">05</span>
+          <div class="service-body">
+            <h3 class="service-title">Full Escrow Services</h3>
+            <p class="service-desc">Acting as a trusted neutral third party, we securely manage documents and funds, preparing closing statements and distributing proceeds precisely according to lender, purchaser, and seller instructions.</p>
+          </div>
+          <span class="service-arrow">
+            <svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg>
+          </span>
+        </li>
+        <li class="service-row reveal">
+          <span class="service-num">06</span>
+          <div class="service-body">
+            <h3 class="service-title">Complete Transaction Management</h3>
+            <p class="service-desc">From title searches and surveys to settlements and recordings, we coordinate every step of the title process with precision, keeping your transaction organized, efficient, and moving steadily toward closing.</p>
+          </div>
+          <span class="service-arrow">
+            <svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg>
+          </span>
+        </li>
+      </ul>
+
+      <div class="services-cta reveal">
+        <a href="#" class="btn btn-outline" data-magnetic>
+          <span class="btn-fill"></span>
+          <span class="btn-label"><span data-text="View All Services">View All Services</span></span>
+          <span class="btn-icon">
+            <svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg>
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== UNDERWRITERS ========== -->
+  <section class="underwriters angle-top">
+    <div class="underwriters-bg" aria-hidden="true">
+      <div class="bg-image"></div>
+      <div class="bg-overlay"></div>
+    </div>
+    <svg class="chevron-watermark chevron-uw" aria-hidden="true">
+      <use href="#chevron-a" fill="url(#silver)"/>
+    </svg>
+    <div class="container">
+      <div class="uw-head">
+        <span class="eyebrow eyebrow-light reveal"><span class="eyebrow-dash"></span>Trusted Partners</span>
+        <h2 class="uw-title reveal">
+          Partnered with<br>
+          <span class="uw-title-accent">leading underwriters</span>
+        </h2>
+      </div>
+
+      <div class="uw-grid reveal">
+        <div class="uw-cell">
+          <span class="uw-label">Fidelity National</span>
+          <span class="uw-hover">Partner</span>
+        </div>
+        <div class="uw-cell">
+          <span class="uw-label">First American</span>
+          <span class="uw-hover">Partner</span>
+        </div>
+        <div class="uw-cell">
+          <span class="uw-label">Stewart Title</span>
+          <span class="uw-hover">Partner</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== EXCELLENCE ========== -->
+  <section class="excellence">
+    <div class="container">
+      <div class="excellence-head">
+        <span class="eyebrow reveal"><span class="eyebrow-dash"></span>Excellence in Service</span>
+        <h2 class="excellence-title reveal">
+          Every experience is defined by our relentless commitment to exceptional client care.
+        </h2>
+      </div>
+
+      <div class="excellence-cards">
+        <article class="ex-card ex-card--light reveal" data-stagger="0">
+          <div class="ex-card-inner">
+            <span class="ex-card-num">01</span>
+            <h3 class="ex-card-title">Superior<br>Service</h3>
+            <p class="ex-card-text">All aspects of your transaction are expertly managed from start to finish. If you value clear communication, smooth closings, and a team that takes ownership, you're in the right place.</p>
+            <svg class="ex-chevron" aria-hidden="true"><use href="#chevron-a"/></svg>
+          </div>
+        </article>
+        <article class="ex-card ex-card--mid reveal" data-stagger="1">
+          <div class="ex-card-inner">
+            <span class="ex-card-num">02</span>
+            <h3 class="ex-card-title">No<br>Handoffs</h3>
+            <p class="ex-card-text">Every account is assigned direct access to experienced professionals who are responsible for your file. Always accessible, they provide the personalized experience our clients rely on.</p>
+            <svg class="ex-chevron" aria-hidden="true"><use href="#chevron-a"/></svg>
+          </div>
+        </article>
+        <article class="ex-card ex-card--dark reveal" data-stagger="2">
+          <div class="ex-card-inner">
+            <span class="ex-card-num">03</span>
+            <h3 class="ex-card-title">Closing<br>Commitment</h3>
+            <p class="ex-card-text">From straightforward residential deals to detailed commercial closings, we operate with one clear standard: Get it done right. Get it closed smoothly.</p>
+            <svg class="ex-chevron" aria-hidden="true"><use href="#chevron-a"/></svg>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== TEAM ========== -->
+  <section class="team">
+    <div class="container">
+      <div class="team-grid">
+        <div class="team-left">
+          <span class="eyebrow reveal"><span class="eyebrow-dash"></span>Team</span>
+          <h2 class="team-title reveal">
+            Our team combines unmatched mastery and experience, bringing together leaders from every discipline to deliver a powerhouse of talent and results.
+          </h2>
+
+          <ul class="team-stats">
+            <li class="reveal"><span class="stat-num"><span data-count="40">0</span><span class="stat-plus">+</span></span><span class="stat-label">Years Experience</span></li>
+            <li class="reveal"><span class="stat-label">Proven Track Record Nationwide</span></li>
+            <li class="reveal"><span class="stat-label">Experts in Complex Transactions</span></li>
+            <li class="reveal"><span class="stat-label">Supporting Clients in All 50 States</span></li>
+          </ul>
+        </div>
+
+        <div class="team-right">
+          <a href="#" class="btn btn-outline btn-dark reveal" data-magnetic>
+            <span class="btn-fill"></span>
+            <span class="btn-label"><span data-text="Learn More">Learn More</span></span>
+            <span class="btn-icon">
+              <svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg>
+            </span>
+          </a>
+          <div class="team-image reveal">
+            <div class="team-image-bg"></div>
+            <div class="team-image-shine"></div>
+            <svg class="team-chevron" aria-hidden="true"><use href="#chevron-a" fill="url(#silver)"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== WHO WE SERVE ========== -->
+  <section class="serve">
+    <div class="container">
+      <div class="serve-grid">
+        <div class="serve-left">
+          <span class="eyebrow reveal"><span class="eyebrow-dash"></span>Who We Serve</span>
+          <h2 class="serve-title reveal">Built for the professionals behind every serious deal.</h2>
+        </div>
+        <ul class="serve-list">
+          <li class="reveal"><span class="serve-marker">01</span><span class="serve-text">Commercial Developers</span><svg class="arrow-ic serve-arrow" aria-hidden="true"><use href="#arrow"/></svg></li>
+          <li class="reveal"><span class="serve-marker">02</span><span class="serve-text">Real Estate Investors</span><svg class="arrow-ic serve-arrow" aria-hidden="true"><use href="#arrow"/></svg></li>
+          <li class="reveal"><span class="serve-marker">03</span><span class="serve-text">Brokers and Agents</span><svg class="arrow-ic serve-arrow" aria-hidden="true"><use href="#arrow"/></svg></li>
+          <li class="reveal"><span class="serve-marker">04</span><span class="serve-text">Lenders</span><svg class="arrow-ic serve-arrow" aria-hidden="true"><use href="#arrow"/></svg></li>
+          <li class="reveal"><span class="serve-marker">05</span><span class="serve-text">Attorneys</span><svg class="arrow-ic serve-arrow" aria-hidden="true"><use href="#arrow"/></svg></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CTA ========== -->
+  <section class="cta angle-top" id="contact">
+    <div class="cta-bg" aria-hidden="true">
+      <div class="bg-image"></div>
+      <div class="bg-overlay"></div>
+      <div class="bg-shimmer"></div>
+    </div>
+    <svg class="chevron-watermark chevron-cta" aria-hidden="true">
+      <use href="#chevron-a" fill="url(#silver)"/>
+    </svg>
+    <div class="container">
+      <span class="eyebrow eyebrow-light reveal"><span class="eyebrow-dash"></span>Let's build</span>
+      <h2 class="cta-title reveal">
+        Bring your deal to the closing table with confidence and ease.
+      </h2>
+      <p class="cta-sub reveal">
+        If your transactions require precision and proactive leadership, Ascend Title was built for you. Let's get your next deal moving with a team that leads from day one.
+      </p>
+      <a href="#" class="btn btn-ghost reveal" data-magnetic>
+        <span class="btn-fill"></span>
+        <span class="btn-label"><span data-text="Get Started">Get Started</span></span>
+        <span class="btn-icon">
+          <svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg>
+        </span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <!-- Giant A watermark -->
+    <svg class="footer-chevron" aria-hidden="true"><use href="#chevron-a" fill="url(#silver)"/></svg>
+
+    <!-- Top: huge heading + contact card -->
+    <div class="footer-hero container">
+      <div class="footer-hero-left">
+        <span class="footer-eyebrow">
+          <span class="dot"></span>Available in all 50 states
+        </span>
+        <h3 class="footer-hero-title">
+          Let's close your<br>
+          <em>next deal</em> together.
+        </h3>
+      </div>
+      <div class="footer-card">
+        <div class="footer-card-row">
+          <span class="footer-card-label">Call</span>
+          <a href="tel:7189878543" class="footer-card-val">718.987.8543</a>
+        </div>
+        <div class="footer-card-row">
+          <span class="footer-card-label">Email</span>
+          <a href="mailto:info@ascendtitle.com" class="footer-card-val">info@ascendtitle.com</a>
+        </div>
+        <div class="footer-card-row">
+          <span class="footer-card-label">Visit</span>
+          <span class="footer-card-val">1600 Ave of the States, Lakewood, NJ</span>
+        </div>
+        <a href="#" class="btn btn-ghost btn-sm" data-magnetic>
+          <span class="btn-fill"></span>
+          <span class="btn-label"><span data-text="Start a project">Start a project</span></span>
+          <span class="btn-icon">
+            <svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg>
+          </span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Middle: nav columns -->
+    <div class="footer-main container">
+      <div class="footer-col footer-col-brand">
+        <img src="Logo/Logo white.png" alt="Ascend Title" class="footer-logo-img" />
+        <p class="footer-tag">A national title and escrow firm built on four decades of precision, trust, and unmatched expertise.</p>
+        <div class="footer-socials">
+          <a href="#" aria-label="LinkedIn">Li</a>
+          <a href="#" aria-label="Instagram">Ig</a>
+          <a href="#" aria-label="Facebook">Fb</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <a href="#home"><span>Home</span><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></a>
+        <a href="#about"><span>About</span><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></a>
+        <a href="#services"><span>Services</span><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></a>
+        <a href="#contact"><span>Contact</span><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></a>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <a href="#"><span>Commercial</span><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></a>
+        <a href="#"><span>Residential</span><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></a>
+        <a href="#"><span>National</span><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></a>
+        <a href="#"><span>Full Escrow</span><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></a>
+      </div>
+      <div class="footer-col">
+        <h4>Newsletter</h4>
+        <p class="footer-newsletter-sub">Industry updates and closing insights. No spam.</p>
+        <form class="footer-newsletter" onsubmit="event.preventDefault();">
+          <input type="email" placeholder="Your email" aria-label="Email address" required>
+          <button type="submit" aria-label="Subscribe">
+            <svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Marquee -->
+    <div class="footer-marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>A Higher Standard of Closing</span><svg class="marquee-chev"><use href="#chevron-a"/></svg>
+        <span>Trust · Precision · Expertise</span><svg class="marquee-chev"><use href="#chevron-a"/></svg>
+        <span>Licensed in All 50 States</span><svg class="marquee-chev"><use href="#chevron-a"/></svg>
+        <span>A Higher Standard of Closing</span><svg class="marquee-chev"><use href="#chevron-a"/></svg>
+        <span>Trust · Precision · Expertise</span><svg class="marquee-chev"><use href="#chevron-a"/></svg>
+        <span>Licensed in All 50 States</span><svg class="marquee-chev"><use href="#chevron-a"/></svg>
+      </div>
+    </div>
+
+    <!-- Bottom -->
+    <div class="footer-bottom container">
+      <span>&copy; 2026 Ascend Title · All rights reserved</span>
+      <span class="footer-bottom-links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Disclosures</a>
+      </span>
+      <a href="#home" class="footer-up" aria-label="Back to top">
+        <span>Back to top</span>
+        <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1 L11 7 L7 7 L7 11 L5 11 L5 7 L1 7 Z" fill="currentColor"/></svg>
+      </a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
