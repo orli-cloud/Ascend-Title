@@ -38,7 +38,7 @@
   <!-- Progress bar -->
   <div class="progress" aria-hidden="true"><span></span></div>
 
-  <!-- ========== STICKY NAV ========== -->
+  <!-- ========== NAV ========== -->
   <nav class="nav" aria-label="Main">
     <div class="nav-inner">
       <a href="#home" class="logo" aria-label="Ascend Title home">
@@ -51,17 +51,73 @@
         <li><a href="#resources" class="nav-link">Resources</a></li>
         <li><a href="#login" class="nav-link">Login</a></li>
         <li><a href="#contact" class="nav-link">Contact</a></li>
-        <span class="nav-indicator" aria-hidden="true"></span>
       </ul>
-      <a href="tel:7189878543" class="nav-phone">
-        <span>718.987.8543</span>
-        <svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg>
-      </a>
-      <button class="nav-toggle" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
+      <button class="menu-btn" aria-label="Open contact menu" aria-expanded="false" aria-controls="drawer">
+        <span class="menu-label">Menu</span>
+        <span class="menu-icon" aria-hidden="true">
+          <span></span>
+          <span></span>
+        </span>
       </button>
     </div>
   </nav>
+
+  <!-- ========== SIDE DRAWER (contact) ========== -->
+  <aside class="drawer" id="drawer" aria-hidden="true" aria-label="Contact">
+    <button class="drawer-backdrop" data-drawer-close aria-label="Close menu"></button>
+    <div class="drawer-panel">
+      <div class="drawer-top">
+        <a href="#home" class="drawer-logo" data-drawer-close>
+          <img src="Logo/Logo white.png" alt="Ascend Title" />
+        </a>
+        <button class="drawer-close" data-drawer-close aria-label="Close menu">
+          <span class="close-label">Close</span>
+          <span class="close-x" aria-hidden="true"><span></span><span></span></span>
+        </button>
+      </div>
+
+      <div class="drawer-body">
+        <span class="drawer-eyebrow">Get in touch</span>
+        <h2 class="drawer-title">Let's close<br><em>your next deal.</em></h2>
+
+        <ul class="drawer-contacts">
+          <li>
+            <span class="drawer-label">Call</span>
+            <a href="tel:7189878543" class="drawer-value">718.987.8543
+              <svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg>
+            </a>
+          </li>
+          <li>
+            <span class="drawer-label">Email</span>
+            <a href="mailto:info@ascendtitle.com" class="drawer-value">info@ascendtitle.com
+              <svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg>
+            </a>
+          </li>
+          <li>
+            <span class="drawer-label">Visit</span>
+            <span class="drawer-value drawer-value-static">
+              1600 Ave of the States<br>Lakewood, NJ 08701
+            </span>
+          </li>
+          <li>
+            <span class="drawer-label">Hours</span>
+            <span class="drawer-value drawer-value-static">
+              Mon–Fri · 9:00a – 6:00p<br>Sat–Sun · By appointment
+            </span>
+          </li>
+        </ul>
+
+        <div class="drawer-foot">
+          <span class="drawer-mini">Follow</span>
+          <div class="drawer-socials">
+            <a href="#" aria-label="LinkedIn">LinkedIn</a>
+            <a href="#" aria-label="Instagram">Instagram</a>
+            <a href="#" aria-label="Facebook">Facebook</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
 
   <!-- ========================================================== -->
   <!-- HERO — Scroll-Morph Parallelogram                           -->

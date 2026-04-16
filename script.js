@@ -146,16 +146,14 @@
     });
   }
 
-  /* ---------- Scroll progress bar + nav scrolled state ---------- */
+  /* ---------- Scroll progress bar ---------- */
   const progressBar = document.querySelector('.progress span');
-  const navEl = document.querySelector('.nav');
-  if (progressBar || navEl) {
+  if (progressBar) {
     let progPending = false;
     const tick = () => {
       const h = document.documentElement;
       const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
-      if (progressBar) progressBar.style.width = `${pct}%`;
-      if (navEl) navEl.classList.toggle('is-scrolled', h.scrollTop > 30);
+      progressBar.style.width = `${pct}%`;
       progPending = false;
     };
     tick();
@@ -180,8 +178,8 @@
       const p = ease(Math.min(1, raw / 0.75));
       const scale = 1 + p * 16;
       heroShape.style.setProperty('--s', scale.toFixed(3));
-      heroSticky.classList.toggle('show-sub', raw > 0.35);
-      heroSticky.classList.toggle('show-btn', raw > 0.55);
+      heroSticky.classList.toggle('show-sub', raw > 0.1);
+      heroSticky.classList.toggle('show-btn', raw > 0.2);
     };
     update();
     let pending = false;
@@ -196,27 +194,28 @@
     heroSticky && heroSticky.classList.add('show-sub', 'show-btn');
   }
 
-  /* ---------- Nav floating indicator ---------- */
-  const navLinksWrap = document.querySelector('.nav-links');
-  const indicator = document.querySelector('.nav-indicator');
-  if (navLinksWrap && indicator) {
-    const allLinks = navLinksWrap.querySelectorAll('.nav-link');
-    const moveTo = (el) => {
-      if (!el) return;
-      const wrapBox = navLinksWrap.getBoundingClientRect();
-      const linkBox = el.getBoundingClientRect();
-      indicator.style.setProperty('--ind-x', `${linkBox.left - wrapBox.left}px`);
-      indicator.style.setProperty('--ind-w', `${linkBox.width}px`);
+  /* ---------- Side drawer ---------- */
+  const drawer = document.getElementById('drawer');
+  const menuBtn = document.querySelector('.menu-btn');
+  if (drawer && menuBtn) {
+    const openDrawer = () => {
+      drawer.classList.add('is-open');
+      drawer.setAttribute('aria-hidden', 'false');
+      menuBtn.setAttribute('aria-expanded', 'true');
+      document.body.classList.add('drawer-open');
     };
-    const syncToActive = () => {
-      const a = navLinksWrap.querySelector('.nav-link.active');
-      if (a) moveTo(a);
+    const closeDrawer = () => {
+      drawer.classList.remove('is-open');
+      drawer.setAttribute('aria-hidden', 'true');
+      menuBtn.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('drawer-open');
     };
-    syncToActive();
-    allLinks.forEach((l) => {
-      l.addEventListener('mouseenter', () => moveTo(l));
+    menuBtn.addEventListener('click', openDrawer);
+    drawer.querySelectorAll('[data-drawer-close]').forEach((el) => {
+      el.addEventListener('click', closeDrawer);
     });
-    navLinksWrap.addEventListener('mouseleave', syncToActive);
-    window.addEventListener('resize', syncToActive);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && drawer.classList.contains('is-open')) closeDrawer();
+    });
   }
 })();
