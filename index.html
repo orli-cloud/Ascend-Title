@@ -95,56 +95,9 @@
   </aside>
 
   <!-- ========================================================== -->
-  <!-- HERO — Option 2: REVERSE (starts full image, shrinks to slant) -->
-  <!-- ========================================================== -->
-  <header class="hero hero-reverse" id="home-reverse">
-    <span class="hero-badge hero-badge-v2">Option 2 — Reverse</span>
-    <nav class="nav" aria-label="Main">
-      <div class="nav-inner">
-        <a href="#home-reverse" class="logo" aria-label="Ascend Title home">
-          <img src="Logo/Logo white.png" alt="Ascend Title" class="logo-img" />
-        </a>
-        <ul class="nav-links">
-          <li><a href="#home-reverse" class="nav-link active">Home</a></li>
-          <li><a href="#about" class="nav-link">About</a></li>
-          <li><a href="#services" class="nav-link">Services</a></li>
-          <li><a href="#resources" class="nav-link">Resources</a></li>
-          <li><a href="#login" class="nav-link">Login</a></li>
-          <li><a href="#contact" class="nav-link">Contact</a></li>
-        </ul>
-        <button class="menu-btn" aria-label="Open contact menu" aria-expanded="false" aria-controls="drawer">
-          <span class="menu-icon" aria-hidden="true">
-            <span></span>
-            <span></span>
-            <span></span>
-          </span>
-        </button>
-      </div>
-    </nav>
-
-    <div class="hero-sticky">
-      <div class="hero-navy" aria-hidden="true"></div>
-      <div class="hero-image" aria-hidden="true"></div>
-
-      <div class="hero-content">
-        <h1 class="hero-title">A Higher<br>Standard<br>of Closing</h1>
-        <div class="hero-side">
-          <p class="hero-sub">Unrivaled expertise in commercial and residential title insurance.</p>
-          <a href="#about" class="btn btn-ghost">
-            <span class="btn-arrow btn-arrow-left"><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></span>
-            <span class="btn-label">Get Started</span>
-            <span class="btn-arrow btn-arrow-right"><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></span>
-          </a>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <!-- ========================================================== -->
-  <!-- HERO — Option 1: CURRENT (starts slant, grows to full image) -->
+  <!-- HERO — Scroll-morph parallelogram                           -->
   <!-- ========================================================== -->
   <header class="hero" id="home">
-    <span class="hero-badge hero-badge-v1">Option 1 — Current</span>
     <!-- Nav sits inside hero, non-sticky — scrolls away with the hero -->
     <nav class="nav" aria-label="Main">
       <div class="nav-inner">
@@ -271,38 +224,52 @@
     </div>
   </section>
 
-  <!-- ========== UNDERWRITERS ========== -->
-  <section class="underwriters angle-top">
-    <div class="underwriters-bg" aria-hidden="true">
-      <div class="bg-image"></div>
-      <div class="bg-overlay"></div>
+  <!-- ========== UNDERWRITERS — marquee + center circle ========== -->
+  <section class="underwriters">
+    <div class="uw-marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Fidelity National</span>
+        <span class="uw-dot">✦</span>
+        <span>First American</span>
+        <span class="uw-dot">✦</span>
+        <span>Stewart Title</span>
+        <span class="uw-dot">✦</span>
+        <span>Old Republic</span>
+        <span class="uw-dot">✦</span>
+        <span>Chicago Title</span>
+        <span class="uw-dot">✦</span>
+        <span>Westcor Land</span>
+        <span class="uw-dot">✦</span>
+        <span>Commonwealth</span>
+        <span class="uw-dot">✦</span>
+        <span>WFG National</span>
+        <span class="uw-dot">✦</span>
+        <!-- duplicate for seamless loop -->
+        <span>Fidelity National</span>
+        <span class="uw-dot">✦</span>
+        <span>First American</span>
+        <span class="uw-dot">✦</span>
+        <span>Stewart Title</span>
+        <span class="uw-dot">✦</span>
+        <span>Old Republic</span>
+        <span class="uw-dot">✦</span>
+        <span>Chicago Title</span>
+        <span class="uw-dot">✦</span>
+        <span>Westcor Land</span>
+        <span class="uw-dot">✦</span>
+        <span>Commonwealth</span>
+        <span class="uw-dot">✦</span>
+        <span>WFG National</span>
+        <span class="uw-dot">✦</span>
+      </div>
     </div>
-    <svg class="chevron-watermark chevron-uw" aria-hidden="true">
-      <use href="#chevron-a" fill="url(#silver)"/>
-    </svg>
-    <div class="container">
-      <div class="uw-head">
-        <span class="eyebrow eyebrow-light reveal"><span class="eyebrow-dash"></span>Trusted Partners</span>
-        <h2 class="uw-title reveal">
-          Partnered with<br>
-          <span class="uw-title-accent">leading underwriters</span>
-        </h2>
-      </div>
 
-      <div class="uw-grid reveal">
-        <div class="uw-cell">
-          <span class="uw-label">Fidelity National</span>
-          <span class="uw-hover">Partner</span>
-        </div>
-        <div class="uw-cell">
-          <span class="uw-label">First American</span>
-          <span class="uw-hover">Partner</span>
-        </div>
-        <div class="uw-cell">
-          <span class="uw-label">Stewart Title</span>
-          <span class="uw-hover">Partner</span>
-        </div>
-      </div>
+    <div class="uw-circle">
+      <span class="uw-text">
+        Partnered with the nation's
+        <span class="uw-pill">Leading</span>
+        title underwriters
+      </span>
     </div>
   </section>
 

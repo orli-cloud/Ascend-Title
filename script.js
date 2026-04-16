@@ -204,19 +204,16 @@
     window.addEventListener('resize', update);
   };
 
-  if (!prefersReduced) {
-    document.querySelectorAll('.hero').forEach((hero) => {
-      const dir = hero.classList.contains('hero-reverse') ? 'shrink' : 'grow';
-      setupHeroMorph(hero, dir);
-    });
-  } else {
-    // reduced motion: just show the end state
-    document.querySelectorAll('.hero').forEach((hero) => {
-      const image = hero.querySelector('.hero-image');
-      const sticky = hero.querySelector('.hero-sticky');
+  const heroEl = document.querySelector('.hero');
+  if (heroEl) {
+    if (!prefersReduced) {
+      setupHeroMorph(heroEl, 'grow');
+    } else {
+      const image = heroEl.querySelector('.hero-image');
+      const sticky = heroEl.querySelector('.hero-sticky');
       if (image) image.style.setProperty('--s', 41);
       if (sticky) sticky.classList.add('show-sub', 'show-btn');
-    });
+    }
   }
 
 
