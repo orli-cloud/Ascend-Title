@@ -277,45 +277,30 @@ body.cursor-hover .cursor {
 }
 .btn:hover .btn-label > span { transform: translateY(-100%); }
 
-/* Icon box — arrow exits right and a second arrow enters from the left */
+/* Icon box — arrow exits right, teleports, re-enters from left (one-shot per hover) */
 .btn-icon {
   position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 22px;
-  height: 8px;
+  height: 10px;
   overflow: hidden;
   z-index: 1;
 }
 .btn-icon .arrow-ic {
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
   width: 100%;
   height: 100%;
-  transition: transform 0.55s var(--ease-expo);
+  transition: transform 0.5s var(--ease-expo);
 }
-/* Duplicate arrow waiting off-screen left, made from the same symbol via pseudo */
-.btn-icon::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16.58 6.15' fill='none' stroke='%23ffffff' stroke-miterlimit='10'><line x1='0' y1='3.08' x2='15.5' y2='3.08'/><polyline points='13.12,0.35 15.87,3.11 13.17,5.8'/></svg>") no-repeat center / contain;
-  transform: translateX(-160%);
-  transition: transform 0.55s var(--ease-expo);
+.btn:hover .btn-icon .arrow-ic {
+  animation: arrow-swap 0.65s var(--ease-expo) forwards;
 }
-.btn:hover .btn-icon .arrow-ic { transform: translate(160%, -50%); }
-.btn:hover .btn-icon::before { transform: translateX(0); }
-
-/* Outline variant: the incoming arrow is NAVY (on white fill) */
-.btn-outline .btn-icon::before {
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16.58 6.15' fill='none' stroke='%230e293e' stroke-miterlimit='10'><line x1='0' y1='3.08' x2='15.5' y2='3.08'/><polyline points='13.12,0.35 15.87,3.11 13.17,5.8'/></svg>");
-}
-/* Ghost variant: incoming arrow is NAVY (fill becomes white on hover) */
-.btn-ghost .btn-icon::before {
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16.58 6.15' fill='none' stroke='%230e293e' stroke-miterlimit='10'><line x1='0' y1='3.08' x2='15.5' y2='3.08'/><polyline points='13.12,0.35 15.87,3.11 13.17,5.8'/></svg>");
+@keyframes arrow-swap {
+  0%   { transform: translateX(0); }
+  45%  { transform: translateX(200%); }
+  46%  { transform: translateX(-200%); }
+  100% { transform: translateX(0); }
 }
 
 /* Variants */
@@ -354,22 +339,23 @@ body.cursor-hover .cursor {
 }
 .logo:hover { opacity: 0.85; }
 .logo-img {
-  height: 32px;
+  height: 48px;
   width: auto;
   display: block;
 }
 
 .nav-links {
   display: flex;
-  gap: 36px;
+  gap: 38px;
   align-items: center;
-  margin-left: 28px;
+  margin-left: 48px;
 }
 .nav-link {
   position: relative;
-  font-size: 13px;
+  font-family: var(--sans);
+  font-size: 14px;
   font-weight: 500;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
   color: rgba(255,255,255,0.75);
   padding: 6px 0;
   transition: color 0.4s var(--ease-out);
@@ -392,12 +378,13 @@ body.cursor-hover .cursor {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  padding: 10px 20px;
+  padding: 11px 22px;
   border: 1px solid rgba(255,255,255,0.3);
   border-radius: 999px;
-  font-size: 12px;
+  font-family: var(--sans);
+  font-size: 13px;
   font-weight: 500;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   color: rgba(255,255,255,0.9);
   transition: background 0.45s var(--ease-out), color 0.45s var(--ease-out), border-color 0.4s;
 }
