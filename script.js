@@ -236,8 +236,8 @@
       chars.forEach((ch) => {
         const rect = ch.getBoundingClientRect();
         const mid = rect.top + rect.height / 2;
-        // Each char fills as it crosses the top half of the viewport
-        const t = 1 - Math.max(0, Math.min(1, (mid - vh * 0.25) / (vh * 0.50)));
+        // Reveal band: char becomes visible as it crosses the upper 75% of viewport
+        const t = 1 - Math.max(0, Math.min(1, (mid - vh * 0.15) / (vh * 0.6)));
         const alpha = 0.08 + t * 0.92;
         ch.style.color = `rgba(14, 41, 62, ${alpha.toFixed(3)})`;
       });
