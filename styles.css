@@ -1305,7 +1305,7 @@ body.drawer-open { overflow: hidden; }
 .cta {
   position: relative;
   z-index: 2;
-  padding: clamp(140px, 20vh, 220px) 0;
+  padding: clamp(140px, 20vh, 220px) 0 clamp(60px, 8vh, 90px);
   color: #fff;
   overflow: hidden;
   text-align: center;
