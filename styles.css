@@ -276,29 +276,32 @@ body.cursor-hover .cursor {
 .btn-sm .btn-arrow-left  { left: 18px; }
 
 /* -----------------------------------------------------------------
-   Nav — sticky inside hero, grid layout with centered links
+   Nav — non-sticky, sits at top of hero, scrolls with it
    ----------------------------------------------------------------- */
 .nav {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  padding: 24px var(--pad-x);
+  position: relative;
+  z-index: 10;
+  padding: 26px var(--pad-x);
   background: transparent;
 }
 .nav-inner {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 40px;
   max-width: var(--max-w);
   margin: 0 auto;
   width: 100%;
+  gap: 40px;
+}
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 22px;
 }
 .logo {
   display: inline-flex;
   align-items: center;
   flex-shrink: 0;
-  justify-self: start;
   transition: opacity 0.3s ease;
 }
 .logo:hover { opacity: 0.85; }
@@ -310,17 +313,17 @@ body.cursor-hover .cursor {
 
 .nav-links {
   display: flex;
-  gap: 36px;
+  gap: 34px;
   align-items: center;
-  justify-self: center;
 }
 .nav-link {
   position: relative;
   font-family: var(--sans);
-  font-size: 14px;
-  font-weight: 500;
-  letter-spacing: 0.01em;
-  color: rgba(255,255,255,0.78);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.72);
   padding: 6px 0;
   transition: color 0.4s var(--ease-out);
 }
@@ -337,9 +340,8 @@ body.cursor-hover .cursor {
 .nav-link:hover, .nav-link.active { color: #fff; }
 .nav-link:hover::after, .nav-link.active::after { width: 100%; }
 
-/* Hamburger button — icon only, larger */
+/* Hamburger — icon only, larger, on the left */
 .menu-btn {
-  justify-self: end;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -412,7 +414,7 @@ body.cursor-hover .cursor {
   position: absolute;
   top: 0;
   right: 0;
-  width: 480px;
+  width: 520px;
   max-width: 92vw;
   height: 100%;
   background: var(--navy-900);
@@ -422,6 +424,8 @@ body.cursor-hover .cursor {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  /* Slanted left edge (forward slash), matches hero parallelogram angle */
+  clip-path: polygon(90px 0, 100% 0, 100% 100%, 0 100%);
 }
 .drawer.is-open .drawer-panel { transform: translateX(0); }
 
@@ -445,7 +449,7 @@ body.cursor-hover .cursor {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  padding: 28px 40px;
+  padding: 28px 40px 28px 110px;
 }
 .drawer-close {
   display: inline-flex;
@@ -482,7 +486,7 @@ body.cursor-hover .cursor {
 .drawer-body {
   position: relative;
   z-index: 2;
-  padding: 40px 40px 40px;
+  padding: 40px 40px 40px 80px;
   flex: 1;
   overflow-y: auto;
   display: flex;
@@ -633,42 +637,44 @@ body.drawer-open { overflow: hidden; }
   overflow: hidden;
   background: #2B4E75;
   isolation: isolate;
-  margin-top: -108px;  /* tuck under the sticky nav */
 }
 
-/* Growing parallelogram — fixed angle forward-slash "/", scales uniformly.
-   Starts very thin, grows until it covers the viewport. */
-.hero-shape {
-  --s: 1;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 5vw;
-  height: 58vh;
-  background: #10293D;
-  transform: translate(-50%, -50%) skewX(22deg) scale(var(--s));
-  transform-origin: 50% 50%;
-  will-change: transform;
-  overflow: hidden;
-  z-index: 0;
-}
-/* Image fill inside the shape, counter-skewed so it doesn't look sheared */
-.shape-fill {
-  position: absolute;
-  inset: -60%;
-  background: url('background.jpg') center / cover no-repeat;
-  background-color: #10293D;
-  transform: skewX(-22deg);
-  transform-origin: center;
-  opacity: 0.85;
-  mix-blend-mode: normal;
-}
-.hero-shape::after {
-  content: "";
+/* Fixed background image behind everything */
+.hero-bg-image {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(16, 41, 61, 0.3), rgba(16, 41, 61, 0.6));
-  pointer-events: none;
+  background: url('background.jpg') center / cover no-repeat;
+  background-color: #10293D;
+  z-index: 0;
+}
+
+/* Navy overlay covers the image EVERYWHERE EXCEPT a growing parallelogram.
+   The parallelogram hole reveals the image beneath. */
+.hero-navy {
+  --s: 1;
+  position: absolute;
+  inset: 0;
+  background: #2B4E75;
+  z-index: 1;
+
+  -webkit-mask-image:
+    linear-gradient(#000, #000),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'><polygon points='28,0 100,0 72,100 0,100' fill='white'/></svg>");
+  mask-image:
+    linear-gradient(#000, #000),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'><polygon points='28,0 100,0 72,100 0,100' fill='white'/></svg>");
+
+  -webkit-mask-size: 100% 100%, calc(5vw * var(--s)) calc(58vh * var(--s));
+  mask-size:        100% 100%, calc(5vw * var(--s)) calc(58vh * var(--s));
+
+  -webkit-mask-position: center, center;
+  mask-position:        center, center;
+
+  -webkit-mask-repeat: no-repeat, no-repeat;
+  mask-repeat:        no-repeat, no-repeat;
+
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
 }
 
 .hero-content {

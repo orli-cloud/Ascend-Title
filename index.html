@@ -92,12 +92,21 @@
   <!-- HERO — Scroll-Morph Parallelogram                           -->
   <!-- ========================================================== -->
   <header class="hero" id="home">
-    <!-- Nav sits inside hero — stays sticky while morphing, scrolls away when hero ends -->
+    <!-- Nav sits inside hero, non-sticky — scrolls away with the hero -->
     <nav class="nav" aria-label="Main">
       <div class="nav-inner">
-        <a href="#home" class="logo" aria-label="Ascend Title home">
-          <img src="Logo/Logo white.png" alt="Ascend Title" class="logo-img" />
-        </a>
+        <div class="nav-left">
+          <button class="menu-btn" aria-label="Open contact menu" aria-expanded="false" aria-controls="drawer">
+            <span class="menu-icon" aria-hidden="true">
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+          </button>
+          <a href="#home" class="logo" aria-label="Ascend Title home">
+            <img src="Logo/Logo white.png" alt="Ascend Title" class="logo-img" />
+          </a>
+        </div>
         <ul class="nav-links">
           <li><a href="#home" class="nav-link active">Home</a></li>
           <li><a href="#about" class="nav-link">About</a></li>
@@ -106,20 +115,13 @@
           <li><a href="#login" class="nav-link">Login</a></li>
           <li><a href="#contact" class="nav-link">Contact</a></li>
         </ul>
-        <button class="menu-btn" aria-label="Open contact menu" aria-expanded="false" aria-controls="drawer">
-          <span class="menu-icon" aria-hidden="true">
-            <span></span>
-            <span></span>
-            <span></span>
-          </span>
-        </button>
       </div>
     </nav>
 
     <div class="hero-sticky">
-      <div class="hero-shape" aria-hidden="true">
-        <div class="shape-fill"></div>
-      </div>
+      <!-- Fixed image layer behind, navy overlay with growing parallelogram hole -->
+      <div class="hero-bg-image" aria-hidden="true"></div>
+      <div class="hero-navy" aria-hidden="true"></div>
 
       <div class="hero-content">
         <h1 class="hero-title">A Higher<br>Standard<br>of Closing</h1>
