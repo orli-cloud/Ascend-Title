@@ -220,28 +220,27 @@
   }
 
 
-  /* ---------- Scroll-fill text (about section) ---------- */
+  /* ---------- Scroll-fill text, letter by letter (about section) ---------- */
   const splitFillEls = document.querySelectorAll('[data-split-fill]');
   splitFillEls.forEach((el) => {
     const text = el.textContent.trim();
-    const words = text.split(/\s+/);
-    el.innerHTML = words.map((w) => `<span class="word">${w}</span>`).join(' ');
+    el.innerHTML = text.split('').map((c) => (
+      c === ' ' ? ' ' : `<span class="char">${c}</span>`
+    )).join('');
   });
   if (splitFillEls.length && !prefersReduced) {
-    const words = [];
+    const chars = [];
     splitFillEls.forEach((el) => {
-      el.querySelectorAll('.word').forEach((w) => words.push(w));
+      el.querySelectorAll('.char').forEach((c) => chars.push(c));
     });
     const updateFill = () => {
       const vh = window.innerHeight;
-      words.forEach((w) => {
-        const rect = w.getBoundingClientRect();
+      chars.forEach((ch) => {
+        const rect = ch.getBoundingClientRect();
         const mid = rect.top + rect.height / 2;
-        // full color when word is above 40% of viewport height; muted below 80%
-        const t = 1 - Math.max(0, Math.min(1, (mid - vh * 0.35) / (vh * 0.45)));
-        // interpolate color alpha on ink
-        const alpha = 0.15 + t * 0.85;
-        w.style.color = `rgba(14, 41, 62, ${alpha.toFixed(3)})`;
+        const t = 1 - Math.max(0, Math.min(1, (mid - vh * 0.30) / (vh * 0.50)));
+        const alpha = 0.12 + t * 0.88;
+        ch.style.color = `rgba(14, 41, 62, ${alpha.toFixed(3)})`;
       });
     };
     updateFill();
@@ -252,6 +251,19 @@
       requestAnimationFrame(() => { updateFill(); fillPending = false; });
     }, { passive: true });
     window.addEventListener('resize', updateFill);
+  }
+
+  /* ---------- Services accordion (always one open, first default) ---------- */
+  const serviceRows = document.querySelectorAll('.service-row');
+  if (serviceRows.length) {
+    serviceRows[0].classList.add('is-open');
+    serviceRows.forEach((row) => {
+      row.addEventListener('click', () => {
+        if (row.classList.contains('is-open')) return;
+        serviceRows.forEach((r) => r.classList.remove('is-open'));
+        row.classList.add('is-open');
+      });
+    });
   }
 
   /* ---------- Side drawer ---------- */
