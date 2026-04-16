@@ -162,8 +162,4 @@
     }, { passive: true });
   }
 
-  /* ---------- Nav-link data-text (for the split text swap) ---------- */
-  document.querySelectorAll('.nav-link span').forEach((s) => {
-    if (!s.dataset.text) s.dataset.text = s.textContent;
-  });
 })();
