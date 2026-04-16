@@ -285,19 +285,16 @@ body.cursor-hover .cursor {
   background: transparent;
 }
 .nav-inner {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
   max-width: var(--max-w);
   margin: 0 auto;
   width: 100%;
   gap: 40px;
 }
-.nav-left {
-  display: flex;
-  align-items: center;
-  gap: 22px;
-}
+.nav-links { justify-self: center; }
+.menu-btn { justify-self: end; }
 .logo {
   display: inline-flex;
   align-items: center;
@@ -364,6 +361,7 @@ body.cursor-hover .cursor {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: flex-end;   /* right-align the lines */
   gap: 6px;
   width: 24px;
   height: 20px;
@@ -373,9 +371,11 @@ body.cursor-hover .cursor {
   width: 100%;
   height: 1.5px;
   background: currentColor;
-  transition: width 0.4s var(--ease-out), transform 0.4s var(--ease-out);
+  transition: width 0.4s var(--ease-out);
 }
+.menu-icon span:nth-child(1) { width: 100%; }
 .menu-icon span:nth-child(2) { width: 70%; }
+.menu-icon span:nth-child(3) { width: 45%; }
 .menu-btn:hover .menu-icon span { width: 100%; }
 
 /* -----------------------------------------------------------------
@@ -414,8 +414,8 @@ body.cursor-hover .cursor {
   position: absolute;
   top: 0;
   right: 0;
-  width: 520px;
-  max-width: 92vw;
+  width: 620px;
+  max-width: 94vw;
   height: 100%;
   background: var(--navy-900);
   color: #fff;
@@ -424,21 +424,22 @@ body.cursor-hover .cursor {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  /* Slanted left edge (forward slash), matches hero parallelogram angle */
-  clip-path: polygon(90px 0, 100% 0, 100% 100%, 0 100%);
+  /* Slanted left edge — same angle/direction as the hero parallelogram */
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 110px 100%);
 }
 .drawer.is-open .drawer-panel { transform: translateX(0); }
 
-/* Slanted line watermark echoing the hero shape */
+/* Slanted watermark echoing the hero shape and the drawer's slanted left edge */
 .drawer-watermark {
   position: absolute;
-  top: 50%;
-  right: -20%;
-  width: 80%;
+  top: -10%;
+  left: -25%;
+  width: 85%;
   height: 120%;
   background: #10293D;
-  opacity: 0.5;
-  transform: translateY(-50%) skewX(22deg);
+  opacity: 0.45;
+  transform: skewX(22deg);
+  transform-origin: center;
   pointer-events: none;
   z-index: 0;
 }
@@ -449,7 +450,7 @@ body.cursor-hover .cursor {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  padding: 28px 40px 28px 110px;
+  padding: 28px 40px 28px 60px;
 }
 .drawer-close {
   display: inline-flex;
@@ -486,13 +487,15 @@ body.cursor-hover .cursor {
 .drawer-body {
   position: relative;
   z-index: 2;
-  padding: 40px 40px 40px 80px;
+  padding: 40px 48px 40px 60px;
   flex: 1;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 50px;
 }
+/* Push the footer right so it clears the slanted bottom-left corner */
+.drawer-foot { padding-left: 70px; }
 .drawer-title {
   font-family: var(--serif);
   font-size: clamp(44px, 5vw, 64px);
@@ -639,42 +642,31 @@ body.drawer-open { overflow: hidden; }
   isolation: isolate;
 }
 
-/* Fixed background image behind everything */
-.hero-bg-image {
+/* Solid navy base layer */
+.hero-navy {
+  position: absolute;
+  inset: 0;
+  background: #2B4E75;
+  z-index: 0;
+}
+
+/* Image layer, fixed in place, clipped to a growing parallelogram.
+   As --s grows, more of the image is revealed. */
+.hero-image {
+  --s: 1;
   position: absolute;
   inset: 0;
   background: url('background.jpg') center / cover no-repeat;
   background-color: #10293D;
-  z-index: 0;
-}
-
-/* Navy overlay covers the image EVERYWHERE EXCEPT a growing parallelogram.
-   The parallelogram hole reveals the image beneath. */
-.hero-navy {
-  --s: 1;
-  position: absolute;
-  inset: 0;
-  background: #2B4E75;
   z-index: 1;
-
-  -webkit-mask-image:
-    linear-gradient(#000, #000),
-    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'><polygon points='28,0 100,0 72,100 0,100' fill='white'/></svg>");
-  mask-image:
-    linear-gradient(#000, #000),
-    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'><polygon points='28,0 100,0 72,100 0,100' fill='white'/></svg>");
-
-  -webkit-mask-size: 100% 100%, calc(5vw * var(--s)) calc(58vh * var(--s));
-  mask-size:        100% 100%, calc(5vw * var(--s)) calc(58vh * var(--s));
-
-  -webkit-mask-position: center, center;
-  mask-position:        center, center;
-
-  -webkit-mask-repeat: no-repeat, no-repeat;
-  mask-repeat:        no-repeat, no-repeat;
-
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
+  /* Parallelogram, forward-slash slant, centered, grows with --s */
+  clip-path: polygon(
+    calc(50% - 2.5vw * var(--s) - 11.7vh * var(--s)) calc(50% - 29vh * var(--s)),
+    calc(50% + 2.5vw * var(--s) - 11.7vh * var(--s)) calc(50% - 29vh * var(--s)),
+    calc(50% + 2.5vw * var(--s) + 11.7vh * var(--s)) calc(50% + 29vh * var(--s)),
+    calc(50% - 2.5vw * var(--s) + 11.7vh * var(--s)) calc(50% + 29vh * var(--s))
+  );
+  will-change: clip-path;
 }
 
 .hero-content {

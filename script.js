@@ -133,20 +133,19 @@
   }
 
 
-  /* ---------- Hero scroll morph (fixed-angle parallelogram grows) ---------- */
+  /* ---------- Hero scroll morph (parallelogram clip-path grows) ---------- */
   const heroSection = document.querySelector('.hero');
-  const heroShape = document.querySelector('.hero-shape');
+  const heroImage = document.querySelector('.hero-image');
   const heroSticky = document.querySelector('.hero-sticky');
-  if (heroSection && heroShape && heroSticky && !prefersReduced) {
+  if (heroSection && heroImage && heroSticky && !prefersReduced) {
     const ease = (t) => 1 - Math.pow(1 - t, 2.6);
     const update = () => {
       const rect = heroSection.getBoundingClientRect();
       const total = heroSection.offsetHeight - window.innerHeight;
       const raw = Math.max(0, Math.min(1, -rect.top / total));
-      // Morph across first 75% of scroll, then hold full
       const p = ease(Math.min(1, raw / 0.75));
       const scale = 1 + p * 40;
-      heroShape.style.setProperty('--s', scale.toFixed(3));
+      heroImage.style.setProperty('--s', scale.toFixed(3));
       heroSticky.classList.toggle('show-sub', raw > 0.08);
       heroSticky.classList.toggle('show-btn', raw > 0.18);
     };
@@ -158,8 +157,8 @@
       requestAnimationFrame(() => { update(); pending = false; });
     }, { passive: true });
     window.addEventListener('resize', update);
-  } else if (heroShape) {
-    heroShape.style.setProperty('--s', 41);
+  } else if (heroImage) {
+    heroImage.style.setProperty('--s', 41);
     heroSticky && heroSticky.classList.add('show-sub', 'show-btn');
   }
 
