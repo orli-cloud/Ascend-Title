@@ -35,32 +35,6 @@
   <div class="cursor" aria-hidden="true"></div>
   <div class="cursor-dot" aria-hidden="true"></div>
 
-  <!-- Progress bar -->
-  <div class="progress" aria-hidden="true"><span></span></div>
-
-  <!-- ========== NAV ========== -->
-  <nav class="nav" aria-label="Main">
-    <div class="nav-inner">
-      <a href="#home" class="logo" aria-label="Ascend Title home">
-        <img src="Logo/Logo white.png" alt="Ascend Title" class="logo-img" />
-      </a>
-      <ul class="nav-links">
-        <li><a href="#home" class="nav-link active">Home</a></li>
-        <li><a href="#about" class="nav-link">About</a></li>
-        <li><a href="#services" class="nav-link">Services</a></li>
-        <li><a href="#resources" class="nav-link">Resources</a></li>
-        <li><a href="#login" class="nav-link">Login</a></li>
-        <li><a href="#contact" class="nav-link">Contact</a></li>
-      </ul>
-      <button class="menu-btn" aria-label="Open contact menu" aria-expanded="false" aria-controls="drawer">
-        <span class="menu-label">Menu</span>
-        <span class="menu-icon" aria-hidden="true">
-          <span></span>
-          <span></span>
-        </span>
-      </button>
-    </div>
-  </nav>
 
   <!-- ========== SIDE DRAWER (contact) ========== -->
   <aside class="drawer" id="drawer" aria-hidden="true" aria-label="Contact">
@@ -123,8 +97,34 @@
   <!-- HERO — Scroll-Morph Parallelogram                           -->
   <!-- ========================================================== -->
   <header class="hero" id="home">
+    <!-- Nav sits inside hero — stays sticky while morphing, scrolls away when hero ends -->
+    <nav class="nav" aria-label="Main">
+      <div class="nav-inner">
+        <a href="#home" class="logo" aria-label="Ascend Title home">
+          <img src="Logo/Logo white.png" alt="Ascend Title" class="logo-img" />
+        </a>
+        <ul class="nav-links">
+          <li><a href="#home" class="nav-link active">Home</a></li>
+          <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#services" class="nav-link">Services</a></li>
+          <li><a href="#resources" class="nav-link">Resources</a></li>
+          <li><a href="#login" class="nav-link">Login</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+        <button class="menu-btn" aria-label="Open contact menu" aria-expanded="false" aria-controls="drawer">
+          <span class="menu-icon" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </button>
+      </div>
+    </nav>
+
     <div class="hero-sticky">
-      <div class="hero-shape" aria-hidden="true"></div>
+      <div class="hero-shape" aria-hidden="true">
+        <div class="shape-fill"></div>
+      </div>
 
       <div class="hero-content">
         <div class="hero-text">

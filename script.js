@@ -87,21 +87,7 @@
     window.addEventListener('mouseenter', () => document.body.classList.add('cursor-ready'));
   }
 
-  /* ---------- Magnetic buttons ---------- */
-  if (hasFinePointer && !prefersReduced) {
-    document.querySelectorAll('[data-magnetic]').forEach((btn) => {
-      const strength = 0.25;
-      btn.addEventListener('mousemove', (e) => {
-        const rect = btn.getBoundingClientRect();
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
-        btn.style.transform = `translate(${x * strength}px, ${y * strength}px)`;
-      });
-      btn.addEventListener('mouseleave', () => {
-        btn.style.transform = '';
-      });
-    });
-  }
+  /* Magnetic hover removed — buttons stay in place */
 
   /* ---------- Hero parallax ---------- */
   const heroBg = document.querySelector('.hero-bg .bg-image');
@@ -146,23 +132,6 @@
     });
   }
 
-  /* ---------- Scroll progress bar ---------- */
-  const progressBar = document.querySelector('.progress span');
-  if (progressBar) {
-    let progPending = false;
-    const tick = () => {
-      const h = document.documentElement;
-      const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
-      progressBar.style.width = `${pct}%`;
-      progPending = false;
-    };
-    tick();
-    window.addEventListener('scroll', () => {
-      if (progPending) return;
-      progPending = true;
-      requestAnimationFrame(tick);
-    }, { passive: true });
-  }
 
   /* ---------- Hero scroll morph (fixed-angle parallelogram grows) ---------- */
   const heroSection = document.querySelector('.hero');
