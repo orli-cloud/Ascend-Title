@@ -236,8 +236,9 @@
       chars.forEach((ch) => {
         const rect = ch.getBoundingClientRect();
         const mid = rect.top + rect.height / 2;
-        const t = 1 - Math.max(0, Math.min(1, (mid - vh * 0.30) / (vh * 0.50)));
-        const alpha = 0.12 + t * 0.88;
+        // Each char fills as it crosses the top half of the viewport
+        const t = 1 - Math.max(0, Math.min(1, (mid - vh * 0.25) / (vh * 0.50)));
+        const alpha = 0.08 + t * 0.92;
         ch.style.color = `rgba(14, 41, 62, ${alpha.toFixed(3)})`;
       });
     };
@@ -251,6 +252,17 @@
     window.addEventListener('resize', updateFill);
   }
 
+
+  /* ---------- Excellence accordion (hover to switch) ---------- */
+  const exPanels = document.querySelectorAll('.ex-panel');
+  if (exPanels.length) {
+    exPanels.forEach((panel) => {
+      panel.addEventListener('mouseenter', () => {
+        exPanels.forEach((p) => p.classList.remove('is-active'));
+        panel.classList.add('is-active');
+      });
+    });
+  }
 
   /* ---------- Side drawer ---------- */
   const drawer = document.getElementById('drawer');
