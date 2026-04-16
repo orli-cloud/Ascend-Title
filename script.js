@@ -146,20 +146,47 @@
     });
   }
 
-  /* ---------- Scroll progress bar ---------- */
+  /* ---------- Scroll progress bar + nav scrolled state ---------- */
   const progressBar = document.querySelector('.progress span');
-  if (progressBar) {
+  const navEl = document.querySelector('.nav');
+  if (progressBar || navEl) {
     let progPending = false;
+    const tick = () => {
+      const h = document.documentElement;
+      const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+      if (progressBar) progressBar.style.width = `${pct}%`;
+      if (navEl) navEl.classList.toggle('is-scrolled', h.scrollTop > 30);
+      progPending = false;
+    };
+    tick();
     window.addEventListener('scroll', () => {
       if (progPending) return;
       progPending = true;
-      requestAnimationFrame(() => {
-        const h = document.documentElement;
-        const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
-        progressBar.style.width = `${pct}%`;
-        progPending = false;
-      });
+      requestAnimationFrame(tick);
     }, { passive: true });
   }
 
+  /* ---------- Nav floating indicator ---------- */
+  const navLinksWrap = document.querySelector('.nav-links');
+  const indicator = document.querySelector('.nav-indicator');
+  if (navLinksWrap && indicator) {
+    const allLinks = navLinksWrap.querySelectorAll('.nav-link');
+    const moveTo = (el) => {
+      if (!el) return;
+      const wrapBox = navLinksWrap.getBoundingClientRect();
+      const linkBox = el.getBoundingClientRect();
+      indicator.style.setProperty('--ind-x', `${linkBox.left - wrapBox.left}px`);
+      indicator.style.setProperty('--ind-w', `${linkBox.width}px`);
+    };
+    const syncToActive = () => {
+      const a = navLinksWrap.querySelector('.nav-link.active');
+      if (a) moveTo(a);
+    };
+    syncToActive();
+    allLinks.forEach((l) => {
+      l.addEventListener('mouseenter', () => moveTo(l));
+    });
+    navLinksWrap.addEventListener('mouseleave', syncToActive);
+    window.addEventListener('resize', syncToActive);
+  }
 })();
