@@ -162,33 +162,6 @@
     heroSticky && heroSticky.classList.add('show-sub', 'show-btn');
   }
 
-  /* ---------- Footer scroll morph (mirrors the hero) ---------- */
-  const footerSection = document.querySelector('.footer');
-  const footerShape = document.querySelector('.footer-shape');
-  const footerSticky = document.querySelector('.footer-sticky');
-  if (footerSection && footerShape && footerSticky && !prefersReduced) {
-    const ease = (t) => 1 - Math.pow(1 - t, 2.6);
-    const updateFooter = () => {
-      const rect = footerSection.getBoundingClientRect();
-      const total = footerSection.offsetHeight - window.innerHeight;
-      const raw = Math.max(0, Math.min(1, -rect.top / total));
-      const p = ease(Math.min(1, raw / 0.6));
-      const scale = 0.03 + p * 40;
-      footerShape.style.setProperty('--s', scale.toFixed(3));
-      footerSticky.classList.toggle('show-content', raw > 0.5);
-    };
-    updateFooter();
-    let fPending = false;
-    window.addEventListener('scroll', () => {
-      if (fPending) return;
-      fPending = true;
-      requestAnimationFrame(() => { updateFooter(); fPending = false; });
-    }, { passive: true });
-    window.addEventListener('resize', updateFooter);
-  } else if (footerShape) {
-    footerShape.style.setProperty('--s', 41);
-    footerSticky && footerSticky.classList.add('show-content');
-  }
 
   /* ---------- Side drawer ---------- */
   const drawer = document.getElementById('drawer');

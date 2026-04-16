@@ -414,7 +414,7 @@ body.cursor-hover .cursor {
   position: absolute;
   top: 0;
   right: 0;
-  width: 620px;
+  width: 900px;
   max-width: 94vw;
   height: 100%;
   background: var(--navy-900);
@@ -424,8 +424,8 @@ body.cursor-hover .cursor {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  /* Slanted left edge — same angle/direction as the hero parallelogram */
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 110px 100%);
+  /* Slanted left edge at EXACTLY 22° (tan 22° = 0.404 → 40.4vh shift over 100vh) */
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 40.4vh 100%);
 }
 .drawer.is-open .drawer-panel { transform: translateX(0); }
 
@@ -1279,12 +1279,13 @@ body.drawer-open { overflow: hidden; }
    ----------------------------------------------------------------- */
 .cta {
   position: relative;
+  z-index: 2;
   padding: clamp(140px, 20vh, 220px) 0;
   color: #fff;
   overflow: hidden;
   text-align: center;
   isolation: isolate;
-  background: var(--navy-900);
+  background: #10293D;
   clip-path: polygon(0 60px, 100% 0, 100% 100%, 0 100%);
 }
 .cta-bg { position: absolute; inset: 0; z-index: -1; }
@@ -1327,59 +1328,33 @@ body.drawer-open { overflow: hidden; }
 .cta .btn { display: inline-flex; }
 
 /* -----------------------------------------------------------------
-   FOOTER — scroll-morph slant (echoes the hero) + Lento-style layout
+   FOOTER — fixed at viewport bottom. CTA (above) slides up to reveal it.
    ----------------------------------------------------------------- */
+body { padding-bottom: 100vh; }  /* scroll space so footer can emerge */
+body > header.hero,
+body > section { position: relative; z-index: 2; }
+
 .footer {
-  position: relative;
-  height: 220vh;       /* scroll distance for the morph */
-  background: #2B4E75; /* same as hero base */
-}
-.footer-sticky {
-  position: sticky;
-  top: 0;
+  position: fixed;
+  bottom: 0;
+  left: 0; right: 0;
   width: 100%;
   height: 100vh;
-  overflow: hidden;
-  isolation: isolate;
-}
-/* Solid navy base */
-.footer-navy {
-  position: absolute;
-  inset: 0;
+  z-index: -1;
   background: #2B4E75;
-  z-index: 0;
-}
-/* Image layer with growing parallelogram clip — same formula as hero */
-.footer-shape {
-  --s: 0.03;
-  position: absolute;
-  inset: 0;
-  background: url('background.jpg') center / cover no-repeat;
-  background-color: #10293D;
-  z-index: 1;
-  clip-path: polygon(
-    calc(50% - 2.5vw * var(--s) - 11.7vh * var(--s)) calc(50% - 29vh * var(--s)),
-    calc(50% + 2.5vw * var(--s) - 11.7vh * var(--s)) calc(50% - 29vh * var(--s)),
-    calc(50% + 2.5vw * var(--s) + 11.7vh * var(--s)) calc(50% + 29vh * var(--s)),
-    calc(50% - 2.5vw * var(--s) + 11.7vh * var(--s)) calc(50% + 29vh * var(--s))
-  );
-  will-change: clip-path;
-}
-
-/* Footer content (fades in as the slant fills) */
-.footer-content {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  padding: 80px var(--pad-x) 40px;
-  opacity: 0;
-  transition: opacity 0.6s var(--ease-out);
+  justify-content: space-between;
+  overflow: hidden;
 }
-.footer-sticky.show-content .footer-content {
-  opacity: 1;
+
+/* Footer content (columns + bottom bar) */
+.footer-content {
+  padding: 80px var(--pad-x) 40px;
+  width: 100%;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  flex-shrink: 0;
 }
 
 /* Main grid */
@@ -1475,25 +1450,23 @@ body.drawer-open { overflow: hidden; }
 .footer-bottom a { color: inherit; transition: color 0.3s; }
 .footer-bottom a:hover { color: #fff; }
 
-/* Giant brand text at the very bottom */
+/* Giant brand word — static at the bottom of the footer */
 .footer-brand {
   position: relative;
-  background: var(--navy-900);
   overflow: hidden;
   padding: 0;
-  border-top: 1px solid rgba(255,255,255,0.08);
   text-align: center;
+  margin-top: auto;
 }
 .footer-brand-word {
   display: block;
   font-family: var(--serif);
   font-size: clamp(120px, 26vw, 420px);
   font-weight: 400;
-  line-height: 0.85;
+  line-height: 0.82;
   letter-spacing: -0.045em;
   color: #fff;
-  padding: 20px 0 0;
-  margin-bottom: -8%;  /* clip the descenders slightly like Lento */
+  margin-bottom: -6%;  /* clip the descenders like Lento */
   white-space: nowrap;
 }
 
