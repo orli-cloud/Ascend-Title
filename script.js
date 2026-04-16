@@ -89,6 +89,42 @@
 
   /* Magnetic hover removed — buttons stay in place */
 
+  /* ---------- Scroll cursor (shows over the hero) ---------- */
+  const scrollCursorWrap = document.querySelector('.scroll-cursor-wrap');
+  const heroEl = document.querySelector('.hero');
+  if (scrollCursorWrap && heroEl && hasFinePointer && !prefersReduced) {
+    let sMouseX = 0, sMouseY = 0;
+    let sCurX = 0, sCurY = 0;
+    const lerp2 = (a, b, n) => (1 - n) * a + n * b;
+    const onMove = (e) => { sMouseX = e.clientX; sMouseY = e.clientY; };
+    window.addEventListener('mousemove', onMove);
+    const show = () => {
+      scrollCursorWrap.classList.add('is-visible');
+      document.body.classList.add('has-scroll-cursor');
+    };
+    const hide = () => {
+      scrollCursorWrap.classList.remove('is-visible');
+      document.body.classList.remove('has-scroll-cursor');
+    };
+    heroEl.addEventListener('mouseenter', show);
+    heroEl.addEventListener('mouseleave', hide);
+    // Hide over clickable elements inside the hero
+    heroEl.querySelectorAll('a, button, [role="button"]').forEach((el) => {
+      el.addEventListener('mouseenter', hide);
+      el.addEventListener('mouseleave', (e) => {
+        // Re-show if still within hero
+        if (heroEl.contains(e.relatedTarget)) show();
+      });
+    });
+    const loopS = () => {
+      sCurX = lerp2(sCurX, sMouseX, 0.2);
+      sCurY = lerp2(sCurY, sMouseY, 0.2);
+      scrollCursorWrap.style.transform = `translate(${sCurX}px, ${sCurY}px)`;
+      requestAnimationFrame(loopS);
+    };
+    loopS();
+  }
+
   /* ---------- Hero parallax ---------- */
   const heroBg = document.querySelector('.hero-bg .bg-image');
   if (heroBg && !prefersReduced) {
