@@ -1,0 +1,31 @@
+# Claude Code local settings
+.claude/
+
+# Design source files (keep locally, not in repo)
+*.ai
+*.xd
+*.psd
+*.sketch
+*.fig
+
+# Internal reference materials (not used by the site)
+Bios/
+Inspo/
+Images/
+Logo/Branding/*.pdf
+Logo/Fonts/*.pdf
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*
