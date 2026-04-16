@@ -206,12 +206,13 @@
 
   const heroEl = document.querySelector('.hero');
   if (heroEl) {
+    const direction = heroEl.classList.contains('hero-reverse') ? 'shrink' : 'grow';
     if (!prefersReduced) {
-      setupHeroMorph(heroEl, 'grow');
+      setupHeroMorph(heroEl, direction);
     } else {
       const image = heroEl.querySelector('.hero-image');
       const sticky = heroEl.querySelector('.hero-sticky');
-      if (image) image.style.setProperty('--s', 41);
+      if (image) image.style.setProperty('--s', direction === 'shrink' ? 1 : 41);
       if (sticky) sticky.classList.add('show-sub', 'show-btn');
     }
   }
@@ -250,18 +251,6 @@
     window.addEventListener('resize', updateFill);
   }
 
-  /* ---------- Services accordion (always one open, first default) ---------- */
-  const serviceRows = document.querySelectorAll('.service-row');
-  if (serviceRows.length) {
-    serviceRows[0].classList.add('is-open');
-    serviceRows.forEach((row) => {
-      row.addEventListener('click', () => {
-        if (row.classList.contains('is-open')) return;
-        serviceRows.forEach((r) => r.classList.remove('is-open'));
-        row.classList.add('is-open');
-      });
-    });
-  }
 
   /* ---------- Side drawer ---------- */
   const drawer = document.getElementById('drawer');
