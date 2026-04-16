@@ -662,6 +662,31 @@ body.drawer-open { overflow: hidden; }
 }
 
 /* -----------------------------------------------------------------
+   Hero comparison badges (demo)
+   ----------------------------------------------------------------- */
+.hero-badge {
+  position: absolute;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 30;
+  padding: 8px 18px;
+  font-family: var(--sans);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  backdrop-filter: blur(10px);
+  pointer-events: none;
+}
+.hero-badge-v1 { background: rgba(14, 41, 62, 0.5); }
+.hero-badge-v2 { background: rgba(201, 214, 229, 0.18); color: var(--silver); }
+
+/* -----------------------------------------------------------------
    HERO — Scroll-Morph Parallelogram
    ----------------------------------------------------------------- */
 .hero {
@@ -1057,8 +1082,6 @@ body.drawer-open { overflow: hidden; }
   isolation: isolate;
   transform: translateY(0);
   transition: transform 0.6s var(--ease-out), box-shadow 0.6s var(--ease-out);
-  /* Angular top-right corner cut */
-  clip-path: polygon(0 0, calc(100% - 30px) 0, 100% 30px, 100% 100%, 0 100%);
 }
 .ex-card::after {
   content: "";
@@ -1201,8 +1224,6 @@ body.drawer-open { overflow: hidden; }
   height: 480px;
   overflow: hidden;
   isolation: isolate;
-  /* angular top-left + bottom-right cuts */
-  clip-path: polygon(40px 0, 100% 0, 100% calc(100% - 40px), calc(100% - 40px) 100%, 0 100%, 0 40px);
 }
 .team-image-bg {
   position: absolute; inset: 0;

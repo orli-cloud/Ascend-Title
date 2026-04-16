@@ -89,15 +89,14 @@
 
   /* Magnetic hover removed — buttons stay in place */
 
-  /* ---------- Scroll cursor (shows over the hero) ---------- */
+  /* ---------- Scroll cursor (shows over any .hero) ---------- */
   const scrollCursorWrap = document.querySelector('.scroll-cursor-wrap');
-  const heroEl = document.querySelector('.hero');
-  if (scrollCursorWrap && heroEl && hasFinePointer && !prefersReduced) {
+  const heroEls = document.querySelectorAll('.hero');
+  if (scrollCursorWrap && heroEls.length && hasFinePointer && !prefersReduced) {
     let sMouseX = 0, sMouseY = 0;
     let sCurX = 0, sCurY = 0;
     const lerp2 = (a, b, n) => (1 - n) * a + n * b;
-    const onMove = (e) => { sMouseX = e.clientX; sMouseY = e.clientY; };
-    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mousemove', (e) => { sMouseX = e.clientX; sMouseY = e.clientY; });
     const show = () => {
       scrollCursorWrap.classList.add('is-visible');
       document.body.classList.add('has-scroll-cursor');
@@ -106,14 +105,14 @@
       scrollCursorWrap.classList.remove('is-visible');
       document.body.classList.remove('has-scroll-cursor');
     };
-    heroEl.addEventListener('mouseenter', show);
-    heroEl.addEventListener('mouseleave', hide);
-    // Hide over clickable elements inside the hero
-    heroEl.querySelectorAll('a, button, [role="button"]').forEach((el) => {
-      el.addEventListener('mouseenter', hide);
-      el.addEventListener('mouseleave', (e) => {
-        // Re-show if still within hero
-        if (heroEl.contains(e.relatedTarget)) show();
+    heroEls.forEach((heroEl) => {
+      heroEl.addEventListener('mouseenter', show);
+      heroEl.addEventListener('mouseleave', hide);
+      heroEl.querySelectorAll('a, button, [role="button"]').forEach((el) => {
+        el.addEventListener('mouseenter', hide);
+        el.addEventListener('mouseleave', (e) => {
+          if (heroEl.contains(e.relatedTarget)) show();
+        });
       });
     });
     const loopS = () => {
@@ -169,21 +168,31 @@
   }
 
 
-  /* ---------- Hero scroll morph (parallelogram clip-path grows) ---------- */
-  const heroSection = document.querySelector('.hero');
-  const heroImage = document.querySelector('.hero-image');
-  const heroSticky = document.querySelector('.hero-sticky');
-  if (heroSection && heroImage && heroSticky && !prefersReduced) {
+  /* ---------- Hero scroll morph (parallelogram clip-path) ---------- */
+  const setupHeroMorph = (section, direction) => {
+    const image = section.querySelector('.hero-image');
+    const sticky = section.querySelector('.hero-sticky');
+    if (!image || !sticky) return;
     const ease = (t) => 1 - Math.pow(1 - t, 2.6);
     const update = () => {
-      const rect = heroSection.getBoundingClientRect();
-      const total = heroSection.offsetHeight - window.innerHeight;
+      const rect = section.getBoundingClientRect();
+      const total = section.offsetHeight - window.innerHeight;
       const raw = Math.max(0, Math.min(1, -rect.top / total));
       const p = ease(Math.min(1, raw / 0.75));
-      const scale = 1 + p * 40;
-      heroImage.style.setProperty('--s', scale.toFixed(3));
-      heroSticky.classList.toggle('show-sub', raw > 0.08);
-      heroSticky.classList.toggle('show-btn', raw > 0.18);
+      let scale;
+      if (direction === 'shrink') {
+        // Reverse: start full image (scale 41), shrink to thin slant (scale 1)
+        scale = 41 - p * 40;
+        // Text comes in as image shrinks
+        sticky.classList.toggle('show-sub', raw > 0.35);
+        sticky.classList.toggle('show-btn', raw > 0.5);
+      } else {
+        // Grow: thin slant → full image
+        scale = 1 + p * 40;
+        sticky.classList.toggle('show-sub', raw > 0.08);
+        sticky.classList.toggle('show-btn', raw > 0.18);
+      }
+      image.style.setProperty('--s', scale.toFixed(3));
     };
     update();
     let pending = false;
@@ -193,9 +202,21 @@
       requestAnimationFrame(() => { update(); pending = false; });
     }, { passive: true });
     window.addEventListener('resize', update);
-  } else if (heroImage) {
-    heroImage.style.setProperty('--s', 41);
-    heroSticky && heroSticky.classList.add('show-sub', 'show-btn');
+  };
+
+  if (!prefersReduced) {
+    document.querySelectorAll('.hero').forEach((hero) => {
+      const dir = hero.classList.contains('hero-reverse') ? 'shrink' : 'grow';
+      setupHeroMorph(hero, dir);
+    });
+  } else {
+    // reduced motion: just show the end state
+    document.querySelectorAll('.hero').forEach((hero) => {
+      const image = hero.querySelector('.hero-image');
+      const sticky = hero.querySelector('.hero-sticky');
+      if (image) image.style.setProperty('--s', 41);
+      if (sticky) sticky.classList.add('show-sub', 'show-btn');
+    });
   }
 
 
