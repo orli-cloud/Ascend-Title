@@ -166,6 +166,59 @@
     }, { passive: true });
   }
 
+  /* ---------- Hero V3 scroll morph ---------- */
+  const morphSection = document.querySelector('.hero-morph');
+  const morphShape = document.querySelector('.morph-shape');
+  const morphSticky = document.querySelector('.morph-sticky');
+  if (morphSection && morphShape && !prefersReduced) {
+    // Parallelogram points (start → end)
+    // Start: thin slanted bar in center
+    // End: full-screen rectangle
+    const start = [
+      [48, 12],  // top-left
+      [52, 12],  // top-right
+      [50, 88],  // bottom-right
+      [46, 88],  // bottom-left
+    ];
+    const end = [
+      [0, 0], [100, 0], [100, 100], [0, 100],
+    ];
+    const lerp = (a, b, t) => a + (b - a) * t;
+    const ease = (t) => 1 - Math.pow(1 - t, 3); // easeOutCubic
+
+    const update = () => {
+      const rect = morphSection.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const total = morphSection.offsetHeight - vh;
+      const raw = Math.max(0, Math.min(1, -rect.top / total));
+      // Morph happens in the first 70% of the scroll, last 30% holds full-screen
+      const p = ease(Math.min(1, raw / 0.7));
+
+      const pts = start.map(([sx, sy], i) => {
+        const [ex, ey] = end[i];
+        return [lerp(sx, ex, p), lerp(sy, ey, p)];
+      });
+      const clip = `polygon(${pts.map(([x, y]) => `${x}% ${y}%`).join(', ')})`;
+      morphShape.style.clipPath = clip;
+      morphShape.style.webkitClipPath = clip;
+
+      // Content appears when shape is mostly open (> 75%)
+      morphShape.classList.toggle('is-open', raw > 0.72);
+      if (morphSticky) morphSticky.classList.toggle('is-done', raw > 0.05);
+    };
+    update();
+    let pending = false;
+    window.addEventListener('scroll', () => {
+      if (pending) return;
+      pending = true;
+      requestAnimationFrame(() => { update(); pending = false; });
+    }, { passive: true });
+    window.addEventListener('resize', update);
+  } else if (morphShape) {
+    morphShape.style.clipPath = 'polygon(0 0, 100% 0, 100% 100%, 0 100%)';
+    morphShape.classList.add('is-open');
+  }
+
   /* ---------- Nav floating indicator ---------- */
   const navLinksWrap = document.querySelector('.nav-links');
   const indicator = document.querySelector('.nav-indicator');
