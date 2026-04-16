@@ -378,25 +378,22 @@ body.has-scroll-cursor .cursor-dot { opacity: 0 !important; }
 .nav-link:hover, .nav-link.active { color: #fff; }
 .nav-link:hover::after, .nav-link.active::after { width: 100%; }
 
-/* Hamburger — icon only, larger, on the left */
+/* Hamburger — icon only, transparent container */
 .menu-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 60px;
-  height: 60px;
+  width: 48px;
+  height: 48px;
   padding: 0;
-  border-radius: 50%;
-  border: 1px solid rgba(255,255,255,0.3);
+  border: none;
   background: transparent;
   color: #fff;
   cursor: pointer;
-  transition: background 0.4s var(--ease-out), border-color 0.4s var(--ease-out), color 0.4s;
+  transition: opacity 0.4s var(--ease-out), transform 0.4s var(--ease-out);
 }
 .menu-btn:hover {
-  background: #fff;
-  color: var(--navy-900);
-  border-color: #fff;
+  opacity: 0.75;
 }
 .menu-icon {
   display: flex;
