@@ -163,6 +163,40 @@
   }
 
 
+  /* ---------- Scroll-fill text (about section) ---------- */
+  const splitFillEls = document.querySelectorAll('[data-split-fill]');
+  splitFillEls.forEach((el) => {
+    const text = el.textContent.trim();
+    const words = text.split(/\s+/);
+    el.innerHTML = words.map((w) => `<span class="word">${w}</span>`).join(' ');
+  });
+  if (splitFillEls.length && !prefersReduced) {
+    const words = [];
+    splitFillEls.forEach((el) => {
+      el.querySelectorAll('.word').forEach((w) => words.push(w));
+    });
+    const updateFill = () => {
+      const vh = window.innerHeight;
+      words.forEach((w) => {
+        const rect = w.getBoundingClientRect();
+        const mid = rect.top + rect.height / 2;
+        // full color when word is above 40% of viewport height; muted below 80%
+        const t = 1 - Math.max(0, Math.min(1, (mid - vh * 0.35) / (vh * 0.45)));
+        // interpolate color alpha on ink
+        const alpha = 0.15 + t * 0.85;
+        w.style.color = `rgba(14, 41, 62, ${alpha.toFixed(3)})`;
+      });
+    };
+    updateFill();
+    let fillPending = false;
+    window.addEventListener('scroll', () => {
+      if (fillPending) return;
+      fillPending = true;
+      requestAnimationFrame(() => { updateFill(); fillPending = false; });
+    }, { passive: true });
+    window.addEventListener('resize', updateFill);
+  }
+
   /* ---------- Side drawer ---------- */
   const drawer = document.getElementById('drawer');
   const menuBtn = document.querySelector('.menu-btn');
