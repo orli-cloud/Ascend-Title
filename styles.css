@@ -1344,13 +1344,13 @@ body > section { position: relative; z-index: 2; }
   background: #2B4E75;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-end;   /* stack everything at the bottom */
   overflow: hidden;
 }
 
-/* Footer content (columns + bottom bar) */
+/* Footer content — pushed down, sits just above the giant word */
 .footer-content {
-  padding: 80px var(--pad-x) 40px;
+  padding: 40px var(--pad-x) 60px;
   width: 100%;
   max-width: var(--max-w);
   margin: 0 auto;
@@ -1456,7 +1456,6 @@ body > section { position: relative; z-index: 2; }
   overflow: hidden;
   padding: 0;
   text-align: center;
-  margin-top: auto;
 }
 .footer-brand-word {
   display: block;
