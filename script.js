@@ -269,12 +269,24 @@
   }
 
 
+  /* ---------- Footer reveal — body padding-bottom matches footer height exactly ---------- */
+  const footerEl = document.querySelector('.footer');
+  if (footerEl) {
+    const syncFooterReveal = () => {
+      document.body.style.paddingBottom = `${footerEl.offsetHeight}px`;
+    };
+    syncFooterReveal();
+    window.addEventListener('resize', syncFooterReveal);
+    if ('ResizeObserver' in window) {
+      new ResizeObserver(syncFooterReveal).observe(footerEl);
+    }
+  }
+
   /* ---------- CTA scroll intro (grow in → shift + slant → slant fills → content) ---------- */
   const ctaPin = document.querySelector('.cta-pin');
-  const ctaReveal = document.querySelector('.cta-reveal');
-  const ctaIntro = document.querySelector('.cta-intro');
+  const ctaSticky = document.querySelector('.cta-sticky');
   const ctaFinal = document.querySelector('.cta-final');
-  if (ctaPin && ctaReveal && ctaIntro && ctaFinal && !prefersReduced) {
+  if (ctaPin && ctaSticky && ctaFinal && !prefersReduced) {
     const ctaTitle = ctaFinal.querySelector('.cta-title');
     const ctaSub = ctaFinal.querySelector('.cta-sub');
     const ctaBtn = ctaFinal.querySelector('.btn');
@@ -282,29 +294,26 @@
       const rect = ctaPin.getBoundingClientRect();
       const total = ctaPin.offsetHeight - window.innerHeight;
       const raw = total > 0 ? Math.max(0, Math.min(1, -rect.top / total)) : 0;
-      // 0.00–0.10: "Let's Build" scales in (0.4 → 1)
-      // 0.10–0.25: slides left; slant appears (s: 0 → 2)
-      // 0.25–0.55: slant grows (s: 2 → 41) and fills
-      // 0.45–0.58: "Let's Build" fades out
-      // 0.60:      title appears
-      // 0.72:      sub appears
-      // 0.84:      button appears
-      const scaleIn = Math.min(1, Math.max(0, raw / 0.10));
-      const slideT = Math.min(1, Math.max(0, (raw - 0.10) / 0.15));
-      const fadeOut = Math.max(0, Math.min(1, (raw - 0.45) / 0.13));
+      const mainRaw = Math.min(1, raw / 0.70);
+      const peelRaw = Math.max(0, Math.min(1, (raw - 0.75) / 0.25));
+      const scaleIn = Math.min(1, Math.max(0, mainRaw / 0.10));
+      const slideT = Math.min(1, Math.max(0, (mainRaw - 0.10) / 0.15));
+      const fadeOut = Math.max(0, Math.min(1, (mainRaw - 0.45) / 0.13));
       const scale = 0.4 + scaleIn * 0.6;
       const tx = -slideT * 22;
-      ctaIntro.style.transform = `translate(${tx}vw, 0) scale(${scale.toFixed(3)})`;
-      ctaIntro.style.opacity = (1 - fadeOut).toFixed(2);
+      ctaSticky.style.setProperty('--intro-x', `${tx}vw`);
+      ctaSticky.style.setProperty('--intro-s', scale.toFixed(3));
+      ctaSticky.style.setProperty('--intro-a', (1 - fadeOut).toFixed(2));
       let s;
-      if (raw < 0.15) s = 0;
-      else if (raw < 0.25) s = ((raw - 0.15) / 0.10) * 2;
-      else if (raw < 0.55) s = 2 + ((raw - 0.25) / 0.30) * 39;
+      if (mainRaw < 0.15) s = 0;
+      else if (mainRaw < 0.25) s = ((mainRaw - 0.15) / 0.10) * 2;
+      else if (mainRaw < 0.55) s = 2 + ((mainRaw - 0.25) / 0.30) * 39;
       else s = 41;
-      ctaReveal.style.setProperty('--s', s.toFixed(2));
-      if (ctaTitle) ctaTitle.classList.toggle('show', raw > 0.60);
-      if (ctaSub) ctaSub.classList.toggle('show', raw > 0.72);
-      if (ctaBtn) ctaBtn.classList.toggle('show', raw > 0.84);
+      ctaSticky.style.setProperty('--s', s.toFixed(2));
+      ctaSticky.style.setProperty('--peel', `${(peelRaw * 72).toFixed(1)}%`);
+      if (ctaTitle) ctaTitle.classList.toggle('show', mainRaw > 0.60);
+      if (ctaSub) ctaSub.classList.toggle('show', mainRaw > 0.72);
+      if (ctaBtn) ctaBtn.classList.toggle('show', mainRaw > 0.84);
     };
     updateCta();
     let ctaPending = false;
@@ -319,8 +328,8 @@
   /* ---------- Underwriters circle — magnetic hover ---------- */
   const uwCircle = document.querySelector('.uw-circle');
   if (uwCircle && !prefersReduced) {
-    const range = 280;
-    const strength = 0.22;
+    const range = 520;
+    const strength = 0.42;
     let uwPending = false;
     const onMove = (e) => {
       if (uwPending) return;
@@ -350,16 +359,14 @@
     });
   }
 
-  /* ---------- Team stats hover swaps image ---------- */
+  /* ---------- Team stats hover rotates image ---------- */
   const teamStats = document.querySelectorAll('.team-stats li[data-team-idx]');
-  const teamImgLayers = document.querySelectorAll('.team-img-layer');
-  if (teamStats.length && teamImgLayers.length) {
+  const teamImageBg = document.querySelector('.team-image-bg');
+  if (teamStats.length && teamImageBg) {
     teamStats.forEach((li) => {
       li.addEventListener('mouseenter', () => {
-        const idx = li.dataset.teamIdx;
-        teamImgLayers.forEach((img) => {
-          img.classList.toggle('is-active', img.dataset.teamIdx === idx);
-        });
+        const idx = parseInt(li.dataset.teamIdx, 10) || 0;
+        teamImageBg.style.setProperty('--team-rot', `${idx * 90}deg`);
       });
     });
   }
