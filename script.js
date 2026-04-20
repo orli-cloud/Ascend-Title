@@ -218,28 +218,44 @@
   }
 
 
-  /* ---------- Scroll-fill text, letter by letter (about section) ---------- */
+  /* ---------- Scroll-fill text, letter by letter (Lakerock-style) ---------- */
   const splitFillEls = document.querySelectorAll('[data-split-fill]');
   splitFillEls.forEach((el) => {
-    const text = el.textContent.trim();
-    el.innerHTML = text.split('').map((c) => (
-      c === ' ' ? ' ' : `<span class="char">${c}</span>`
-    )).join('');
+    if (el.dataset.splitFillInit) return;
+    el.dataset.splitFillInit = 'true';
+    const text = el.textContent;
+    el.innerHTML = '';
+    text.split(/(\s+)/).forEach((seg) => {
+      if (!seg) return;
+      if (/^\s+$/.test(seg)) {
+        const space = document.createElement('span');
+        space.className = 'char';
+        space.innerHTML = '&nbsp;';
+        el.appendChild(space);
+      } else {
+        const wordSpan = document.createElement('span');
+        wordSpan.className = 'word';
+        seg.split('').forEach((c) => {
+          const letter = document.createElement('span');
+          letter.className = 'char';
+          letter.textContent = c;
+          wordSpan.appendChild(letter);
+        });
+        el.appendChild(wordSpan);
+      }
+    });
   });
   if (splitFillEls.length && !prefersReduced) {
-    const chars = [];
-    splitFillEls.forEach((el) => {
-      el.querySelectorAll('.char').forEach((c) => chars.push(c));
-    });
     const updateFill = () => {
       const vh = window.innerHeight;
-      chars.forEach((ch) => {
-        const rect = ch.getBoundingClientRect();
-        const mid = rect.top + rect.height / 2;
-        // Reveal band: char becomes visible as it crosses the upper 75% of viewport
-        const t = 1 - Math.max(0, Math.min(1, (mid - vh * 0.15) / (vh * 0.6)));
-        const alpha = 0.08 + t * 0.92;
-        ch.style.color = `rgba(14, 41, 62, ${alpha.toFixed(3)})`;
+      splitFillEls.forEach((el) => {
+        const rect = el.getBoundingClientRect();
+        const start = vh;
+        const end = vh * 0.3;
+        const progress = Math.min(1, Math.max(0, (start - rect.top) / (start - end)));
+        const chars = el.querySelectorAll('.char');
+        const fillCount = Math.floor(progress * chars.length);
+        chars.forEach((ch, i) => ch.classList.toggle('filled', i < fillCount));
       });
     };
     updateFill();
@@ -253,15 +269,127 @@
   }
 
 
-  /* ---------- Excellence accordion (hover to switch) ---------- */
-  const exPanels = document.querySelectorAll('.ex-panel');
-  if (exPanels.length) {
-    exPanels.forEach((panel) => {
-      panel.addEventListener('mouseenter', () => {
-        exPanels.forEach((p) => p.classList.remove('is-active'));
-        panel.classList.add('is-active');
+  /* ---------- CTA scroll intro (grow in → shift + slant → slant fills → content) ---------- */
+  const ctaPin = document.querySelector('.cta-pin');
+  const ctaReveal = document.querySelector('.cta-reveal');
+  const ctaIntro = document.querySelector('.cta-intro');
+  const ctaFinal = document.querySelector('.cta-final');
+  if (ctaPin && ctaReveal && ctaIntro && ctaFinal && !prefersReduced) {
+    const ctaTitle = ctaFinal.querySelector('.cta-title');
+    const ctaSub = ctaFinal.querySelector('.cta-sub');
+    const ctaBtn = ctaFinal.querySelector('.btn');
+    const updateCta = () => {
+      const rect = ctaPin.getBoundingClientRect();
+      const total = ctaPin.offsetHeight - window.innerHeight;
+      const raw = total > 0 ? Math.max(0, Math.min(1, -rect.top / total)) : 0;
+      // 0.00–0.10: "Let's Build" scales in (0.4 → 1)
+      // 0.10–0.25: slides left; slant appears (s: 0 → 2)
+      // 0.25–0.55: slant grows (s: 2 → 41) and fills
+      // 0.45–0.58: "Let's Build" fades out
+      // 0.60:      title appears
+      // 0.72:      sub appears
+      // 0.84:      button appears
+      const scaleIn = Math.min(1, Math.max(0, raw / 0.10));
+      const slideT = Math.min(1, Math.max(0, (raw - 0.10) / 0.15));
+      const fadeOut = Math.max(0, Math.min(1, (raw - 0.45) / 0.13));
+      const scale = 0.4 + scaleIn * 0.6;
+      const tx = -slideT * 22;
+      ctaIntro.style.transform = `translate(${tx}vw, 0) scale(${scale.toFixed(3)})`;
+      ctaIntro.style.opacity = (1 - fadeOut).toFixed(2);
+      let s;
+      if (raw < 0.15) s = 0;
+      else if (raw < 0.25) s = ((raw - 0.15) / 0.10) * 2;
+      else if (raw < 0.55) s = 2 + ((raw - 0.25) / 0.30) * 39;
+      else s = 41;
+      ctaReveal.style.setProperty('--s', s.toFixed(2));
+      if (ctaTitle) ctaTitle.classList.toggle('show', raw > 0.60);
+      if (ctaSub) ctaSub.classList.toggle('show', raw > 0.72);
+      if (ctaBtn) ctaBtn.classList.toggle('show', raw > 0.84);
+    };
+    updateCta();
+    let ctaPending = false;
+    window.addEventListener('scroll', () => {
+      if (ctaPending) return;
+      ctaPending = true;
+      requestAnimationFrame(() => { updateCta(); ctaPending = false; });
+    }, { passive: true });
+    window.addEventListener('resize', updateCta);
+  }
+
+  /* ---------- Underwriters circle — magnetic hover ---------- */
+  const uwCircle = document.querySelector('.uw-circle');
+  if (uwCircle && !prefersReduced) {
+    const range = 280;
+    const strength = 0.22;
+    let uwPending = false;
+    const onMove = (e) => {
+      if (uwPending) return;
+      uwPending = true;
+      requestAnimationFrame(() => {
+        const rect = uwCircle.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        const dx = e.clientX - cx;
+        const dy = e.clientY - cy;
+        const dist = Math.hypot(dx, dy);
+        if (dist < range) {
+          const f = 1 - dist / range;
+          uwCircle.style.setProperty('--mx', `${dx * strength * f}px`);
+          uwCircle.style.setProperty('--my', `${dy * strength * f}px`);
+        } else {
+          uwCircle.style.setProperty('--mx', '0px');
+          uwCircle.style.setProperty('--my', '0px');
+        }
+        uwPending = false;
+      });
+    };
+    window.addEventListener('mousemove', onMove, { passive: true });
+    window.addEventListener('mouseleave', () => {
+      uwCircle.style.setProperty('--mx', '0px');
+      uwCircle.style.setProperty('--my', '0px');
+    });
+  }
+
+  /* ---------- Team stats hover swaps image ---------- */
+  const teamStats = document.querySelectorAll('.team-stats li[data-team-idx]');
+  const teamImgLayers = document.querySelectorAll('.team-img-layer');
+  if (teamStats.length && teamImgLayers.length) {
+    teamStats.forEach((li) => {
+      li.addEventListener('mouseenter', () => {
+        const idx = li.dataset.teamIdx;
+        teamImgLayers.forEach((img) => {
+          img.classList.toggle('is-active', img.dataset.teamIdx === idx);
+        });
       });
     });
+  }
+
+  /* ---------- Excellence accordion (scroll-pinned, sequential) ---------- */
+  const exPanels = document.querySelectorAll('.ex-panel');
+  const exPin = document.querySelector('.ex-pin');
+  if (exPanels.length && exPin) {
+    const updateEx = () => {
+      if (window.innerWidth <= 960) {
+        exPanels.forEach((p) => p.classList.add('is-active'));
+        return;
+      }
+      const rect = exPin.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const scrollable = exPin.offsetHeight - vh;
+      const scrolled = Math.min(scrollable, Math.max(0, -rect.top));
+      const progress = scrollable > 0 ? scrolled / scrollable : 0;
+      const n = exPanels.length;
+      const idx = Math.min(n - 1, Math.floor(progress * n));
+      exPanels.forEach((p, i) => p.classList.toggle('is-active', i === idx));
+    };
+    updateEx();
+    let exPending = false;
+    window.addEventListener('scroll', () => {
+      if (exPending) return;
+      exPending = true;
+      requestAnimationFrame(() => { updateEx(); exPending = false; });
+    }, { passive: true });
+    window.addEventListener('resize', updateEx);
   }
 
   /* ---------- Side drawer ---------- */

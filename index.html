@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="Logo/Favicon.png" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css?v=cta-v3" />
 </head>
 <body>
 
@@ -216,85 +216,36 @@
     </div>
   </section>
 
-  <!-- ========== UNDERWRITERS — marquee + center circle ========== -->
-  <section class="underwriters">
-    <div class="uw-marquee" aria-hidden="true">
-      <div class="marquee-track">
-        <span>Fidelity National</span>
-        <span class="uw-dot">✦</span>
-        <span>First American</span>
-        <span class="uw-dot">✦</span>
-        <span>Stewart Title</span>
-        <span class="uw-dot">✦</span>
-        <span>Old Republic</span>
-        <span class="uw-dot">✦</span>
-        <span>Chicago Title</span>
-        <span class="uw-dot">✦</span>
-        <span>Westcor Land</span>
-        <span class="uw-dot">✦</span>
-        <span>Commonwealth</span>
-        <span class="uw-dot">✦</span>
-        <span>WFG National</span>
-        <span class="uw-dot">✦</span>
-        <!-- duplicate for seamless loop -->
-        <span>Fidelity National</span>
-        <span class="uw-dot">✦</span>
-        <span>First American</span>
-        <span class="uw-dot">✦</span>
-        <span>Stewart Title</span>
-        <span class="uw-dot">✦</span>
-        <span>Old Republic</span>
-        <span class="uw-dot">✦</span>
-        <span>Chicago Title</span>
-        <span class="uw-dot">✦</span>
-        <span>Westcor Land</span>
-        <span class="uw-dot">✦</span>
-        <span>Commonwealth</span>
-        <span class="uw-dot">✦</span>
-        <span>WFG National</span>
-        <span class="uw-dot">✦</span>
-      </div>
-    </div>
-
-    <div class="uw-circle">
-      <span class="uw-text">
-        Partnered with the nation's
-        <span class="uw-pill">Leading</span>
-        title underwriters
-      </span>
-    </div>
-  </section>
-
   <!-- ========== EXCELLENCE ========== -->
   <section class="excellence">
-    <div class="container">
-      <div class="excellence-head">
-        <span class="eyebrow reveal"><span class="eyebrow-dash"></span>Excellence in Service</span>
-        <h2 class="excellence-title reveal">
-          Every experience is defined by our relentless commitment to exceptional client care.
-        </h2>
-      </div>
-
-      <div class="ex-accordion">
-        <div class="ex-panel ex-panel--light is-active" data-panel="0">
-          <div class="ex-panel-inner">
-            <span class="ex-num">01</span>
-            <h3 class="ex-title">Superior Service</h3>
-            <p class="ex-desc">All aspects of your transaction are expertly managed from start to finish. If you value clear communication, smooth closings, and a team that takes ownership, you're in the right place.</p>
+    <div class="ex-pin">
+      <div class="ex-sticky">
+        <div class="container">
+          <div class="excellence-head">
+            <span class="eyebrow reveal"><span class="eyebrow-dash"></span>Excellence in Service</span>
+            <h2 class="excellence-title" data-split-fill>
+              Every experience is defined by our relentless commitment to exceptional client care.
+            </h2>
           </div>
-        </div>
-        <div class="ex-panel ex-panel--mid" data-panel="1">
-          <div class="ex-panel-inner">
-            <span class="ex-num">02</span>
-            <h3 class="ex-title">No Handoffs</h3>
-            <p class="ex-desc">Every account is assigned direct access to experienced professionals who are responsible for your file. Always accessible, they provide the personalized experience our clients rely on.</p>
-          </div>
-        </div>
-        <div class="ex-panel ex-panel--dark" data-panel="2">
-          <div class="ex-panel-inner">
-            <span class="ex-num">03</span>
-            <h3 class="ex-title">Closing Commitment</h3>
-            <p class="ex-desc">From straightforward residential deals to detailed commercial closings, we operate with one clear standard: Get it done right. Get it closed smoothly.</p>
+          <div class="ex-accordion">
+            <div class="ex-panel ex-panel--light is-active" data-panel="0">
+              <div class="ex-panel-inner">
+                <h3 class="ex-title">Superior Service</h3>
+                <p class="ex-desc">All aspects of your transaction are expertly managed from start to finish. If you value clear communication, smooth closings, and a team that takes ownership, you're in the right place.</p>
+              </div>
+            </div>
+            <div class="ex-panel ex-panel--mid" data-panel="1">
+              <div class="ex-panel-inner">
+                <h3 class="ex-title">No Handoffs</h3>
+                <p class="ex-desc">Every account is assigned direct access to experienced professionals who are responsible for your file. Always accessible, they provide the personalized experience our clients rely on.</p>
+              </div>
+            </div>
+            <div class="ex-panel ex-panel--dark" data-panel="2">
+              <div class="ex-panel-inner">
+                <h3 class="ex-title">Closing Commitment</h3>
+                <p class="ex-desc">From straightforward residential deals to detailed commercial closings, we operate with one clear standard: Get it done right. Get it closed smoothly.</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -312,10 +263,10 @@
           </h2>
 
           <ul class="team-stats">
-            <li class="reveal"><span class="stat-num"><span data-count="40">0</span><span class="stat-plus">+</span></span><span class="stat-label">Years Experience</span></li>
-            <li class="reveal"><span class="stat-label">Proven Track Record Nationwide</span></li>
-            <li class="reveal"><span class="stat-label">Experts in Complex Transactions</span></li>
-            <li class="reveal"><span class="stat-label">Supporting Clients in All 50 States</span></li>
+            <li class="reveal" data-team-idx="0"><span class="stat-num"><span data-count="40">0</span><span class="stat-plus">+</span></span><span class="stat-label">Years Experience</span></li>
+            <li class="reveal" data-team-idx="1"><span class="stat-label">Proven Track Record Nationwide</span></li>
+            <li class="reveal" data-team-idx="2"><span class="stat-label">Experts in Complex Transactions</span></li>
+            <li class="reveal" data-team-idx="3"><span class="stat-label">Supporting Clients in All 50 States</span></li>
           </ul>
         </div>
 
@@ -327,11 +278,64 @@
           </a>
           <div class="team-image reveal">
             <div class="team-image-bg"></div>
+            <img class="team-img-layer is-active" data-team-idx="0" src="Inspo/075ea1f8bdb04ae9bc88a8449a227695.jpg" alt="" />
+            <img class="team-img-layer" data-team-idx="1" src="Inspo/08ac957587de4f94dbf1f868582340b5.jpg" alt="" />
+            <img class="team-img-layer" data-team-idx="2" src="Inspo/225fcf0e93981fd780f7c75c521d9e49.jpg" alt="" />
+            <img class="team-img-layer" data-team-idx="3" src="Inspo/394b1c7b045298667b99b3035c98948e.jpg" alt="" />
             <div class="team-image-shine"></div>
             <svg class="team-chevron" aria-hidden="true"><use href="#chevron-a" fill="url(#silver)"/></svg>
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- ========== UNDERWRITERS — marquee + center circle ========== -->
+  <section class="underwriters">
+    <div class="uw-marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <img src="Logo/Logo.png" alt="Ascend" class="uw-logo" />
+        <span class="uw-slash"></span>
+        <img src="Logo/Logo.png" alt="Ascend" class="uw-logo" />
+        <span class="uw-slash"></span>
+        <img src="Logo/Logo.png" alt="Ascend" class="uw-logo" />
+        <span class="uw-slash"></span>
+        <img src="Logo/Logo.png" alt="Ascend" class="uw-logo" />
+        <span class="uw-slash"></span>
+        <img src="Logo/Logo.png" alt="Ascend" class="uw-logo" />
+        <span class="uw-slash"></span>
+        <img src="Logo/Logo.png" alt="Ascend" class="uw-logo" />
+        <span class="uw-slash"></span>
+        <img src="Logo/Logo.png" alt="Ascend" class="uw-logo" />
+        <span class="uw-slash"></span>
+        <img src="Logo/Logo.png" alt="Ascend" class="uw-logo" />
+        <span class="uw-slash"></span>
+        <!-- duplicate for seamless loop -->
+        <img src="Logo/Logo.png" alt="Ascend" class="uw-logo" />
+        <span class="uw-slash"></span>
+        <img src="Logo/Logo.png" alt="Ascend" class="uw-logo" />
+        <span class="uw-slash"></span>
+        <img src="Logo/Logo.png" alt="Ascend" class="uw-logo" />
+        <span class="uw-slash"></span>
+        <img src="Logo/Logo.png" alt="Ascend" class="uw-logo" />
+        <span class="uw-slash"></span>
+        <img src="Logo/Logo.png" alt="Ascend" class="uw-logo" />
+        <span class="uw-slash"></span>
+        <img src="Logo/Logo.png" alt="Ascend" class="uw-logo" />
+        <span class="uw-slash"></span>
+        <img src="Logo/Logo.png" alt="Ascend" class="uw-logo" />
+        <span class="uw-slash"></span>
+        <img src="Logo/Logo.png" alt="Ascend" class="uw-logo" />
+        <span class="uw-slash"></span>
+      </div>
+    </div>
+
+    <div class="uw-circle">
+      <span class="uw-text">
+        Partnered with the nation's
+        <span class="uw-pill">Leading</span>
+        title underwriters
+      </span>
     </div>
   </section>
 
@@ -356,27 +360,33 @@
 
   <!-- ========== CTA ========== -->
   <section class="cta angle-top" id="contact">
-    <div class="cta-bg" aria-hidden="true">
-      <div class="bg-image"></div>
-      <div class="bg-overlay"></div>
-      <div class="bg-shimmer"></div>
-    </div>
-    <svg class="chevron-watermark chevron-cta" aria-hidden="true">
-      <use href="#chevron-a" fill="url(#silver)"/>
-    </svg>
-    <div class="container">
-      <span class="eyebrow eyebrow-light reveal"><span class="eyebrow-dash"></span>Let's build</span>
-      <h2 class="cta-title reveal">
-        Bring your deal to the closing table with confidence and ease.
-      </h2>
-      <p class="cta-sub reveal">
-        If your transactions require precision and proactive leadership, Ascend Title was built for you. Let's get your next deal moving with a team that leads from day one.
-      </p>
-      <a href="#" class="btn btn-ghost reveal" data-magnetic>
-        <span class="btn-arrow btn-arrow-left"><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></span>
-        <span class="btn-label">Get Started</span>
-        <span class="btn-arrow btn-arrow-right"><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></span>
-      </a>
+    <div class="cta-pin">
+      <div class="cta-sticky">
+        <div class="cta-base" aria-hidden="true"></div>
+        <div class="cta-reveal" aria-hidden="true">
+          <div class="cta-bg">
+            <div class="bg-image"></div>
+            <div class="bg-overlay"></div>
+            <div class="bg-shimmer"></div>
+          </div>
+        </div>
+        <div class="cta-intro"><span>Let's Build</span></div>
+        <div class="cta-final">
+          <div class="container">
+            <h2 class="cta-title">
+              Bring your deal to the closing table with confidence and ease.
+            </h2>
+            <p class="cta-sub">
+              If your transactions require precision and proactive leadership, Ascend Title was built for you. Let's get your next deal moving with a team that leads from day one.
+            </p>
+            <a href="#" class="btn btn-ghost" data-magnetic>
+              <span class="btn-arrow btn-arrow-left"><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></span>
+              <span class="btn-label">Get Started</span>
+              <span class="btn-arrow btn-arrow-right"><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></span>
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -428,6 +438,6 @@
     </div>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=cta-v3"></script>
 </body>
 </html>
