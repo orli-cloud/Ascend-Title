@@ -29,6 +29,10 @@
   --blue-mid: #234e78;
   --blue-deep: #0e293e;
   --silver: #c9d6e5;
+  --silver-light: #e6ecf2;
+  --silver-dark: #8fa3bb;
+  --silver-grad: linear-gradient(120deg, var(--silver-dark) 0%, var(--silver-light) 45%, #fff 55%, var(--silver) 100%);
+  --silver-hairline: linear-gradient(90deg, transparent, var(--silver) 20%, var(--silver-dark) 50%, var(--silver) 80%, transparent);
 
   --ink: #0e293e;
   --ink-80: #2a3f5f;
@@ -106,8 +110,8 @@ h1, h2, h3, h4, h5, h6 { margin: 0; font-weight: 400; letter-spacing: -0.02em; }
   display: inline-block;
   width: 32px;
   height: 1px;
-  background: currentColor;
-  opacity: 0.6;
+  background: var(--silver-hairline);
+  opacity: 0.9;
 }
 .eyebrow-light { color: rgba(255,255,255,0.82); }
 
@@ -955,9 +959,9 @@ body.drawer-open { overflow: hidden; }
    ----------------------------------------------------------------- */
 .underwriters {
   position: relative;
-  background: var(--paper-warm);
+  background: var(--navy-900);
   overflow: hidden;
-  padding: 0 0 clamp(160px, 20vh, 240px);
+  padding: clamp(120px, 16vh, 200px) 0;
   isolation: isolate;
   min-height: clamp(520px, 60vh, 680px);
   display: flex;
@@ -990,7 +994,7 @@ body.drawer-open { overflow: hidden; }
   display: inline-block;
   width: 10px;
   height: 0.95em;
-  background: var(--navy-300);
+  background: rgba(255, 255, 255, 0.4);
   transform: skewX(-22deg);
   flex-shrink: 0;
 }
@@ -999,6 +1003,7 @@ body.drawer-open { overflow: hidden; }
   width: auto;
   flex-shrink: 0;
   object-fit: contain;
+  filter: brightness(0) invert(1);
 }
 
 /* Centered circle overlaying the marquee */
@@ -1208,32 +1213,51 @@ body.drawer-open { overflow: hidden; }
   display: grid;
   gap: 0;
   max-width: 480px;
-  border-top: 1px solid var(--line);
+  position: relative;
+}
+.team-stats::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: var(--silver-hairline);
+  opacity: 0.7;
 }
 .team-stats li {
   display: flex;
   align-items: baseline;
   gap: 20px;
   padding: 22px 0;
-  border-bottom: 1px solid var(--line);
+  position: relative;
   font-size: 12px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--ink-80);
   font-weight: 500;
 }
+.team-stats li::after {
+  content: "";
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: var(--silver-hairline);
+  opacity: 0.7;
+}
 .stat-num {
   display: inline-flex;
   align-items: baseline;
   gap: 2px;
   font-family: var(--serif);
-  font-size: 26px;
-  color: var(--ink);
+  font-size: 34px;
   letter-spacing: 0;
   font-weight: 400;
+  background: linear-gradient(135deg, var(--silver-dark) 0%, #fff 50%, var(--silver) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 .stat-plus {
-  color: var(--ink);
   font-weight: 400;
 }
 .team-right { position: relative; }
@@ -1337,8 +1361,11 @@ body.drawer-open { overflow: hidden; }
   font-family: var(--sans);
   font-size: 11px;
   letter-spacing: 0.18em;
-  color: var(--ink-40);
   font-weight: 500;
+  background: linear-gradient(135deg, var(--silver-dark), var(--silver) 50%, var(--silver-light));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
   transition: color 0.5s var(--ease-out);
 }
 .serve-text { transition: transform 0.5s var(--ease-out); }
@@ -1725,3 +1752,4 @@ body > section { position: relative; z-index: 2; }
   .reveal { opacity: 1; transform: none; }
   .hero-title .word { opacity: 1; transform: none; }
 }
+
