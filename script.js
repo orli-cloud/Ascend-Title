@@ -205,16 +205,25 @@
   };
 
   const heroEl = document.querySelector('.hero');
+  const isNarrow = () => window.matchMedia('(max-width: 960px)').matches;
   if (heroEl) {
     const direction = heroEl.classList.contains('hero-reverse') ? 'shrink' : 'grow';
-    if (!prefersReduced) {
-      setupHeroMorph(heroEl, direction);
-    } else {
+    const setStatic = () => {
       const image = heroEl.querySelector('.hero-image');
       const sticky = heroEl.querySelector('.hero-sticky');
-      if (image) image.style.setProperty('--s', direction === 'shrink' ? 1 : 41);
+      // Let the CSS --s value win on narrow viewports
+      if (image) image.style.removeProperty('--s');
       if (sticky) sticky.classList.add('show-sub', 'show-btn');
+    };
+    if (prefersReduced || isNarrow()) {
+      setStatic();
+    } else {
+      setupHeroMorph(heroEl, direction);
     }
+    // Reapply static state if user resizes into a narrow viewport
+    window.addEventListener('resize', () => {
+      if (isNarrow()) setStatic();
+    });
   }
 
 
@@ -363,15 +372,18 @@
     });
   }
 
-  /* ---------- Team stats hover rotates image ---------- */
+  /* ---------- Team stats hover/tap rotates image ---------- */
   const teamStats = document.querySelectorAll('.team-stats li[data-team-idx]');
   const teamImageBg = document.querySelector('.team-image-bg');
   if (teamStats.length && teamImageBg) {
+    const setTeamRot = (idx) => {
+      teamImageBg.style.setProperty('--team-rot', `${idx * 90}deg`);
+    };
     teamStats.forEach((li) => {
-      li.addEventListener('mouseenter', () => {
-        const idx = parseInt(li.dataset.teamIdx, 10) || 0;
-        teamImageBg.style.setProperty('--team-rot', `${idx * 90}deg`);
-      });
+      const idx = parseInt(li.dataset.teamIdx, 10) || 0;
+      li.addEventListener('mouseenter', () => setTeamRot(idx));
+      li.addEventListener('click', () => setTeamRot(idx));
+      li.style.cursor = 'pointer';
     });
   }
 
