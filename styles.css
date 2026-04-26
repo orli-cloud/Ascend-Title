@@ -2047,7 +2047,11 @@ body > section { position: relative; z-index: 2; }
   .hero-sub { max-width: 420px; }
 
   /* SERVICES STACK — arrow inline below text, no overlap */
-  .stack-card { padding: 36px 28px; min-height: 220px; }
+  .stack-card {
+    padding: 36px 28px;
+    min-height: 220px;
+    flex-direction: column;
+  }
   .stack-card-title { font-size: clamp(26px, 4.6vw, 36px); margin-bottom: 14px; }
   .stack-card-desc { font-size: 14.5px; }
   .stack-arrow {
@@ -2070,6 +2074,7 @@ body > section { position: relative; z-index: 2; }
   .ex-slashes {
     margin: 0 0 14px 0;
     height: 26px;
+    flex-shrink: 0;
   }
   .ex-slashes span { width: 3px; }
   .ex-title { white-space: normal; font-size: clamp(26px, 4.4vw, 36px); margin-bottom: 14px; }
@@ -2128,7 +2133,7 @@ body > section { position: relative; z-index: 2; }
   .cta-title { font-size: clamp(26px, 7.2vw, 38px); }
   .cta-final { padding: 0 var(--pad-x); }
 
-  .footer-brand-word { font-size: 28vw; }
+  .footer-brand-word { font-size: 22vw; letter-spacing: -0.04em; }
   .footer-content { padding: 30px var(--pad-x) 50px; }
   .footer-heading { font-size: clamp(28px, 7vw, 38px); }
 
