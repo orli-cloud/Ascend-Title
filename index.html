@@ -61,14 +61,10 @@
 
         <ul class="drawer-contacts">
           <li>
-            <a href="tel:7189878543" class="drawer-value">718.987.8543
-              <svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg>
-            </a>
+            <a href="tel:7189878543" class="drawer-value"><span class="drawer-link-text">718.987.8543</span></a>
           </li>
           <li>
-            <a href="mailto:info@ascendtitle.com" class="drawer-value">info@ascendtitle.com
-              <svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg>
-            </a>
+            <a href="mailto:info@ascendtitle.com" class="drawer-value"><span class="drawer-link-text">info@ascendtitle.com</span></a>
           </li>
           <li>
             <span class="drawer-value drawer-value-static">
@@ -140,78 +136,57 @@
     </div>
   </section>
 
-  <!-- ========== SERVICES ========== -->
-  <section class="services" id="services">
+  <!-- ========== SERVICES (sticky stacked cards) ========== -->
+  <section class="services-stack" id="services">
     <div class="container">
-      <ul class="service-list">
-        <li class="service-row reveal">
-          <span class="service-num">01</span>
-          <div class="service-body">
-            <h3 class="service-title">Commercial Services</h3>
-            <p class="service-desc">Our team brings unmatched experience in commercial real estate, navigating the complexities of property law and intricate transactions to ensure every deal closes without complications.</p>
+      <div class="stack-list">
+        <article class="stack-card" style="--i:0">
+          <div class="stack-body">
+            <h3 class="stack-card-title">Commercial Services</h3>
+            <p class="stack-card-desc">Our team brings unmatched experience in commercial real estate, navigating the complexities of property law and intricate transactions to ensure every deal closes without complications.</p>
           </div>
-          <span class="service-arrow">
-            <svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg>
-          </span>
-        </li>
-        <li class="service-row reveal">
-          <span class="service-num">02</span>
-          <div class="service-body">
-            <h3 class="service-title">Residential Services</h3>
-            <p class="service-desc">From first homes to seasoned investments, we guide every residential transaction with expert clarity, deep knowledge, and a focus on protecting your interests at every turn.</p>
-          </div>
-          <span class="service-arrow">
-            <svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg>
-          </span>
-        </li>
-        <li class="service-row reveal">
-          <span class="service-num">03</span>
-          <div class="service-body">
-            <h3 class="service-title">National Services</h3>
-            <p class="service-desc">Our team leverages deep knowledge of local laws and regulations across all 50 states, adapting seamlessly to each jurisdiction. With years of experience handling transactions nationwide, we manage every detail, ensuring smooth, reliable closings across the country.</p>
-          </div>
-          <span class="service-arrow">
-            <svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg>
-          </span>
-        </li>
-        <li class="service-row reveal">
-          <span class="service-num">04</span>
-          <div class="service-body">
-            <h3 class="service-title">Closing Services</h3>
-            <p class="service-desc">Our team prepares the closing documents required for a smooth closing, handling all essential paperwork to ensure your transaction reaches the closing table efficiently and without delays.</p>
-          </div>
-          <span class="service-arrow">
-            <svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg>
-          </span>
-        </li>
-        <li class="service-row reveal">
-          <span class="service-num">05</span>
-          <div class="service-body">
-            <h3 class="service-title">Full Escrow Services</h3>
-            <p class="service-desc">Acting as a trusted neutral third party, we securely manage documents and funds, preparing closing statements and distributing proceeds precisely according to lender, purchaser, and seller instructions.</p>
-          </div>
-          <span class="service-arrow">
-            <svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg>
-          </span>
-        </li>
-        <li class="service-row reveal">
-          <span class="service-num">06</span>
-          <div class="service-body">
-            <h3 class="service-title">Complete Transaction Management</h3>
-            <p class="service-desc">From title searches and surveys to settlements and recordings, we coordinate every step of the title process with precision, keeping your transaction organized, efficient, and moving steadily toward closing.</p>
-          </div>
-          <span class="service-arrow">
-            <svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg>
-          </span>
-        </li>
-      </ul>
+          <span class="stack-arrow"><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></span>
+        </article>
 
-      <div class="services-cta reveal">
-        <a href="#" class="btn btn-outline" data-magnetic>
-          <span class="btn-arrow btn-arrow-left"><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></span>
-          <span class="btn-label">View All Services</span>
-          <span class="btn-arrow btn-arrow-right"><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></span>
-        </a>
+        <article class="stack-card" style="--i:1">
+          <div class="stack-body">
+            <h3 class="stack-card-title">Residential Services</h3>
+            <p class="stack-card-desc">From first homes to seasoned investments, we guide every residential transaction with expert clarity, deep knowledge, and a focus on protecting your interests at every turn.</p>
+          </div>
+          <span class="stack-arrow"><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></span>
+        </article>
+
+        <article class="stack-card" style="--i:2">
+          <div class="stack-body">
+            <h3 class="stack-card-title">National Services</h3>
+            <p class="stack-card-desc">Our team leverages deep knowledge of local laws and regulations across all 50 states, adapting seamlessly to each jurisdiction. With years of experience handling transactions nationwide, we manage every detail, ensuring smooth, reliable closings across the country.</p>
+          </div>
+          <span class="stack-arrow"><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></span>
+        </article>
+
+        <article class="stack-card" style="--i:3">
+          <div class="stack-body">
+            <h3 class="stack-card-title">Closing Services</h3>
+            <p class="stack-card-desc">Our team prepares the closing documents required for a smooth closing, handling all essential paperwork to ensure your transaction reaches the closing table efficiently and without delays.</p>
+          </div>
+          <span class="stack-arrow"><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></span>
+        </article>
+
+        <article class="stack-card" style="--i:4">
+          <div class="stack-body">
+            <h3 class="stack-card-title">Full Escrow Services</h3>
+            <p class="stack-card-desc">Acting as a trusted neutral third party, we securely manage documents and funds, preparing closing statements and distributing proceeds precisely according to lender, purchaser, and seller instructions.</p>
+          </div>
+          <span class="stack-arrow"><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></span>
+        </article>
+
+        <article class="stack-card" style="--i:5">
+          <div class="stack-body">
+            <h3 class="stack-card-title">Complete Transaction Management</h3>
+            <p class="stack-card-desc">From title searches and surveys to settlements and recordings, we coordinate every step of the title process with precision, keeping your transaction organized, efficient, and moving steadily toward closing.</p>
+          </div>
+          <span class="stack-arrow"><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></span>
+        </article>
       </div>
     </div>
   </section>
@@ -263,7 +238,7 @@
           </h2>
 
           <ul class="team-stats">
-            <li class="reveal" data-team-idx="0"><span class="stat-num"><span data-count="40">0</span><span class="stat-plus">+</span></span><span class="stat-label">Years Experience</span></li>
+            <li class="reveal" data-team-idx="0"><span class="stat-label">40+ Years Experience</span></li>
             <li class="reveal" data-team-idx="1"><span class="stat-label">Proven Track Record Nationwide</span></li>
             <li class="reveal" data-team-idx="2"><span class="stat-label">Experts in Complex Transactions</span></li>
             <li class="reveal" data-team-idx="3"><span class="stat-label">Supporting Clients in All 50 States</span></li>
@@ -281,25 +256,6 @@
             <div class="team-image-shine"></div>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========== WHO WE SERVE ========== -->
-  <section class="serve">
-    <div class="container">
-      <div class="serve-grid">
-        <div class="serve-left">
-          <span class="eyebrow reveal"><span class="eyebrow-dash"></span>Who We Serve</span>
-          <h2 class="serve-title reveal">Built for the professionals behind every serious deal.</h2>
-        </div>
-        <ul class="serve-list">
-          <li class="reveal"><span class="serve-marker">01</span><span class="serve-text">Commercial Developers</span><svg class="arrow-ic serve-arrow" aria-hidden="true"><use href="#arrow"/></svg></li>
-          <li class="reveal"><span class="serve-marker">02</span><span class="serve-text">Real Estate Investors</span><svg class="arrow-ic serve-arrow" aria-hidden="true"><use href="#arrow"/></svg></li>
-          <li class="reveal"><span class="serve-marker">03</span><span class="serve-text">Brokers and Agents</span><svg class="arrow-ic serve-arrow" aria-hidden="true"><use href="#arrow"/></svg></li>
-          <li class="reveal"><span class="serve-marker">04</span><span class="serve-text">Lenders</span><svg class="arrow-ic serve-arrow" aria-hidden="true"><use href="#arrow"/></svg></li>
-          <li class="reveal"><span class="serve-marker">05</span><span class="serve-text">Attorneys</span><svg class="arrow-ic serve-arrow" aria-hidden="true"><use href="#arrow"/></svg></li>
-        </ul>
       </div>
     </div>
   </section>
@@ -344,12 +300,24 @@
       </div>
     </div>
 
-    <div class="uw-circle">
-      <span class="uw-text">
-        Partnered with the nation's
-        <span class="uw-pill">Leading</span>
-        title underwriters
-      </span>
+  </section>
+
+  <!-- ========== WHO WE SERVE ========== -->
+  <section class="serve">
+    <div class="container">
+      <div class="serve-grid">
+        <div class="serve-left">
+          <span class="eyebrow reveal"><span class="eyebrow-dash"></span>Who We Serve</span>
+          <h2 class="serve-title reveal">Built for the professionals behind every serious deal.</h2>
+        </div>
+        <ul class="serve-list">
+          <li class="reveal serve-from-right" data-stagger="0"><span class="serve-text">Commercial Developers</span><svg class="arrow-ic serve-arrow" aria-hidden="true"><use href="#arrow"/></svg></li>
+          <li class="reveal serve-from-right" data-stagger="1"><span class="serve-text">Real Estate Investors</span><svg class="arrow-ic serve-arrow" aria-hidden="true"><use href="#arrow"/></svg></li>
+          <li class="reveal serve-from-right" data-stagger="2"><span class="serve-text">Brokers and Agents</span><svg class="arrow-ic serve-arrow" aria-hidden="true"><use href="#arrow"/></svg></li>
+          <li class="reveal serve-from-right" data-stagger="3"><span class="serve-text">Lenders</span><svg class="arrow-ic serve-arrow" aria-hidden="true"><use href="#arrow"/></svg></li>
+          <li class="reveal serve-from-right" data-stagger="4"><span class="serve-text">Attorneys</span><svg class="arrow-ic serve-arrow" aria-hidden="true"><use href="#arrow"/></svg></li>
+        </ul>
+      </div>
     </div>
   </section>
 

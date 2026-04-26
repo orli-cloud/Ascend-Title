@@ -292,14 +292,18 @@
     const ctaBtn = ctaFinal.querySelector('.btn');
     const updateCta = () => {
       const rect = ctaPin.getBoundingClientRect();
-      const total = ctaPin.offsetHeight - window.innerHeight;
-      const raw = total > 0 ? Math.max(0, Math.min(1, -rect.top / total)) : 0;
+      const vh = window.innerHeight;
+      // Serve covers cta for 1.0vh (pull-up), then 0.3vh of "let's build pinned, no animation"
+      const offset = vh * 1.3;
+      const total = ctaPin.offsetHeight - vh - offset;
+      const raw = total > 0 ? Math.max(0, Math.min(1, (-rect.top - offset) / total)) : 0;
       const mainRaw = Math.min(1, raw / 0.70);
       const peelRaw = Math.max(0, Math.min(1, (raw - 0.75) / 0.25));
-      const scaleIn = Math.min(1, Math.max(0, mainRaw / 0.10));
+      // Reveal-phase scale: grow tiny→full faster than the curtain (reaches 1.0 at ~60% of Serve scroll)
+      const revealRaw = Math.max(0, Math.min(1, -rect.top / (vh * 0.6)));
+      const scale = 0.12 + revealRaw * 0.88;
       const slideT = Math.min(1, Math.max(0, (mainRaw - 0.10) / 0.15));
       const fadeOut = Math.max(0, Math.min(1, (mainRaw - 0.45) / 0.13));
-      const scale = 0.4 + scaleIn * 0.6;
       const tx = -slideT * 22;
       ctaSticky.style.setProperty('--intro-x', `${tx}vw`);
       ctaSticky.style.setProperty('--intro-s', scale.toFixed(3));
@@ -422,5 +426,49 @@
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && drawer.classList.contains('is-open')) closeDrawer();
     });
+  }
+
+  /* ---------- Stacked cards: skew on scroll-into-place ---------- */
+  const stackCards = document.querySelectorAll('.stack-card');
+  if (stackCards.length && !prefersReduced) {
+    let stackPending = false;
+    const updateStackSkew = () => {
+      const vh = window.innerHeight;
+      const trigger = vh * 0.55;
+      stackCards.forEach((card) => {
+        const top = card.getBoundingClientRect().top;
+        card.classList.toggle('is-skewed', top <= trigger);
+      });
+    };
+    updateStackSkew();
+    window.addEventListener('scroll', () => {
+      if (stackPending) return;
+      stackPending = true;
+      requestAnimationFrame(() => { updateStackSkew(); stackPending = false; });
+    }, { passive: true });
+    window.addEventListener('resize', updateStackSkew);
+  }
+
+  /* ---------- Excellence → Team background fade ---------- */
+  const excellenceEl = document.querySelector('.excellence');
+  const teamEl = document.querySelector('.team');
+  if (excellenceEl && teamEl) {
+    let bgRaf = false;
+    const updateBgFade = () => {
+      const vh = window.innerHeight;
+      const teamTop = teamEl.getBoundingClientRect().top;
+      const start = vh * 1.05;
+      const end = vh * 0.85;
+      const t = Math.max(0, Math.min(1, (start - teamTop) / (start - end)));
+      excellenceEl.style.setProperty('--ex-bg-fade', t.toFixed(3));
+    };
+    const onScrollBg = () => {
+      if (bgRaf) return;
+      bgRaf = true;
+      requestAnimationFrame(() => { updateBgFade(); bgRaf = false; });
+    };
+    updateBgFade();
+    window.addEventListener('scroll', onScrollBg, { passive: true });
+    window.addEventListener('resize', updateBgFade);
   }
 })();
