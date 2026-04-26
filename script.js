@@ -428,25 +428,65 @@
     });
   }
 
-  /* ---------- Stacked cards: skew on scroll-into-place ---------- */
+  /* ---------- Team image bg: size to container diagonal so any rotation covers ---------- */
+  const teamImageEl = document.querySelector('.team-image');
+  const teamImageBgEl = document.querySelector('.team-image-bg');
+  if (teamImageEl && teamImageBgEl) {
+    const updateTeamBgSize = () => {
+      const w = teamImageEl.offsetWidth;
+      const h = teamImageEl.offsetHeight;
+      if (!w || !h) return;
+      const diag = Math.sqrt(w * w + h * h);
+      const size = Math.ceil(diag * 1.05);
+      teamImageBgEl.style.width = `${size}px`;
+      teamImageBgEl.style.height = `${size}px`;
+      teamImageBgEl.style.left = `${(w - size) / 2}px`;
+      teamImageBgEl.style.top = `${(h - size) / 2}px`;
+    };
+    updateTeamBgSize();
+    if ('ResizeObserver' in window) {
+      new ResizeObserver(updateTeamBgSize).observe(teamImageEl);
+    } else {
+      window.addEventListener('resize', updateTeamBgSize);
+    }
+  }
+
+  /* ---------- Stacked cards: shrink as next card stacks over ---------- */
   const stackCards = document.querySelectorAll('.stack-card');
   if (stackCards.length && !prefersReduced) {
     let stackPending = false;
-    const updateStackSkew = () => {
+    const updateStackShrink = () => {
       const vh = window.innerHeight;
-      const trigger = vh * 0.55;
-      stackCards.forEach((card) => {
+      const cardArr = Array.from(stackCards);
+      let activeIndex = 0;
+      cardArr.forEach((card, i) => {
+        const cardStickyTop = vh * 0.14 + i * 22;
+        const next = cardArr[i + 1];
+        if (!next) {
+          card.style.setProperty('--shrink', '0');
+        } else {
+          // As the next card's top approaches its sticky position, shrink this one
+          const nextStickyTop = vh * 0.14 + (i + 1) * 22;
+          const nextTop = next.getBoundingClientRect().top;
+          const enterStart = vh * 0.85;
+          const t = Math.max(0, Math.min(1, (enterStart - nextTop) / (enterStart - nextStickyTop)));
+          card.style.setProperty('--shrink', t.toFixed(3));
+        }
+        // Track the topmost card that has reached its own sticky position
         const top = card.getBoundingClientRect().top;
-        card.classList.toggle('is-skewed', top <= trigger);
+        if (top <= cardStickyTop + 8) activeIndex = i;
+      });
+      cardArr.forEach((card, i) => {
+        card.classList.toggle('is-active', i === activeIndex);
       });
     };
-    updateStackSkew();
+    updateStackShrink();
     window.addEventListener('scroll', () => {
       if (stackPending) return;
       stackPending = true;
-      requestAnimationFrame(() => { updateStackSkew(); stackPending = false; });
+      requestAnimationFrame(() => { updateStackShrink(); stackPending = false; });
     }, { passive: true });
-    window.addEventListener('resize', updateStackSkew);
+    window.addEventListener('resize', updateStackShrink);
   }
 
   /* ---------- Excellence → Team background fade ---------- */
