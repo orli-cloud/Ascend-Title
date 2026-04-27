@@ -1441,8 +1441,8 @@ body.drawer-open { overflow: hidden; }
 .team-image-bg {
   position: absolute;
   /* width/height/left/top set by JS to match container diagonal so any rotation covers */
-  background: url('background.jpg') center / cover no-repeat;
-  background-color: var(--navy-800);
+  background: url('Elements/freepik_2866387390.png') center / cover no-repeat;
+  background-color: #c9d6e5;
   --team-rot: 0deg;
   transform: rotate(var(--team-rot));
   transition: transform 0.9s var(--ease-out-soft);
