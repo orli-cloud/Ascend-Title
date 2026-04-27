@@ -567,8 +567,7 @@
 
   /* ---------- Team image parallax ---------- */
   const teamImage = document.querySelector('.team-image');
-  const teamBg = document.querySelector('.team-image-bg');
-  if (teamImage && teamBg && !prefersReduced) {
+  if (teamImage && !prefersReduced) {
     let pRaf = false;
     const updateTeamParallax = () => {
       const rect = teamImage.getBoundingClientRect();
@@ -579,10 +578,10 @@
       const clamped = Math.max(0, Math.min(1, progress));
       // Pan the visible window UP through the photo as the rectangle
       // scrolls past — bgy goes from 50% (lower body in view) to 0%
-      // (heads/upper body in view). Photo appears to rise within the
-      // rectangle, the classic "lagging" parallax direction.
+      // (heads/upper body in view). Set on the parent so both the bg
+      // photo and the cutout layer share identical positioning.
       const py = (1 - clamped) * 50;
-      teamBg.style.setProperty('--bgy', `${py.toFixed(1)}%`);
+      teamImage.style.setProperty('--bgy', `${py.toFixed(1)}%`);
     };
     updateTeamParallax();
     window.addEventListener('scroll', () => {

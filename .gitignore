@@ -11,6 +11,7 @@
 # Internal reference materials (not used by the site)
 Bios/*
 !Bios/Team 3.png
+!Bios/team isolated.png
 Inspo/
 Images/
 Logo/Branding/*.pdf

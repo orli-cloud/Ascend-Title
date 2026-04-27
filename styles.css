@@ -1470,17 +1470,39 @@ body.drawer-open { overflow: hidden; }
   overflow: hidden;
   isolation: isolate;
 }
-.team-image-bg {
+.team-image-bg,
+.team-image-cutout {
   position: absolute;
   inset: 0;
-  background-image: url('Bios/Team%203.png');
   background-size: cover;
   background-repeat: no-repeat;
-  /* Anchored at top-center so the heads never get cropped.
-     Vertical pan parallax is driven by --bgy (set in JS): the visible
-     "window" slides down through the image as the rectangle scrolls. */
+  /* Both layers share the same parallax pan (var --bgy is set on the
+     parent .team-image by JS) so the cutout stays exactly registered
+     with the photo as it scrolls. */
   background-position: center var(--bgy, 0%);
   will-change: background-position;
+}
+.team-image-bg {
+  background-image: url('Bios/Team%203.png');
+  z-index: 0;
+}
+/* Slant sandwich: between bg photo (z:0) and cutout (z:2), so it appears
+   to sweep through the picture *behind* the people. */
+.team-image-slant {
+  position: absolute;
+  top: -10%;
+  bottom: -10%;
+  width: 18%;
+  left: -25%;
+  background: rgba(255, 255, 255, 0.22);
+  transform: skewX(-12deg);
+  pointer-events: none;
+  z-index: 1;
+  animation: team-slant-sweep 7s linear infinite;
+}
+.team-image-cutout {
+  background-image: url('Bios/team%20isolated.png');
+  z-index: 2;
 }
 .team-image-shine {
   position: absolute; inset: 0;
@@ -1488,7 +1510,14 @@ body.drawer-open { overflow: hidden; }
   transform: translateX(-100%);
   animation: shimmer 7s ease-in-out infinite;
   animation-delay: 3s;
-  z-index: 2;
+  z-index: 3;
+}
+@keyframes team-slant-sweep {
+  0%   { left: -25%; }
+  100% { left: 110%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .team-image-slant { animation: none; opacity: 0; }
 }
 .team-chevron {
   position: absolute;
@@ -1536,11 +1565,8 @@ body.drawer-open { overflow: hidden; }
   border-top: 1px solid rgba(255, 255, 255, 0.22);
 }
 .serve-list li {
-  display: grid;
-  grid-template-columns: 1fr 32px;
-  gap: 24px;
-  align-items: center;
-  padding: 28px 24px 28px 0;
+  display: block;
+  padding: 28px 0;
   font-family: var(--serif);
   font-size: clamp(22px, 2.2vw, 30px);
   line-height: 1.2;
@@ -1549,7 +1575,7 @@ body.drawer-open { overflow: hidden; }
   border-bottom: 1px solid rgba(255, 255, 255, 0.22);
   position: relative;
   overflow: hidden;
-  transition: padding-left 0.5s var(--ease-out), color 0.5s var(--ease-out);
+  transition: color 0.5s var(--ease-out);
 }
 .serve-list li.serve-from-right {
   opacity: 0;
@@ -1574,10 +1600,11 @@ body.drawer-open { overflow: hidden; }
   transition: width 0.6s var(--ease-expo);
   clip-path: polygon(0 0, 100% 0, calc(100% - 20px) 100%, 0 100%);
 }
-.serve-list li:hover { padding-left: 24px; color: #fff; }
+.serve-list li:hover { color: #fff; }
 .serve-list li:hover::before { width: calc(100% + 20px); }
 .serve-list li:hover .serve-marker { color: rgba(255,255,255,0.55); }
-.serve-list li:hover .serve-arrow { color: #fff; opacity: 1; transform: translateX(0); }
+.serve-list li:hover .serve-icon { opacity: 1; transform: translate(0, -50%); }
+.serve-list li:hover .serve-text { transform: translateX(70px); }
 .serve-marker {
   font-family: var(--sans);
   font-size: 11px;
@@ -1589,19 +1616,22 @@ body.drawer-open { overflow: hidden; }
   color: transparent;
   transition: color 0.5s var(--ease-out);
 }
-.serve-text { transition: transform 0.5s var(--ease-out); }
-.serve-list li:hover .serve-text { transform: translateX(6px); }
-.serve-arrow {
-  color: #fff;
-  opacity: 0;
-  transform: translateX(-10px);
-  transition: transform 0.5s var(--ease-out), opacity 0.4s ease, color 0.5s;
+.serve-text {
+  display: inline-block;
+  transition: transform 0.5s var(--ease-out);
 }
 .serve-icon {
+  position: absolute;
+  left: 24px;
+  top: 50%;
   width: 30px;
   height: 30px;
-  align-self: center;
-  justify-self: end;
+  color: #fff;
+  opacity: 0;
+  /* translateY(-50%) keeps it vertically centered;
+     translateX(-18px) is the hidden start position. */
+  transform: translate(-18px, -50%);
+  transition: transform 0.5s var(--ease-out), opacity 0.5s var(--ease-out), color 0.5s;
 }
 
 /* -----------------------------------------------------------------
