@@ -1384,9 +1384,9 @@ body.drawer-open { overflow: hidden; }
 .team-stats {
   display: grid;
   gap: 0;
-  max-width: 480px;
   position: relative;
 }
+.team-stats li .stat-label { white-space: nowrap; }
 .team-stats::before {
   content: "";
   position: absolute;
