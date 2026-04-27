@@ -1473,10 +1473,14 @@ body.drawer-open { overflow: hidden; }
 .team-image-bg {
   position: absolute;
   inset: 0;
-  /* The bg is locked to the viewport, so as the page scrolls the .team-image
-     rectangle moves over a stationary navy image — like a window. */
-  background: url('background.jpg') center / cover no-repeat fixed;
-  background-color: var(--navy-800);
+  background-image: url('Bios/Team%203.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  /* Anchored at top-center so the heads never get cropped.
+     Vertical pan parallax is driven by --bgy (set in JS): the visible
+     "window" slides down through the image as the rectangle scrolls. */
+  background-position: center var(--bgy, 0%);
+  will-change: background-position;
 }
 .team-image-shine {
   position: absolute; inset: 0;

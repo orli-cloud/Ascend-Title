@@ -9,7 +9,8 @@
 *.fig
 
 # Internal reference materials (not used by the site)
-Bios/
+Bios/*
+!Bios/Team 3.png
 Inspo/
 Images/
 Logo/Branding/*.pdf

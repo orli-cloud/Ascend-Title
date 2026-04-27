@@ -564,4 +564,32 @@
     window.addEventListener('scroll', onScrollBg, { passive: true });
     window.addEventListener('resize', updateBgFade);
   }
+
+  /* ---------- Team image parallax ---------- */
+  const teamImage = document.querySelector('.team-image');
+  const teamBg = document.querySelector('.team-image-bg');
+  if (teamImage && teamBg && !prefersReduced) {
+    let pRaf = false;
+    const updateTeamParallax = () => {
+      const rect = teamImage.getBoundingClientRect();
+      const vh = window.innerHeight;
+      // 0 when the rectangle's top hits the bottom of the viewport,
+      // 1 when its bottom hits the top — full pass-through range.
+      const progress = (vh - rect.top) / (vh + rect.height);
+      const clamped = Math.max(0, Math.min(1, progress));
+      // Pan the visible window UP through the photo as the rectangle
+      // scrolls past — bgy goes from 50% (lower body in view) to 0%
+      // (heads/upper body in view). Photo appears to rise within the
+      // rectangle, the classic "lagging" parallax direction.
+      const py = (1 - clamped) * 50;
+      teamBg.style.setProperty('--bgy', `${py.toFixed(1)}%`);
+    };
+    updateTeamParallax();
+    window.addEventListener('scroll', () => {
+      if (pRaf) return;
+      pRaf = true;
+      requestAnimationFrame(() => { updateTeamParallax(); pRaf = false; });
+    }, { passive: true });
+    window.addEventListener('resize', updateTeamParallax);
+  }
 })();
