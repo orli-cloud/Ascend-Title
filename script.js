@@ -291,30 +291,60 @@
     }
   }
 
-  /* ---------- CTA title — split into letter spans for staggered entrance ---------- */
-  const ctaTitleSplit = document.querySelector('.cta-title');
-  if (ctaTitleSplit && !ctaTitleSplit.dataset.charsplit) {
-    ctaTitleSplit.dataset.charsplit = '1';
-    const text = ctaTitleSplit.textContent;
-    ctaTitleSplit.innerHTML = '';
+  /* ---------- Char-split helper: turn a node's text into per-letter spans, preserving <br> ---------- */
+  const splitIntoChars = (el, charClass, wordClass) => {
+    if (!el || el.dataset.charsplit) return 0;
+    el.dataset.charsplit = '1';
+    const nodes = Array.from(el.childNodes);
+    el.innerHTML = '';
     let idx = 0;
-    text.split(/(\s+)/).forEach((seg) => {
-      if (!seg) return;
-      if (/^\s+$/.test(seg)) {
-        ctaTitleSplit.appendChild(document.createTextNode(' '));
-      } else {
-        const wordSpan = document.createElement('span');
-        wordSpan.className = 'cta-word';
-        seg.split('').forEach((c) => {
-          const letter = document.createElement('span');
-          letter.className = 'cta-char';
-          letter.style.setProperty('--i', idx++);
-          letter.textContent = c;
-          wordSpan.appendChild(letter);
+    nodes.forEach((node) => {
+      if (node.nodeType === Node.TEXT_NODE) {
+        const text = node.nodeValue || '';
+        text.split(/(\s+)/).forEach((seg) => {
+          if (!seg) return;
+          if (/^\s+$/.test(seg)) {
+            el.appendChild(document.createTextNode(' '));
+          } else {
+            const wordSpan = document.createElement('span');
+            wordSpan.className = wordClass;
+            seg.split('').forEach((c) => {
+              const letter = document.createElement('span');
+              letter.className = charClass;
+              letter.style.setProperty('--i', idx++);
+              letter.textContent = c;
+              wordSpan.appendChild(letter);
+            });
+            el.appendChild(wordSpan);
+          }
         });
-        ctaTitleSplit.appendChild(wordSpan);
+      } else if (node.nodeName === 'BR') {
+        el.appendChild(node.cloneNode());
+      } else {
+        el.appendChild(node.cloneNode(true));
       }
     });
+    return idx;
+  };
+
+  /* ---------- Hero title — letter-by-letter entrance on load ---------- */
+  const heroTitleSplit = document.querySelector('.hero-title');
+  if (heroTitleSplit) {
+    splitIntoChars(heroTitleSplit, 'hero-char', 'hero-word');
+    if (!prefersReduced) {
+      // Trigger on next frame so letter transitions can run
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => heroTitleSplit.classList.add('show'));
+      });
+    } else {
+      heroTitleSplit.classList.add('show');
+    }
+  }
+
+  /* ---------- CTA title — split into letter spans for staggered entrance ---------- */
+  const ctaTitleSplit = document.querySelector('.cta-title');
+  if (ctaTitleSplit) {
+    splitIntoChars(ctaTitleSplit, 'cta-char', 'cta-word');
     if ('IntersectionObserver' in window) {
       const io = new IntersectionObserver((entries) => {
         entries.forEach((e) => {
