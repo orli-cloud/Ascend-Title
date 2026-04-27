@@ -1950,6 +1950,16 @@ body > section { position: relative; z-index: 2; }
   opacity: 1;
   transform: translateY(0);
 }
+/* Opacity-only reveal — no transform, so descendants can use
+   background-attachment: fixed (a transformed ancestor would otherwise
+   anchor the fixed bg to that ancestor instead of the viewport). */
+.reveal.reveal-no-shift,
+.reveal.reveal-no-shift.in-view {
+  transform: none;
+  transition: opacity 0.9s var(--ease-out);
+}
+.reveal.reveal-no-shift { opacity: 0; }
+.reveal.reveal-no-shift.in-view { opacity: 1; }
 
 /* -----------------------------------------------------------------
    Responsive
