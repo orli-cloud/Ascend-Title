@@ -2006,7 +2006,7 @@ body > section { position: relative; z-index: 2; }
    ----------------------------------------------------------------- */
 .page-404 .hero { height: 100vh; }
 .page-404 .footer { position: relative; }
-.page-404 .hero-image { --s: 0.55; }
+.page-404 .hero-image { --s: 0.85; }
 
 .hero-404-stage {
   position: relative;
