@@ -462,7 +462,7 @@ body.has-scroll-cursor .cursor-dot { opacity: 0 !important; }
   top: 0;
   right: 0;
   /* Content area + slant + small safety buffer */
-  width: calc(380px + 22vh);
+  width: calc(300px + 22vh);
   max-width: 94vw;
   height: 100%;
   background: #2B4E75;
@@ -1376,6 +1376,7 @@ body.drawer-open { overflow: hidden; }
   margin-bottom: 16px;
 }
 .team-header-row .eyebrow { margin-bottom: 0; }
+.team .eyebrow-dash { background: rgba(14, 41, 62, 0.55); }
 .team-cta { background: #fff; }
 .team-grid {
   display: grid;
