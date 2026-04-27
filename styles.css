@@ -2085,9 +2085,10 @@ body > section { position: relative; z-index: 2; }
   .uw-slash { width: 4px; height: 26px; }
   .marquee-track { gap: 36px; }
 
-  /* CTA — kill curtain reveal on tablet/mobile, show as normal section */
-  .cta { margin-top: 0; z-index: 1; }
-  .serve { z-index: auto; }
+  /* CTA — kill curtain reveal on tablet/mobile, show as normal section.
+     z-index: 2 keeps both above the position: fixed footer. */
+  .cta { margin-top: 0; z-index: 2; }
+  .serve { z-index: 2; }
   .cta-final {
     padding: 0 var(--pad-x);
   }
