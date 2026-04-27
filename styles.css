@@ -1494,11 +1494,11 @@ body.drawer-open { overflow: hidden; }
   bottom: -10%;
   width: 18%;
   left: -25%;
-  background: rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.42);
   transform: skewX(-12deg);
   pointer-events: none;
   z-index: 1;
-  animation: team-slant-sweep 7s linear infinite;
+  animation: team-slant-sweep 4s linear infinite;
 }
 .team-image-cutout {
   background-image: url('Bios/team%20isolated.png');
