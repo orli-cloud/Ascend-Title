@@ -544,9 +544,15 @@
     const updateBgFade = () => {
       const vh = window.innerHeight;
       const teamTop = teamEl.getBoundingClientRect().top;
-      const start = vh * 1.05;
-      const end = vh * 0.85;
-      const t = Math.max(0, Math.min(1, (start - teamTop) / (start - end)));
+      const start = vh * 0.98;
+      const end = vh * 0.90;
+      const raw = Math.max(0, Math.min(1, (start - teamTop) / (start - end)));
+      // Steep S-curve: t stays near 0 (cream) or 1 (navy) for most of the
+      // window and rockets through 0.5 — so the grey color-mix midpoint
+      // is only visible for a sliver of scroll, not a long fade.
+      const t = raw < 0.5
+        ? Math.pow(raw * 2, 6) * 0.5
+        : 1 - Math.pow((1 - raw) * 2, 6) * 0.5;
       excellenceEl.style.setProperty('--ex-bg-fade', t.toFixed(3));
     };
     const onScrollBg = () => {
