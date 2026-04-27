@@ -1537,10 +1537,10 @@ body.drawer-open { overflow: hidden; }
 }
 .serve-list li {
   display: grid;
-  grid-template-columns: 1fr 30px;
+  grid-template-columns: 1fr 32px;
   gap: 24px;
   align-items: center;
-  padding: 28px 0 28px 0;
+  padding: 28px 24px 28px 0;
   font-family: var(--serif);
   font-size: clamp(22px, 2.2vw, 30px);
   line-height: 1.2;
@@ -1596,6 +1596,12 @@ body.drawer-open { overflow: hidden; }
   opacity: 0;
   transform: translateX(-10px);
   transition: transform 0.5s var(--ease-out), opacity 0.4s ease, color 0.5s;
+}
+.serve-icon {
+  width: 30px;
+  height: 30px;
+  align-self: center;
+  justify-self: end;
 }
 
 /* -----------------------------------------------------------------
