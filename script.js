@@ -291,6 +291,45 @@
     }
   }
 
+  /* ---------- CTA title — split into letter spans for staggered entrance ---------- */
+  const ctaTitleSplit = document.querySelector('.cta-title');
+  if (ctaTitleSplit && !ctaTitleSplit.dataset.charsplit) {
+    ctaTitleSplit.dataset.charsplit = '1';
+    const text = ctaTitleSplit.textContent;
+    ctaTitleSplit.innerHTML = '';
+    let idx = 0;
+    text.split(/(\s+)/).forEach((seg) => {
+      if (!seg) return;
+      if (/^\s+$/.test(seg)) {
+        ctaTitleSplit.appendChild(document.createTextNode(' '));
+      } else {
+        const wordSpan = document.createElement('span');
+        wordSpan.className = 'cta-word';
+        seg.split('').forEach((c) => {
+          const letter = document.createElement('span');
+          letter.className = 'cta-char';
+          letter.style.setProperty('--i', idx++);
+          letter.textContent = c;
+          wordSpan.appendChild(letter);
+        });
+        ctaTitleSplit.appendChild(wordSpan);
+      }
+    });
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            ctaTitleSplit.classList.add('show');
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.25 });
+      io.observe(ctaTitleSplit);
+    } else {
+      ctaTitleSplit.classList.add('show');
+    }
+  }
+
   /* ---------- CTA scroll intro (grow in → shift + slant → slant fills → content) ---------- */
   const ctaPin = document.querySelector('.cta-pin');
   const ctaSticky = document.querySelector('.cta-sticky');
