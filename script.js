@@ -441,20 +441,8 @@
     });
   }
 
-  /* ---------- Team stats hover/tap rotates image ---------- */
-  const teamStats = document.querySelectorAll('.team-stats li[data-team-idx]');
-  const teamImageBg = document.querySelector('.team-image-bg');
-  if (teamStats.length && teamImageBg) {
-    const setTeamRot = (idx) => {
-      teamImageBg.style.setProperty('--team-rot', `${idx * 90}deg`);
-    };
-    teamStats.forEach((li) => {
-      const idx = parseInt(li.dataset.teamIdx, 10) || 0;
-      li.addEventListener('mouseenter', () => setTeamRot(idx));
-      li.addEventListener('click', () => setTeamRot(idx));
-      li.style.cursor = 'pointer';
-    });
-  }
+  /* Team image now uses background-attachment: fixed for a "window into the
+     navy bg" effect — no rotation/sizing JS needed. */
 
   /* ---------- Excellence accordion (scroll-pinned, sequential) ---------- */
   const exPanels = document.querySelectorAll('.ex-panel');
@@ -509,28 +497,6 @@
     });
   }
 
-  /* ---------- Team image bg: size to container diagonal so any rotation covers ---------- */
-  const teamImageEl = document.querySelector('.team-image');
-  const teamImageBgEl = document.querySelector('.team-image-bg');
-  if (teamImageEl && teamImageBgEl) {
-    const updateTeamBgSize = () => {
-      const w = teamImageEl.offsetWidth;
-      const h = teamImageEl.offsetHeight;
-      if (!w || !h) return;
-      const diag = Math.sqrt(w * w + h * h);
-      const size = Math.ceil(diag * 1.05);
-      teamImageBgEl.style.width = `${size}px`;
-      teamImageBgEl.style.height = `${size}px`;
-      teamImageBgEl.style.left = `${(w - size) / 2}px`;
-      teamImageBgEl.style.top = `${(h - size) / 2}px`;
-    };
-    updateTeamBgSize();
-    if ('ResizeObserver' in window) {
-      new ResizeObserver(updateTeamBgSize).observe(teamImageEl);
-    } else {
-      window.addEventListener('resize', updateTeamBgSize);
-    }
-  }
 
   /* ---------- Stacked cards: shrink as next card stacks over ---------- */
   const stackCards = document.querySelectorAll('.stack-card');

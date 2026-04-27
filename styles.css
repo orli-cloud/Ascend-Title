@@ -1458,12 +1458,11 @@ body.drawer-open { overflow: hidden; }
 }
 .team-image-bg {
   position: absolute;
-  /* width/height/left/top set by JS to match container diagonal so any rotation covers */
-  background: url('Elements/freepik_2866387390.png') center / cover no-repeat;
-  background-color: #c9d6e5;
-  --team-rot: 0deg;
-  transform: rotate(var(--team-rot));
-  transition: transform 0.9s var(--ease-out-soft);
+  inset: 0;
+  /* The bg is locked to the viewport, so as the page scrolls the .team-image
+     rectangle moves over a stationary navy image — like a window. */
+  background: url('background.jpg') center / cover no-repeat fixed;
+  background-color: var(--navy-800);
 }
 .team-image-shine {
   position: absolute; inset: 0;
