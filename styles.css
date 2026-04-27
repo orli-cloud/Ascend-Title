@@ -1251,7 +1251,11 @@ body.drawer-open { overflow: hidden; }
 }
 .ex-panel--light { background: var(--blue-mid); color: #fff; }
 .ex-panel--mid { background: var(--paper-gray); color: var(--ink); }
-.ex-panel--dark { background: var(--paper); color: var(--ink); }
+/* When section bg fades to white, this white panel inverts to navy so it stays visible */
+.ex-panel--dark {
+  background: color-mix(in srgb, var(--navy-900) calc(var(--ex-bg-fade) * 100%), var(--paper));
+  color: color-mix(in srgb, #fff calc(var(--ex-bg-fade) * 100%), var(--ink));
+}
 
 .ex-panel-inner {
   position: absolute;
@@ -1318,7 +1322,7 @@ body.drawer-open { overflow: hidden; }
 }
 .ex-panel--light .ex-desc { color: rgba(255,255,255,0.82); }
 .ex-panel--mid  .ex-desc { color: var(--ink-60); }
-.ex-panel--dark .ex-desc { color: var(--ink-60); }
+.ex-panel--dark .ex-desc { color: color-mix(in srgb, rgba(255,255,255,0.78) calc(var(--ex-bg-fade) * 100%), var(--ink-60)); }
 
 .ex-panel.is-active .ex-title {
   opacity: 1;
