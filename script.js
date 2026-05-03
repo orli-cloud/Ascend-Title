@@ -371,15 +371,22 @@
     const updateCta = () => {
       const rect = ctaPin.getBoundingClientRect();
       const vh = window.innerHeight;
-      // Serve covers cta for 1.0vh (pull-up), then 0.3vh of "let's build pinned, no animation"
-      const offset = vh * 1.3;
+      // Pre-roll = vh covered by preceding navy section + static "Let's Build" hold.
+      // Homepage: 1.0 (Serve cover) + 0.3 (static) = 1.3. About page (no Serve): 0.3.
+      const preRoll = parseFloat(getComputedStyle(document.body).getPropertyValue('--cta-pre-roll')) || 1.3;
+      const offset = vh * preRoll;
       const total = ctaPin.offsetHeight - vh - offset;
       const raw = total > 0 ? Math.max(0, Math.min(1, (-rect.top - offset) / total)) : 0;
       const mainRaw = Math.min(1, raw / 0.70);
       const peelRaw = Math.max(0, Math.min(1, (raw - 0.75) / 0.25));
-      // Reveal-phase scale: grow tiny→full faster than the curtain (reaches 1.0 at ~60% of Serve scroll)
-      const revealRaw = Math.max(0, Math.min(1, -rect.top / (vh * 0.6)));
-      const scale = 0.12 + revealRaw * 0.88;
+      // Reveal-phase scale: only when a navy section precedes the CTA (homepage). It
+      // grows tiny→full as the cover scrolls away. Without a cover (about page), there's
+      // nothing for "Let's Build" to grow out from, so skip and keep scale at 1.
+      const enableGrowth = preRoll >= 1.0;
+      const revealRaw = enableGrowth
+        ? Math.max(0, Math.min(1, -rect.top / (vh * 0.6)))
+        : 1;
+      const scale = enableGrowth ? (0.12 + revealRaw * 0.88) : 1;
       const slideT = Math.min(1, Math.max(0, (mainRaw - 0.10) / 0.15));
       const fadeOut = Math.max(0, Math.min(1, (mainRaw - 0.45) / 0.13));
       const tx = -slideT * 22;
@@ -441,6 +448,68 @@
     });
   }
 
+  /* ---------- Bio modal (about page) ---------- */
+  const bioModal = document.getElementById('bio-modal');
+  if (bioModal) {
+    const modalImg = document.getElementById('bio-modal-img');
+    const modalRole = document.getElementById('bio-modal-role');
+    const modalName = document.getElementById('bio-modal-name');
+    const modalText = document.getElementById('bio-modal-text');
+    let lastTrigger = null;
+
+    const openBio = (card) => {
+      const trigger = card.querySelector('.bio-trigger');
+      const img = card.querySelector('.bio-img');
+      const nameEl = card.querySelector('.bio-name');
+      const roleEl = card.querySelector('.bio-role');
+      const tpl = card.querySelector('template.bio-full');
+
+      if (img && img.classList.contains('bio-img--mono')) {
+        modalImg.classList.add('is-mono');
+        modalImg.style.backgroundImage = '';
+        modalImg.innerHTML = '<span class="mono-letters">' + (img.dataset.initials || '') + '</span>';
+      } else if (img) {
+        modalImg.classList.remove('is-mono');
+        modalImg.innerHTML = '';
+        modalImg.style.backgroundImage = img.style.backgroundImage;
+      }
+
+      modalName.textContent = nameEl ? nameEl.textContent.trim() : '';
+      modalRole.textContent = roleEl ? roleEl.textContent.trim() : '';
+      modalText.innerHTML = '';
+      if (tpl) modalText.appendChild(tpl.content.cloneNode(true));
+
+      bioModal.classList.add('is-open');
+      bioModal.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('bio-modal-open');
+      lastTrigger = trigger;
+      const closeBtn = bioModal.querySelector('.bio-modal-close');
+      if (closeBtn) closeBtn.focus({ preventScroll: true });
+    };
+
+    const closeBio = () => {
+      bioModal.classList.remove('is-open');
+      bioModal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('bio-modal-open');
+      if (lastTrigger) lastTrigger.focus({ preventScroll: true });
+      lastTrigger = null;
+    };
+
+    document.querySelectorAll('.bio-card').forEach((card) => {
+      const trigger = card.querySelector('[data-bio-open]');
+      if (!trigger) return;
+      trigger.addEventListener('click', () => openBio(card));
+    });
+
+    bioModal.querySelectorAll('[data-bio-close]').forEach((el) => {
+      el.addEventListener('click', closeBio);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && bioModal.classList.contains('is-open')) closeBio();
+    });
+  }
+
   /* Team image now uses background-attachment: fixed for a "window into the
      navy bg" effect — no rotation/sizing JS needed. */
 
@@ -470,6 +539,132 @@
       requestAnimationFrame(() => { updateEx(); exPending = false; });
     }, { passive: true });
     window.addEventListener('resize', updateEx);
+  }
+
+  /* ---------- Services stack: bg slides, text panels reveal in place ---------- */
+  const svcStack = document.querySelector('.svc-stack');
+  if (svcStack) {
+    const svcStage = svcStack.querySelector('.svc-stage');
+    const svcBgs = svcStack.querySelectorAll('.svc-bg');
+    const svcTexts = svcStack.querySelectorAll('.svc-text');
+    const svcDots = svcStack.querySelectorAll('.svc-dot');
+    const svcCount = svcTexts.length;
+
+    const updateSvc = () => {
+      // Mobile: panels render as plain stacked sections — mark each as active
+      if (window.innerWidth <= 960) {
+        svcBgs.forEach((b) => b.classList.add('is-revealed'));
+        svcTexts.forEach((t) => t.classList.add('is-active'));
+        svcDots.forEach((d) => d.classList.remove('is-active'));
+        return;
+      }
+      const rect = svcStack.getBoundingClientRect();
+      const stackHeight = svcStack.offsetHeight;
+      const vh = window.innerHeight;
+      const totalScroll = stackHeight - vh;
+      const scrolled = Math.max(0, Math.min(totalScroll, -rect.top));
+      // Each service owns one viewport-height of scroll. Service 0 from 0→vh,
+      // service 1 from vh→2vh, … so the active card flips precisely at each
+      // snap point.
+      const idx = Math.min(svcCount - 1, Math.floor(scrolled / vh));
+      svcBgs.forEach((bg, i) => {
+        bg.classList.toggle('is-revealed', i <= idx);
+      });
+      svcTexts.forEach((text, i) => {
+        text.classList.toggle('is-active', i === idx);
+      });
+      svcDots.forEach((dot, i) => {
+        dot.classList.toggle('is-active', i === idx);
+      });
+      // Drive dot color via active service tone, and the cube's rotation pose
+      if (svcStage && svcTexts[idx]) {
+        svcStage.dataset.tone = svcTexts[idx].dataset.tone || 'ink';
+        svcStage.dataset.activeIdx = String(idx);
+      }
+    };
+    updateSvc();
+
+    let svcRaf = false;
+    window.addEventListener('scroll', () => {
+      if (svcRaf) return;
+      svcRaf = true;
+      requestAnimationFrame(() => { updateSvc(); svcRaf = false; });
+    }, { passive: true });
+    window.addEventListener('resize', updateSvc);
+
+    // Click a dot to jump to that service (smooth scroll + snap will align)
+    svcDots.forEach((dot, i) => {
+      dot.addEventListener('click', (e) => {
+        e.preventDefault();
+        const vh = window.innerHeight;
+        const stackTop = svcStack.getBoundingClientRect().top + window.scrollY;
+        // Service N occupies scroll range [N*vh .. (N+1)*vh] within the stack
+        const target = stackTop + i * vh;
+        window.scrollTo({ top: target, behavior: 'smooth' });
+      });
+    });
+
+    // ---- Scroll cursor: follows mouse, only visible inside the services stack ----
+    const svcCursor = document.querySelector('.svc-cursor');
+    if (svcCursor && !prefersReduced && matchMedia('(hover: hover)').matches) {
+      let cursorX = 0, cursorY = 0;
+      let cursorRaf = false;
+      let cursorInside = false;
+
+      const svcDotsContainer = svcStack.querySelector('.svc-dots');
+      const CURSOR_RADIUS = 44; // half of the 88px scroll-cursor circle
+      const PROXIMITY_PAD = 8;  // tiny extra padding so swap fires just before contact
+
+      const moveCursor = (e) => {
+        cursorX = e.clientX;
+        cursorY = e.clientY;
+        if (cursorRaf) return;
+        cursorRaf = true;
+        requestAnimationFrame(() => {
+          svcCursor.style.transform = `translate3d(${cursorX - 44}px, ${cursorY - 44}px, 0)`;
+          // Swap to native cursor when the scroll-cursor's edge touches the
+          // dots' bounding box (distance from pointer to box <= cursor radius).
+          if (cursorInside && svcDotsContainer) {
+            const r = svcDotsContainer.getBoundingClientRect();
+            const dx = Math.max(r.left - cursorX, 0, cursorX - r.right);
+            const dy = Math.max(r.top - cursorY, 0, cursorY - r.bottom);
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            const nearDots = dist <= CURSOR_RADIUS + PROXIMITY_PAD;
+            svcCursor.classList.toggle('is-hidden', nearDots);
+            document.body.classList.toggle('svc-cursor-active', !nearDots);
+          }
+          cursorRaf = false;
+        });
+      };
+
+      const syncCursorTone = () => {
+        const tone = svcStage && svcStage.dataset.tone ? svcStage.dataset.tone : 'ink';
+        document.body.dataset.svcTone = tone;
+      };
+      const showCursor = () => {
+        if (cursorInside) return;
+        cursorInside = true;
+        svcCursor.classList.add('is-visible');
+        document.body.classList.add('svc-cursor-active');
+        syncCursorTone();
+      };
+      const hideCursor = () => {
+        if (!cursorInside) return;
+        cursorInside = false;
+        svcCursor.classList.remove('is-visible');
+        document.body.classList.remove('svc-cursor-active');
+        delete document.body.dataset.svcTone;
+      };
+
+      document.addEventListener('mousemove', moveCursor, { passive: true });
+      svcStack.addEventListener('mouseenter', showCursor);
+      svcStack.addEventListener('mouseleave', hideCursor);
+      // Keep tone in sync while scrolling between services with cursor inside
+      window.addEventListener('scroll', () => {
+        if (cursorInside) syncCursorTone();
+      }, { passive: true });
+
+    }
   }
 
   /* ---------- Side drawer ---------- */

@@ -10,8 +10,14 @@
 
 # Internal reference materials (not used by the site)
 Bios/*
-!Bios/Team 3.png
+Bios/_originals/
+!Bios/Team 3.jpg
 !Bios/team isolated.png
+!Bios/chaim__sam_ parnes.jpg
+!Bios/david_berney.jpg
+!Bios/judah_strauss.jpg
+!Bios/manny_lerman.jpg
+!Bios/brocha_babad.jpg
 Inspo/
 Images/
 Logo/Branding/*.pdf
@@ -31,3 +37,8 @@ desktop.ini
 # Logs
 *.log
 npm-debug.log*
+
+# Node tooling (image optimizer deps)
+node_modules/
+package-lock.json
+package.json

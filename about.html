@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Ascend Title</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="Logo/Favicon.png" />
+  <link rel="stylesheet" href="styles.css?v=about-1" />
+</head>
+<body class="page-about">
+
+  <!-- ========== Inline SVG defs ========== -->
+  <svg width="0" height="0" aria-hidden="true" style="position:absolute">
+    <defs>
+      <symbol id="arrow" viewBox="0 0 16.58 6.15">
+        <line x1="0" y1="3.08" x2="15.5" y2="3.08" stroke="currentColor" fill="none" stroke-miterlimit="10"/>
+        <polyline points="13.12 0.35 15.87 3.11 13.17 5.8" stroke="currentColor" fill="none" stroke-miterlimit="10"/>
+      </symbol>
+      <symbol id="ic-developers" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="miter">
+        <polygon points="50,7 87.5,28.5 87.5,71.5 50,93 12.5,71.5 12.5,28.5"/>
+        <polygon points="50,50 50,7 87.5,28.5"/>
+        <polygon points="50,50 87.5,71.5 50,93"/>
+        <polygon points="50,50 12.5,71.5 12.5,28.5"/>
+      </symbol>
+      <symbol id="ic-investors" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="miter">
+        <polygon points="50,12 92,82 8,82"/>
+        <line x1="8" y1="82" x2="55" y2="58"/>
+        <line x1="92" y1="82" x2="55" y2="58"/>
+        <line x1="50" y1="12" x2="55" y2="58"/>
+      </symbol>
+      <symbol id="ic-brokers" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="miter">
+        <polygon points="50,8 92,50 50,92 8,50"/>
+        <line x1="50" y1="8" x2="50" y2="92"/>
+        <line x1="8" y1="50" x2="92" y2="50"/>
+        <line x1="29" y1="29" x2="71" y2="71"/>
+        <line x1="29" y1="71" x2="71" y2="29"/>
+      </symbol>
+      <symbol id="ic-lenders" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.2">
+        <circle cx="50" cy="34" r="22"/>
+        <circle cx="50" cy="66" r="22"/>
+      </symbol>
+      <symbol id="ic-attorneys" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="miter">
+        <polygon points="15,8 85,8 50,50"/>
+        <polygon points="50,50 85,92 15,92"/>
+        <line x1="25" y1="22" x2="75" y2="22"/>
+        <line x1="32" y1="32" x2="68" y2="32"/>
+        <line x1="40" y1="42" x2="60" y2="42"/>
+        <line x1="40" y1="58" x2="60" y2="58"/>
+        <line x1="32" y1="68" x2="68" y2="68"/>
+        <line x1="25" y1="78" x2="75" y2="78"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <!-- Custom cursor -->
+  <div class="cursor" aria-hidden="true"></div>
+  <div class="cursor-dot" aria-hidden="true"></div>
+
+  <!-- ========== SIDE DRAWER (contact) ========== -->
+  <aside class="drawer" id="drawer" aria-hidden="true" aria-label="Contact">
+    <button class="drawer-backdrop" data-drawer-close aria-label="Close menu"></button>
+    <div class="drawer-panel">
+      <div class="drawer-watermark" aria-hidden="true"></div>
+
+      <div class="drawer-top">
+        <button class="drawer-close" data-drawer-close aria-label="Close menu">
+          <span class="close-x" aria-hidden="true"><span></span><span></span></span>
+        </button>
+      </div>
+
+      <div class="drawer-body">
+        <h2 class="drawer-title">Let's close<br><em>your next<br>deal.</em></h2>
+
+        <ul class="drawer-contacts">
+          <li>
+            <a href="tel:7189878543" class="drawer-value"><span class="drawer-link-text">718.987.8543</span></a>
+          </li>
+          <li>
+            <a href="mailto:info@ascendtitle.com" class="drawer-value"><span class="drawer-link-text">info@ascendtitle.com</span></a>
+          </li>
+          <li>
+            <span class="drawer-value drawer-value-static">
+              1600 Ave of the States<br>Lakewood, NJ 08701
+            </span>
+          </li>
+        </ul>
+
+      </div>
+    </div>
+  </aside>
+
+  <!-- ========== BIO MODAL ========== -->
+  <div class="bio-modal" id="bio-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="bio-modal-name">
+    <button class="bio-modal-backdrop" data-bio-close aria-label="Close bio"></button>
+    <div class="bio-modal-card">
+      <button class="bio-modal-close" data-bio-close aria-label="Close bio">
+        <span class="close-x" aria-hidden="true"><span></span><span></span></span>
+      </button>
+      <div class="bio-modal-grid">
+        <div class="bio-modal-img" id="bio-modal-img" aria-hidden="true"></div>
+        <div class="bio-modal-body">
+          <span class="eyebrow"><span class="eyebrow-dash"></span><span id="bio-modal-role">Role</span></span>
+          <h3 class="bio-modal-name" id="bio-modal-name">Name</h3>
+          <div class="bio-modal-text" id="bio-modal-text"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================== -->
+  <!-- HERO — slim about hero (single screen, slanted background)  -->
+  <!-- ========================================================== -->
+  <header class="hero hero-about" id="home">
+    <nav class="nav" aria-label="Main">
+      <div class="nav-inner">
+        <a href="index.html" class="logo" aria-label="Ascend Title home">
+          <img src="Logo/Logo white.png" alt="Ascend Title" class="logo-img" />
+        </a>
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="index.html#about" class="nav-link">About</a></li>
+          <li><a href="services.html" class="nav-link">Services</a></li>
+          <li><a href="index.html#resources" class="nav-link">Resources</a></li>
+          <li><a href="index.html#login" class="nav-link">Login</a></li>
+          <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+        </ul>
+        <button class="menu-btn" aria-label="Open contact menu" aria-expanded="false" aria-controls="drawer">
+          <span class="menu-icon" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </button>
+      </div>
+    </nav>
+
+    <div class="hero-about-stage">
+      <div class="hero-navy" aria-hidden="true"></div>
+      <div class="hero-image" aria-hidden="true"></div>
+      <div class="hero-shape-echo" style="--echo-x: 7vw;  --echo-alpha: 0.06; --echo-delay: 0.30s;" aria-hidden="true"></div>
+      <div class="hero-shape-echo" style="--echo-x: 14vw; --echo-alpha: 0.11; --echo-delay: 0.45s;" aria-hidden="true"></div>
+      <div class="hero-shape-echo" style="--echo-x: 21vw; --echo-alpha: 0.18; --echo-delay: 0.60s;" aria-hidden="true"></div>
+
+      <div class="hero-about-content">
+        <span class="eyebrow eyebrow-light"><span class="eyebrow-dash"></span>Our Story</span>
+        <h1 class="hero-title hero-about-title">Where Smooth<br>Closings Begin</h1>
+        <div class="hero-about-story">
+          <p class="story-lead">
+            Industry veterans <em>Sam Parnes</em> and <em>David Berney</em> spent years navigating complex title transactions, building a reputation for skill, reliability, and client dedication.
+          </p>
+          <p class="story-body">
+            After decades in the title industry, they set out to build a company where that level of commitment would be the standard. Bringing together a select team of top-tier professionals who share the same passion, expertise, and commitment to their clients, Ascend Title was built to deliver an enhanced level of service and a closing experience clients can fully rely on.
+          </p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========== STORY ========== -->
+  <section class="story" id="story">
+    <div class="story-pull">
+      <div class="container">
+        <h2 class="story-pull-title" data-split-fill>We uphold a higher standard, grounded in a philosophy of exceptional client care. Our commitment is to deliver a superior title experience in which the client's needs remain at the center of everything we do.</h2>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== GUIDING PRINCIPLES (excellence-style sticky accordion) ========== -->
+  <section class="excellence excellence--values" id="principles">
+    <div class="ex-pin">
+      <div class="ex-sticky">
+        <div class="container">
+          <div class="excellence-head">
+            <span class="eyebrow reveal"><span class="eyebrow-dash"></span>Guiding Principles</span>
+            <h2 class="excellence-title" data-split-fill>Values That Define Us</h2>
+          </div>
+          <div class="ex-accordion">
+            <div class="ex-panel ex-panel--dark is-active" data-panel="0">
+              <div class="ex-panel-inner">
+                <span class="ex-slashes" aria-hidden="true"><span></span></span>
+                <h3 class="ex-title">Transparency</h3>
+                <p class="ex-desc">Integrity that builds client trust.</p>
+              </div>
+            </div>
+            <div class="ex-panel ex-panel--light" data-panel="1">
+              <div class="ex-panel-inner">
+                <span class="ex-slashes" aria-hidden="true"><span></span><span></span></span>
+                <h3 class="ex-title">Communication</h3>
+                <p class="ex-desc">Access that keeps clients aligned.</p>
+              </div>
+            </div>
+            <div class="ex-panel ex-panel--blue-soft" data-panel="2">
+              <div class="ex-panel-inner">
+                <span class="ex-slashes" aria-hidden="true"><span></span><span></span><span></span></span>
+                <h3 class="ex-title">Efficiency</h3>
+                <p class="ex-desc">Smooth closings without friction or delays.</p>
+              </div>
+            </div>
+            <div class="ex-panel ex-panel--mid" data-panel="3">
+              <div class="ex-panel-inner">
+                <span class="ex-slashes" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+                <h3 class="ex-title">Innovation</h3>
+                <p class="ex-desc">Expert solutions to complex challenges.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== THE A TEAM ========== -->
+  <section class="ateam" id="team">
+    <div class="container">
+      <div class="ateam-head">
+        <span class="eyebrow reveal"><span class="eyebrow-dash"></span>Our Team</span>
+        <h2 class="ateam-title reveal">The A Team:<br>Expertise that Moves the Deal</h2>
+        <p class="ateam-lead reveal">Our leadership team brings four decades of experience handling complex transactions with discipline and discretion. Working together with all parties, we guide every detail forward so you can move to closing with confidence.</p>
+      </div>
+
+      <ul class="bio-grid">
+
+        <!-- Sam Parnes -->
+        <li class="bio-card reveal" data-stagger="0">
+          <button class="bio-trigger" type="button" data-bio-open>
+            <span class="bio-img" style="background-image:url('Bios/chaim__sam_%20parnes.jpg')" aria-hidden="true"></span>
+            <span class="bio-meta">
+              <span class="bio-name">Sam Parnes</span>
+              <span class="bio-role">CEO &amp; Managing Partner</span>
+            </span>
+            <span class="bio-read"><span class="bio-read-text">Read Bio</span><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></span>
+          </button>
+          <template class="bio-full">
+            <p>Sam Parnes serves as CEO and Managing Partner of Ascend Title, where he leads the company's strategic vision, operations, and growth initiatives. With extensive experience in the title and settlement services industry, Sam brings a strong background in business development, client relations, and operational leadership.</p>
+            <p>Prior to Ascend Title, Sam served as Director of Business Development, where he played a key role in expanding market presence and strengthening relationships throughout the real estate community. His career has been built on a commitment to efficiency, transparency, and collaboration.</p>
+            <p>Sam is dedicated to raising the standard of service in the title industry, fostering a culture of professionalism, responsiveness, and long-term partnership. Under his leadership, Ascend Title continues to grow while maintaining a hands-on, client-first approach.</p>
+          </template>
+        </li>
+
+        <!-- David Berney -->
+        <li class="bio-card reveal" data-stagger="1">
+          <button class="bio-trigger" type="button" data-bio-open>
+            <span class="bio-img" style="background-image:url('Bios/david_berney.jpg')" aria-hidden="true"></span>
+            <span class="bio-meta">
+              <span class="bio-name">David Berney</span>
+              <span class="bio-role">Managing Partner</span>
+            </span>
+            <span class="bio-read"><span class="bio-read-text">Read Bio</span><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></span>
+          </button>
+          <template class="bio-full">
+            <p>David Berney serves as Managing Partner of Ascend Title, bringing deep expertise in title services. With a long-standing career in the title industry, David is known for his strategic leadership, commitment to client success, and building strong relationships with real estate professionals, lenders, and partners.</p>
+            <p>Before joining Ascend Title, David held key leadership roles in title operations and business development, where he drove growth initiatives and helped shape innovative service strategies to support agents, brokers, and homebuyers. His hands-on approach and industry insight make him a trusted partner for clients navigating complex transactions.</p>
+            <p>David's leadership focuses on fostering a culture of reliability, transparency, and excellence, ensuring every closing experience is seamless, clear, and tailored to the needs of today's market.</p>
+          </template>
+        </li>
+
+        <!-- Menucha Stern -->
+        <li class="bio-card reveal" data-stagger="2">
+          <button class="bio-trigger" type="button" data-bio-open>
+            <span class="bio-img bio-img--mono" data-initials="MS" aria-hidden="true"></span>
+            <span class="bio-meta">
+              <span class="bio-name">Menucha Stern</span>
+              <span class="bio-role">Chief Operating Officer</span>
+            </span>
+            <span class="bio-read"><span class="bio-read-text">Read Bio</span><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></span>
+          </button>
+          <template class="bio-full">
+            <p>Menucha Stern serves as Chief Operating Officer of Ascend Title, where she oversees daily operations, national workflows, and strategic execution across the organization. With a strong background in title management and multi-state operations, Menucha plays a critical role in building scalable systems, strengthening compliance standards, and ensuring a seamless closing experience for clients and partners.</p>
+            <p>Prior to joining Ascend Title, Menucha led national title operations and managed complex, high-volume transactions across multiple jurisdictions, further developing her expertise in title production, underwriting coordination, and operational oversight.</p>
+            <p>Known for her precision, strategic thinking, and commitment to high standards, Menucha is dedicated to creating efficient systems that support growth while maintaining exceptional service. Her leadership ensures that Ascend Title operates with clarity, consistency, and a client-first mindset at every level.</p>
+          </template>
+        </li>
+
+        <!-- Judah Strauss -->
+        <li class="bio-card reveal" data-stagger="3">
+          <button class="bio-trigger" type="button" data-bio-open>
+            <span class="bio-img" style="background-image:url('Bios/judah_strauss.jpg')" aria-hidden="true"></span>
+            <span class="bio-meta">
+              <span class="bio-name">Judah Strauss</span>
+              <span class="bio-role">Chief Financial Officer</span>
+            </span>
+            <span class="bio-read"><span class="bio-read-text">Read Bio</span><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></span>
+          </button>
+          <template class="bio-full">
+            <p>Judah Strauss serves as Chief Financial Officer at Ascend Title, where he leads financial planning, analysis, and strategy to support the company's long-term growth and operational excellence. A certified public accountant with a strong background in finance and business strategy, Judah is passionate about helping companies streamline financial processes, enhance reporting accuracy, and leverage financial insights to drive better business outcomes.</p>
+            <p>Outside of his work at Ascend Title, Judah founded Finnova CFO Services, where he provides high-level financial consultation, bookkeeping solutions, and CFO-level support to businesses seeking clarity and efficiency in their financial operations. His expertise spans strategic budgeting, KPI tracking, due diligence support, advanced analytics, and cross-functional collaboration to align finance with broader business goals.</p>
+            <p>Known for his analytical approach and commitment to transparency, Judah helps ensure Ascend Title maintains strong financial foundations while scaling service delivery and enhancing client value.</p>
+          </template>
+        </li>
+
+        <!-- Adina Fisch -->
+        <li class="bio-card reveal" data-stagger="0">
+          <button class="bio-trigger" type="button" data-bio-open>
+            <span class="bio-img bio-img--mono" data-initials="AF" aria-hidden="true"></span>
+            <span class="bio-meta">
+              <span class="bio-name">Adina Fisch, Esq.</span>
+              <span class="bio-role">Director of National Title</span>
+            </span>
+            <span class="bio-read"><span class="bio-read-text">Read Bio</span><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></span>
+          </button>
+          <template class="bio-full">
+            <p>Adina Fisch is Director of National Title at Ascend Title, where she leads the company's national title strategy and ensures excellence in title services across markets. A licensed attorney, Adina combines her legal expertise with deep industry knowledge to manage complex title matters and support high-level operational initiatives.</p>
+            <p>Before joining Ascend Title, Adina held leadership roles where she developed a strong foundation in title operations, risk management, and client service in both regional and national real estate markets. Adina's legal background and experience in multiple segments of the title industry enable her to effectively navigate challenges and deliver reliable, high-quality solutions for clients and partners.</p>
+            <p>She is committed to maintaining the highest standards of accuracy, compliance, and responsiveness, ensuring smooth and successful closings at every stage of the transaction.</p>
+          </template>
+        </li>
+
+        <!-- Manny Lerman -->
+        <li class="bio-card reveal" data-stagger="1">
+          <button class="bio-trigger" type="button" data-bio-open>
+            <span class="bio-img" style="background-image:url('Bios/manny_lerman.jpg')" aria-hidden="true"></span>
+            <span class="bio-meta">
+              <span class="bio-name">Manny Lerman</span>
+              <span class="bio-role">Director of Settlement</span>
+            </span>
+            <span class="bio-read"><span class="bio-read-text">Read Bio</span><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></span>
+          </button>
+          <template class="bio-full">
+            <p>Manny Lerman serves as Director of Settlement at Ascend Title, where he oversees financial strategy, reporting, and operational efficiency for the company. With deep experience in the title and settlement services space, Manny plays a key role in ensuring financial processes support both our internal teams and client-facing services.</p>
+            <p>Before joining Ascend Title, Manny built a strong foundation in title settlement. He previously led settlement coordination teams at top industry firms, managing complex workflows, compliance, and cross-department collaboration to drive accuracy and transparency throughout the closing process.</p>
+            <p>Known for his analytical mindset and commitment to excellence, Manny ensures that Ascend Title maintains a disciplined and forward-looking financial framework, helping the company deliver seamless and reliable service to clients.</p>
+          </template>
+        </li>
+
+        <!-- Brocha Babad -->
+        <li class="bio-card reveal" data-stagger="2">
+          <button class="bio-trigger" type="button" data-bio-open>
+            <span class="bio-img" style="background-image:url('Bios/brocha_babad.jpg')" aria-hidden="true"></span>
+            <span class="bio-meta">
+              <span class="bio-name">Brocha Babad</span>
+              <span class="bio-role">Executive Assistant</span>
+            </span>
+            <span class="bio-read"><span class="bio-read-text">Read Bio</span><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></span>
+          </button>
+          <template class="bio-full">
+            <p>Brocha Babad is the Executive Assistant at Ascend Title, where she supports the leadership team and ensures the office runs smoothly every day. Known for her attention to detail, proactive problem-solving, and friendly approach, Brocha keeps projects on track, coordinates schedules, and manages communications so the team can focus on delivering exceptional service to clients.</p>
+            <p>Brocha's organizational skills, attention to detail, and proactive approach make her an integral part of the Ascend Title team. Beyond her organizational expertise, Brocha helps foster a positive, collaborative workplace culture, making Ascend Title not just efficient, but also welcoming and supportive for both employees and clients alike.</p>
+          </template>
+        </li>
+
+        <!-- Mati Gilbert -->
+        <li class="bio-card reveal" data-stagger="3">
+          <button class="bio-trigger" type="button" data-bio-open>
+            <span class="bio-img bio-img--mono" data-initials="MG" aria-hidden="true"></span>
+            <span class="bio-meta">
+              <span class="bio-name">Mati Gilbert</span>
+              <span class="bio-role">New Jersey Coordinator</span>
+            </span>
+            <span class="bio-read"><span class="bio-read-text">Read Bio</span><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></span>
+          </button>
+          <template class="bio-full">
+            <p>Mati Gilbert is the New Jersey Coordinator at Ascend Title, where she manages title processing and oversees all transactions across the state. With deep experience in handling challenging matters, Mati brings both expertise and precision to every file.</p>
+            <p>Known for her attention to detail and collaborative approach, Mati works closely with clients, lenders, and colleagues to ensure a smooth, efficient, and stress-free closing experience. Her dedication and professionalism make her a trusted resource and an invaluable part of the Ascend Title team.</p>
+          </template>
+        </li>
+
+      </ul>
+    </div>
+  </section>
+
+  <!-- ========== CTA ========== -->
+  <section class="cta" id="contact">
+    <div class="cta-pin">
+      <div class="cta-sticky">
+        <div class="cta-base" aria-hidden="true"></div>
+        <div class="cta-intro cta-intro--under"><span>Let's<br>Build</span></div>
+        <div class="cta-reveal" aria-hidden="true">
+          <div class="cta-bg">
+            <div class="bg-image"></div>
+            <div class="bg-overlay"></div>
+            <div class="bg-shimmer"></div>
+          </div>
+        </div>
+        <div class="cta-intro cta-intro--over" aria-hidden="true"><span>Let's<br>Build</span></div>
+        <div class="cta-final">
+          <div class="container">
+            <h2 class="cta-title">
+              Bring your deal to the closing table with confidence and ease.
+            </h2>
+            <p class="cta-sub">
+              If your transactions require precision and proactive leadership, Ascend Title was built for you. Let's get your next deal moving with a team that leads from day one.
+            </p>
+            <a href="index.html#contact" class="btn btn-ghost" data-magnetic>
+              <span class="btn-arrow btn-arrow-left"><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></span>
+              <span class="btn-label">Get Started</span>
+              <span class="btn-arrow btn-arrow-right"><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer" id="footer">
+    <div class="footer-content container">
+      <div class="footer-main">
+        <div class="footer-col footer-col--intro">
+          <h2 class="footer-heading">We close<br>nationally.</h2>
+          <a href="index.html#contact" class="footer-brief">
+            <span>Start a project</span>
+            <svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg>
+          </a>
+          <a href="mailto:info@ascendtitle.com" class="footer-email">info@ascendtitle.com</a>
+        </div>
+        <div class="footer-col">
+          <h5 class="footer-label">Quick Links</h5>
+          <a href="index.html#about">About</a>
+          <a href="index.html#services">Services</a>
+          <a href="index.html#resources">Resources</a>
+          <a href="index.html#contact">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h5 class="footer-label">Services</h5>
+          <a href="#">Commercial</a>
+          <a href="#">Residential</a>
+          <a href="#">National</a>
+          <a href="#">Full Escrow</a>
+        </div>
+        <div class="footer-col">
+          <h5 class="footer-label">Socials</h5>
+          <a href="#">Instagram</a>
+          <a href="#">LinkedIn</a>
+          <a href="#">Facebook</a>
+        </div>
+      </div>
+
+      <div class="footer-divider"></div>
+
+      <div class="footer-bottom">
+        <span>&copy; 2026 Ascend Title</span>
+        <a href="https://gcnymarketing.com/" target="_blank" rel="noopener" class="footer-logo-link" aria-label="GCNY Marketing">
+          <img src="Elements/gcny logo icon.png" alt="GCNY Marketing" class="footer-logo" />
+        </a>
+      </div>
+    </div>
+
+    <div class="footer-brand" aria-hidden="true">
+      <span class="footer-brand-word">ASCEND</span>
+    </div>
+  </footer>
+
+  <script src="script.js?v=about-1"></script>
+</body>
+</html>
