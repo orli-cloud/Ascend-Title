@@ -2279,66 +2279,68 @@ body > section { position: relative; z-index: 2; }
    ABOUT PAGE
    ================================================================= */
 
-/* ---- Hero (slim, no scroll-morph) ---- */
-.page-about .hero-about { height: 100vh; background: #2B4E75; isolation: isolate; }
+/* ---- Hero — masked window onto a fixed bg image, slant grows from thin to wide ---- */
+.page-about .hero-about,
+.page-about .hero-about-stage {
+  height: 86vh;
+  background: #2B4E75;
+  isolation: isolate;
+}
 
-@property --hero-about-s {
+@property --hero-mask-w {
   syntax: '<number>';
-  initial-value: 0;
+  initial-value: 1;
   inherits: false;
 }
 .page-about .hero-image {
+  --hero-mask-w: 1;
   --s: 0.95;
-  --hero-about-s: 0.95;
-  --echo-x: 0;
-  animation: hero-echo-slide 1.5s cubic-bezier(0.19, 1, 0.22, 1) 0.15s both;
+  background: url('background.jpg') center / cover no-repeat fixed;
+  background-color: #10293D;
+  /* Backslash slant ( \ ), centered around 65% horizontal */
+  clip-path: polygon(
+    calc(65% - 2.5vw * var(--hero-mask-w) - 11vh) calc(50% - 27vh),
+    calc(65% + 2.5vw * var(--hero-mask-w) - 11vh) calc(50% - 27vh),
+    calc(65% + 2.5vw * var(--hero-mask-w) + 11vh) calc(50% + 27vh),
+    calc(65% - 2.5vw * var(--hero-mask-w) + 11vh) calc(50% + 27vh)
+  );
+  animation: hero-mask-grow 1.8s cubic-bezier(0.22, 1, 0.36, 1) 0.35s both;
+  transform: none;
 }
 .page-about .hero-image::after { display: none; }
-@keyframes hero-about-emerge {
-  0%   { --hero-about-s: 0;    opacity: 0.35; }
-  60%  { opacity: 1; }
-  100% { --hero-about-s: 0.95; opacity: 1; }
-}
-@keyframes hero-about-sheen {
-  0%   { transform: translateX(-110%); opacity: 0; }
+@keyframes hero-mask-grow {
+  0%   { --hero-mask-w: 0; opacity: 0; }
   20%  { opacity: 1; }
-  80%  { opacity: 1; }
-  100% { transform: translateX(110%); opacity: 0; }
+  100% { --hero-mask-w: 5; opacity: 1; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .page-about .hero-image { animation: none; --hero-about-s: 0.95; }
-  .page-about .hero-image::after { display: none; }
+  .page-about .hero-image { animation: none; --hero-mask-w: 5; }
 }
 
-/* Slant echoes — repeat the parallelogram offset to the right,
-   each tinted progressively lighter via a translucent white wash. */
-.page-about .hero-shape-echo {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  --s: 0.95;
-  background: rgba(255, 255, 255, var(--echo-alpha, 0.08));
-  clip-path: polygon(
-    calc(50% - 2.5vw * var(--s) - 11.7vh * var(--s)) calc(50% - 29vh * var(--s)),
-    calc(50% + 2.5vw * var(--s) - 11.7vh * var(--s)) calc(50% - 29vh * var(--s)),
-    calc(50% + 2.5vw * var(--s) + 11.7vh * var(--s)) calc(50% + 29vh * var(--s)),
-    calc(50% - 2.5vw * var(--s) + 11.7vh * var(--s)) calc(50% + 29vh * var(--s))
-  );
-  transform: translateX(var(--echo-x, 0));
-  opacity: 0;
-  animation: hero-echo-slide 1.5s cubic-bezier(0.19, 1, 0.22, 1) var(--echo-delay, 0.3s) both;
+/* Layout: text on left; story is wide and may overlap the slant slightly */
+.page-about .hero-about-content {
+  align-items: flex-start;
+  text-align: left;
+  padding-right: clamp(8vw, 12vw, 18vw);
 }
-@keyframes hero-echo-slide {
-  0%   { opacity: 0; transform: translateX(calc(var(--echo-x, 0) - 14vw)); }
-  35%  { opacity: 1; }
-  100% { opacity: 1; transform: translateX(var(--echo-x, 0)); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .page-about .hero-shape-echo { animation: none; opacity: 1; }
+.page-about .hero-about-title { text-align: left; max-width: 14ch; }
+.page-about .hero-about-story {
+  grid-template-columns: 1fr;
+  margin: clamp(16px, 2.5vh, 32px) auto 0 0;
+  max-width: 78ch;
 }
 @media (max-width: 960px) {
-  .page-about .hero-shape-echo { display: none; }
+  .page-about .hero-about,
+  .page-about .hero-about-stage { height: auto; min-height: 90vh; }
+  .page-about .hero-about-content { padding-right: var(--pad-x); }
+  .page-about .hero-image {
+    clip-path: polygon(
+      calc(50% - 2.5vw * var(--hero-mask-w) - 11.7vh) calc(50% - 29vh),
+      calc(50% + 2.5vw * var(--hero-mask-w) - 11.7vh) calc(50% - 29vh),
+      calc(50% + 2.5vw * var(--hero-mask-w) + 11.7vh) calc(50% + 29vh),
+      calc(50% - 2.5vw * var(--hero-mask-w) + 11.7vh) calc(50% + 29vh)
+    );
+  }
 }
 
 /* CTA on about page: mirror the homepage exactly — `.ateam` plays the role
@@ -2549,7 +2551,7 @@ body > section { position: relative; z-index: 2; }
 
 /* ---- The A Team + bio grid ---- */
 .ateam {
-  padding: clamp(100px, 14vh, 160px) 0 clamp(80px, 12vh, 140px);
+  padding: clamp(100px, 14vh, 160px) 0 clamp(140px, 20vh, 220px);
   background: var(--navy-900);
   color: #fff;
   position: relative;
@@ -2583,7 +2585,7 @@ body > section { position: relative; z-index: 2; }
 .bio-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 36px 24px;
+  gap: 64px 40px;
 }
 .bio-card { display: block; }
 .bio-trigger {
@@ -2597,7 +2599,10 @@ body > section { position: relative; z-index: 2; }
   border: none;
   cursor: pointer;
   color: inherit;
+  transition: transform 0.55s var(--ease-out);
 }
+.bio-trigger:hover { transform: translateY(-5px); }
+
 .bio-img {
   display: block;
   width: 100%;
@@ -2609,33 +2614,85 @@ body > section { position: relative; z-index: 2; }
   overflow: hidden;
   transition: filter 0.6s var(--ease-out);
 }
+/* Slanted shimmer sweep — wipes diagonally across on hover */
+.bio-img::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 38%,
+    rgba(255, 255, 255, 0.10) 47%,
+    rgba(255, 255, 255, 0.22) 50%,
+    rgba(255, 255, 255, 0.10) 53%,
+    transparent 62%
+  );
+  transform: translateX(-110%);
+  transition: transform 0.95s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+  z-index: 2;
+}
+.bio-trigger:hover .bio-img::before { transform: translateX(110%); }
+/* Mono-placeholder bios skip the sweep ::before since their pseudo is reserved */
+.bio-img--mono::before { content: none; }
+
 .bio-img::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, transparent 55%, rgba(6,25,43,0.45));
+  background: linear-gradient(180deg, transparent 55%, rgba(6,25,43,0.55));
   opacity: 0;
   transition: opacity 0.5s var(--ease-out);
+  z-index: 1;
 }
 .bio-trigger:hover .bio-img::after { opacity: 1; }
 .bio-trigger:hover .bio-img { filter: contrast(1.05) brightness(1.02); }
 
-/* Silhouette fallback when no headshot is available */
+/* Silhouette fallback — uses the brand "Her" / "Him" silhouette files.
+   Default is Her; add the .bio-img--mono-him modifier for the male variant. */
 .bio-img.bio-img--mono {
   background-color: #525252;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 80'><circle cx='32' cy='28' r='15' fill='%231a1f26'/><path d='M2 80 C2 54 62 54 62 80 Z' fill='%231a1f26'/></svg>");
+  background-image: url('Bios/Her-figure.svg');
   background-repeat: no-repeat;
-  background-position: center bottom;
-  background-size: 88% auto;
+  background-position: center;
+  background-size: cover;
+}
+.bio-img.bio-img--mono-him {
+  background-image: url('Bios/Him-figure.svg');
 }
 .ateam .bio-img.bio-img--mono { background-color: #525252; }
 .bio-img--mono::before,
 .bio-img--mono::after { content: none; }
 .bio-meta {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 6px;
   padding-top: 20px;
+  padding-left: 0;
+  transition: padding-left 0.55s var(--ease-expo);
+}
+/* Slant forward-slash that appears before the name on bio hover.
+   The bio-meta padding-left grows to make room for it. */
+.bio-meta::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 20px;
+  width: 3px;
+  height: clamp(40px, 3.8vw, 50px);
+  background: currentColor;
+  transform: skewX(-14deg) translateX(-12px);
+  border-radius: 1px;
+  opacity: 0;
+  transition: opacity 0.55s var(--ease-out),
+              transform 0.55s var(--ease-expo);
+  pointer-events: none;
+}
+.bio-trigger:hover .bio-meta { padding-left: 24px; }
+.bio-trigger:hover .bio-meta::before {
+  opacity: 1;
+  transform: skewX(-14deg) translateX(0);
 }
 .bio-name {
   font-family: var(--serif);
@@ -2858,72 +2915,67 @@ body.bio-modal-open { overflow: hidden; }
    SERVICES PAGE
    ================================================================= */
 
-/* ---- Hero — left-aligned text, slant on the right that grows from thin to wide ---- */
-/* Services hero is shorter than about so the next section peeks below the fold */
+/* ---- Services hero — dark slant + 3 lighter echoes, wave-slide animation ---- */
 .page-services .hero-about,
 .page-services .hero-about-stage {
-  height: 86vh;
+  height: 84vh;
 }
 
-/* Backslash slant clip-path. Top shifted left, bottom shifted right ( \ ). */
-.page-services .hero-shape-echo {
-  clip-path: polygon(
-    calc(50% - 2.5vw * var(--s) - 11.7vh * var(--s)) calc(50% - 29vh * var(--s)),
-    calc(50% + 2.5vw * var(--s) - 11.7vh * var(--s)) calc(50% - 29vh * var(--s)),
-    calc(50% + 2.5vw * var(--s) + 11.7vh * var(--s)) calc(50% + 29vh * var(--s)),
-    calc(50% - 2.5vw * var(--s) + 11.7vh * var(--s)) calc(50% + 29vh * var(--s))
-  );
-}
-/* Echoes still slide in from the right (decorative slants on the left half) */
-@keyframes hero-services-slide {
-  0%   { opacity: 0; transform: translateX(calc(var(--echo-x, 0) + 14vw)); }
-  35%  { opacity: 1; }
-  100% { opacity: 1; transform: translateX(var(--echo-x, 0)); }
-}
-.page-services .hero-shape-echo {
-  animation-name: hero-services-slide;
-}
-
-/* Main slant — masked window onto a fixed (sticky) background image.
-   Positioned on the right side of the viewport. Width grows from thin to
-   wide via --svc-sw, while height stays at the original ~58vh. */
-@property --svc-sw {
+@property --hero-about-s {
   syntax: '<number>';
-  initial-value: 1;
+  initial-value: 0;
   inherits: false;
 }
 .page-services .hero-image {
-  --svc-sw: 1;
-  --hero-about-s: 0.95;
   --s: 0.95;
+  --hero-about-s: 0.95;
   --echo-x: 0;
-  background: url('background.jpg') center / cover no-repeat fixed;
+  background: url('background.jpg') center / cover no-repeat;
   background-color: #10293D;
-  /* Centered at 65% horizontal. Backslash slant ( \ ). */
+  /* Backslash slant ( \ ) anchored on the right at 70%, shorter overall */
   clip-path: polygon(
-    calc(65% - 2.5vw * var(--svc-sw) - 11vh) calc(50% - 27vh),
-    calc(65% + 2.5vw * var(--svc-sw) - 11vh) calc(50% - 27vh),
-    calc(65% + 2.5vw * var(--svc-sw) + 11vh) calc(50% + 27vh),
-    calc(65% - 2.5vw * var(--svc-sw) + 11vh) calc(50% + 27vh)
+    calc(55% - 2.5vw * var(--s) - 8vh * var(--s)) calc(50% - 20vh * var(--s)),
+    calc(55% + 2.5vw * var(--s) - 8vh * var(--s)) calc(50% - 20vh * var(--s)),
+    calc(55% + 2.5vw * var(--s) + 8vh * var(--s)) calc(50% + 20vh * var(--s)),
+    calc(55% - 2.5vw * var(--s) + 8vh * var(--s)) calc(50% + 20vh * var(--s))
   );
-  /* Override the wave-slide animation; this slant has its own grow animation */
-  animation: hero-services-slant-grow 1.8s cubic-bezier(0.22, 1, 0.36, 1) 0.35s both;
+  animation: hero-echo-slide 1.5s cubic-bezier(0.19, 1, 0.22, 1) 0.15s both;
   transform: none;
 }
-@keyframes hero-services-slant-grow {
-  0%   { --svc-sw: 0; opacity: 0; }
-  20%  { opacity: 1; }
-  100% { --svc-sw: 5; opacity: 1; }
+.page-services .hero-image::after { display: none; }
+
+/* Three lighter echoes — same parallelogram, offset to the right, translucent */
+.page-services .hero-shape-echo {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  --s: 0.95;
+  background: rgba(255, 255, 255, var(--echo-alpha, 0.08));
+  clip-path: polygon(
+    calc(55% - 2.5vw * var(--s) - 8vh * var(--s)) calc(50% - 20vh * var(--s)),
+    calc(55% + 2.5vw * var(--s) - 8vh * var(--s)) calc(50% - 20vh * var(--s)),
+    calc(55% + 2.5vw * var(--s) + 8vh * var(--s)) calc(50% + 20vh * var(--s)),
+    calc(55% - 2.5vw * var(--s) + 8vh * var(--s)) calc(50% + 20vh * var(--s))
+  );
+  transform: translateX(var(--echo-x, 0));
+  opacity: 0;
+  animation: hero-echo-slide 1.5s cubic-bezier(0.19, 1, 0.22, 1) var(--echo-delay, 0.3s) both;
+}
+@keyframes hero-echo-slide {
+  0%   { opacity: 0; transform: translateX(calc(var(--echo-x, 0) - 14vw)); }
+  35%  { opacity: 1; }
+  100% { opacity: 1; transform: translateX(var(--echo-x, 0)); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .page-services .hero-image { animation: none; --svc-sw: 5; }
+  .page-services .hero-image { animation: none; }
+  .page-services .hero-shape-echo { animation: none; opacity: 1; }
 }
 
-/* Left-aligned text content; reserve right-side real estate for the slant */
+/* Layout — text on left (default flex-start) */
 .page-services .hero-about-content {
   align-items: flex-start;
   text-align: left;
-  padding-right: clamp(40vw, 42vw, 46vw);
 }
 .page-services .hero-about-content .eyebrow { flex-direction: row; }
 .page-services .hero-services-title {
@@ -2936,18 +2988,7 @@ body.bio-modal-open { overflow: hidden; }
   max-width: 50ch;
 }
 @media (max-width: 960px) {
-  .page-services .hero-about,
-  .page-services .hero-about-stage { height: auto; min-height: 90vh; }
-  .page-services .hero-about-content { padding-right: var(--pad-x); }
-  .page-services .hero-image {
-    /* Re-center the slant on mobile, backslash direction */
-    clip-path: polygon(
-      calc(50% - 2.5vw * var(--svc-sw) - 11.7vh) calc(50% - 29vh),
-      calc(50% + 2.5vw * var(--svc-sw) - 11.7vh) calc(50% - 29vh),
-      calc(50% + 2.5vw * var(--svc-sw) + 11.7vh) calc(50% + 29vh),
-      calc(50% - 2.5vw * var(--svc-sw) + 11.7vh) calc(50% + 29vh)
-    );
-  }
+  .page-services .hero-shape-echo { display: none; }
 }
 
 
