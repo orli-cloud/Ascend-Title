@@ -1,0 +1,58 @@
+---
+import SvgDefs from '../components/SvgDefs.astro';
+import Drawer from '../components/Drawer.astro';
+import BioModal from '../components/BioModal.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title?: string;
+  bodyClass?: string;
+  scrollCursor?: boolean;
+  bioModal?: boolean;
+}
+
+const {
+  title = 'Ascend Title — A Higher Standard of Closing',
+  bodyClass = '',
+  scrollCursor = false,
+  bioModal = false,
+} = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="/Logo/Favicon.png" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body class={bodyClass}>
+
+  <SvgDefs />
+
+  <div class="cursor" aria-hidden="true"></div>
+  <div class="cursor-dot" aria-hidden="true"></div>
+
+  {scrollCursor && (
+    <div class="scroll-cursor-wrap" aria-hidden="true">
+      <div class="scroll-cursor">
+        <span>Scroll</span>
+      </div>
+    </div>
+  )}
+
+  <Drawer />
+
+  {bioModal && <BioModal />}
+
+  <slot />
+
+  <Footer />
+
+  <script src="/script.js" is:inline></script>
+</body>
+</html>

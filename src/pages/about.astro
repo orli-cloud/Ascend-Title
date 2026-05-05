@@ -1,136 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About — Ascend Title</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/png" href="Logo/Favicon.png" />
-  <link rel="stylesheet" href="styles.css?v=about-1" />
-</head>
-<body class="page-about">
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout
+  title="About — Ascend Title"
+  bodyClass="page-about"
+  bioModal={true}
+>
 
-  <!-- ========== Inline SVG defs ========== -->
-  <svg width="0" height="0" aria-hidden="true" style="position:absolute">
-    <defs>
-      <symbol id="arrow" viewBox="0 0 16.58 6.15">
-        <line x1="0" y1="3.08" x2="15.5" y2="3.08" stroke="currentColor" fill="none" stroke-miterlimit="10"/>
-        <polyline points="13.12 0.35 15.87 3.11 13.17 5.8" stroke="currentColor" fill="none" stroke-miterlimit="10"/>
-      </symbol>
-      <symbol id="ic-developers" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="miter">
-        <polygon points="50,7 87.5,28.5 87.5,71.5 50,93 12.5,71.5 12.5,28.5"/>
-        <polygon points="50,50 50,7 87.5,28.5"/>
-        <polygon points="50,50 87.5,71.5 50,93"/>
-        <polygon points="50,50 12.5,71.5 12.5,28.5"/>
-      </symbol>
-      <symbol id="ic-investors" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="miter">
-        <polygon points="50,12 92,82 8,82"/>
-        <line x1="8" y1="82" x2="55" y2="58"/>
-        <line x1="92" y1="82" x2="55" y2="58"/>
-        <line x1="50" y1="12" x2="55" y2="58"/>
-      </symbol>
-      <symbol id="ic-brokers" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="miter">
-        <polygon points="50,8 92,50 50,92 8,50"/>
-        <line x1="50" y1="8" x2="50" y2="92"/>
-        <line x1="8" y1="50" x2="92" y2="50"/>
-        <line x1="29" y1="29" x2="71" y2="71"/>
-        <line x1="29" y1="71" x2="71" y2="29"/>
-      </symbol>
-      <symbol id="ic-lenders" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.2">
-        <circle cx="50" cy="34" r="22"/>
-        <circle cx="50" cy="66" r="22"/>
-      </symbol>
-      <symbol id="ic-attorneys" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="miter">
-        <polygon points="15,8 85,8 50,50"/>
-        <polygon points="50,50 85,92 15,92"/>
-        <line x1="25" y1="22" x2="75" y2="22"/>
-        <line x1="32" y1="32" x2="68" y2="32"/>
-        <line x1="40" y1="42" x2="60" y2="42"/>
-        <line x1="40" y1="58" x2="60" y2="58"/>
-        <line x1="32" y1="68" x2="68" y2="68"/>
-        <line x1="25" y1="78" x2="75" y2="78"/>
-      </symbol>
-    </defs>
-  </svg>
-
-  <!-- Custom cursor -->
-  <div class="cursor" aria-hidden="true"></div>
-  <div class="cursor-dot" aria-hidden="true"></div>
-
-  <!-- ========== SIDE DRAWER (contact) ========== -->
-  <aside class="drawer" id="drawer" aria-hidden="true" aria-label="Contact">
-    <button class="drawer-backdrop" data-drawer-close aria-label="Close menu"></button>
-    <div class="drawer-panel">
-      <div class="drawer-watermark" aria-hidden="true"></div>
-
-      <div class="drawer-top">
-        <button class="drawer-close" data-drawer-close aria-label="Close menu">
-          <span class="close-x" aria-hidden="true"><span></span><span></span></span>
-        </button>
-      </div>
-
-      <div class="drawer-body">
-        <h2 class="drawer-title">Let's close<br><em>your next<br>deal.</em></h2>
-
-        <ul class="drawer-contacts">
-          <li>
-            <a href="tel:2016015700" class="drawer-value"><span class="drawer-link-text">201.601.5700</span></a>
-          </li>
-          <li>
-            <a href="mailto:orders@ascendtitle.com" class="drawer-value"><span class="drawer-link-text">orders@ascendtitle.com</span></a>
-          </li>
-          <li>
-            <span class="drawer-value drawer-value-static">
-              440 Sylvan Avenue, Suite 240<br>Englewood Cliffs, NJ 07632
-            </span>
-          </li>
-          <li>
-            <span class="drawer-value drawer-value-static">
-              1600 Ave of the States<br>Lakewood, NJ 08701
-            </span>
-          </li>
-        </ul>
-
-      </div>
-    </div>
-  </aside>
-
-  <!-- ========== BIO MODAL ========== -->
-  <div class="bio-modal" id="bio-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="bio-modal-name">
-    <button class="bio-modal-backdrop" data-bio-close aria-label="Close bio"></button>
-    <div class="bio-modal-card">
-      <button class="bio-modal-close" data-bio-close aria-label="Close bio">
-        <span class="close-x" aria-hidden="true"><span></span><span></span></span>
-      </button>
-      <div class="bio-modal-grid">
-        <div class="bio-modal-img" id="bio-modal-img" aria-hidden="true"></div>
-        <div class="bio-modal-body">
-          <span class="eyebrow"><span class="eyebrow-dash"></span><span id="bio-modal-role">Role</span></span>
-          <h3 class="bio-modal-name" id="bio-modal-name">Name</h3>
-          <div class="bio-modal-text" id="bio-modal-text"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ========================================================== -->
-  <!-- HERO — slim about hero (single screen, slanted background)  -->
-  <!-- ========================================================== -->
   <header class="hero hero-about" id="home">
     <nav class="nav" aria-label="Main">
       <div class="nav-inner">
-        <a href="index.html" class="logo" aria-label="Ascend Title home">
-          <img src="Logo/Logo white.png" alt="Ascend Title" class="logo-img" />
+        <a href="/" class="logo" aria-label="Ascend Title home">
+          <img src="/Logo/Logo white.png" alt="Ascend Title" class="logo-img" />
         </a>
         <ul class="nav-links">
-          <li><a href="index.html" class="nav-link">Home</a></li>
-          <li><a href="index.html#about" class="nav-link">About</a></li>
-          <li><a href="services.html" class="nav-link">Services</a></li>
-          <li><a href="index.html#resources" class="nav-link">Resources</a></li>
-          <li><a href="index.html#login" class="nav-link">Login</a></li>
-          <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+          <li><a href="/" class="nav-link">Home</a></li>
+          <li><a href="/about" class="nav-link active">About</a></li>
+          <li><a href="/services" class="nav-link">Services</a></li>
+          <li><a href="/#resources" class="nav-link">Resources</a></li>
+          <li><a href="/#login" class="nav-link">Login</a></li>
+          <li><a href="/#contact" class="nav-link">Contact</a></li>
         </ul>
         <button class="menu-btn" aria-label="Open contact menu" aria-expanded="false" aria-controls="drawer">
           <span class="menu-icon" aria-hidden="true">
@@ -158,7 +47,6 @@
     </div>
   </header>
 
-  <!-- ========== STORY ========== -->
   <section class="story" id="story">
     <div class="story-pull">
       <div class="container">
@@ -167,7 +55,6 @@
     </div>
   </section>
 
-  <!-- ========== GUIDING PRINCIPLES (excellence-style sticky accordion) ========== -->
   <section class="excellence excellence--values" id="principles">
     <div class="ex-pin">
       <div class="ex-sticky">
@@ -211,7 +98,6 @@
     </div>
   </section>
 
-  <!-- ========== THE A TEAM ========== -->
   <section class="ateam" id="team">
     <div class="container">
       <div class="ateam-head">
@@ -221,11 +107,9 @@
       </div>
 
       <ul class="bio-grid">
-
-        <!-- Sam Parnes -->
         <li class="bio-card reveal" data-stagger="0">
           <button class="bio-trigger" type="button" data-bio-open>
-            <span class="bio-img" style="background-image:url('Bios/chaim__sam_%20parnes.jpg')" aria-hidden="true"></span>
+            <span class="bio-img" style="background-image:url('/Bios/chaim__sam_%20parnes.jpg')" aria-hidden="true"></span>
             <span class="bio-meta">
               <span class="bio-name">Sam Parnes</span>
               <span class="bio-role">CEO &amp; Managing Partner</span>
@@ -238,10 +122,9 @@
           </template>
         </li>
 
-        <!-- David Berney -->
         <li class="bio-card reveal" data-stagger="1">
           <button class="bio-trigger" type="button" data-bio-open>
-            <span class="bio-img" style="background-image:url('Bios/david_berney.jpg')" aria-hidden="true"></span>
+            <span class="bio-img" style="background-image:url('/Bios/david_berney.jpg')" aria-hidden="true"></span>
             <span class="bio-meta">
               <span class="bio-name">David Berney</span>
               <span class="bio-role">Managing Partner</span>
@@ -254,7 +137,6 @@
           </template>
         </li>
 
-        <!-- Menucha Stern -->
         <li class="bio-card reveal" data-stagger="2">
           <button class="bio-trigger" type="button" data-bio-open>
             <span class="bio-img bio-img--mono" data-initials="MS" aria-hidden="true"></span>
@@ -270,10 +152,9 @@
           </template>
         </li>
 
-        <!-- Judah Strauss -->
         <li class="bio-card reveal" data-stagger="3">
           <button class="bio-trigger" type="button" data-bio-open>
-            <span class="bio-img" style="background-image:url('Bios/judah_strauss.jpg')" aria-hidden="true"></span>
+            <span class="bio-img" style="background-image:url('/Bios/judah_strauss.jpg')" aria-hidden="true"></span>
             <span class="bio-meta">
               <span class="bio-name">Judah Strauss</span>
               <span class="bio-role">Chief Financial Officer</span>
@@ -286,7 +167,6 @@
           </template>
         </li>
 
-        <!-- Adina Fisch -->
         <li class="bio-card reveal" data-stagger="0">
           <button class="bio-trigger" type="button" data-bio-open>
             <span class="bio-img bio-img--mono" data-initials="AF" aria-hidden="true"></span>
@@ -302,10 +182,9 @@
           </template>
         </li>
 
-        <!-- Manny Lerman -->
         <li class="bio-card reveal" data-stagger="1">
           <button class="bio-trigger" type="button" data-bio-open>
-            <span class="bio-img" style="background-image:url('Bios/manny_lerman.jpg')" aria-hidden="true"></span>
+            <span class="bio-img" style="background-image:url('/Bios/manny_lerman.jpg')" aria-hidden="true"></span>
             <span class="bio-meta">
               <span class="bio-name">Manny Lerman</span>
               <span class="bio-role">Director of Settlement</span>
@@ -318,10 +197,9 @@
           </template>
         </li>
 
-        <!-- Brocha Babad -->
         <li class="bio-card reveal" data-stagger="2">
           <button class="bio-trigger" type="button" data-bio-open>
-            <span class="bio-img" style="background-image:url('Bios/brocha_babad.jpg')" aria-hidden="true"></span>
+            <span class="bio-img" style="background-image:url('/Bios/brocha_babad.jpg')" aria-hidden="true"></span>
             <span class="bio-meta">
               <span class="bio-name">Brocha Babad</span>
               <span class="bio-role">Executive Assistant</span>
@@ -333,7 +211,6 @@
           </template>
         </li>
 
-        <!-- Mati Gilbert -->
         <li class="bio-card reveal" data-stagger="3">
           <button class="bio-trigger" type="button" data-bio-open>
             <span class="bio-img bio-img--mono" data-initials="MG" aria-hidden="true"></span>
@@ -347,12 +224,10 @@
             <p>Known for her attention to detail and collaborative approach, Mati works closely with clients, lenders, and colleagues to ensure a smooth, efficient, and stress-free closing experience. Her dedication and professionalism make her a trusted resource and an invaluable part of the Ascend Title team.</p>
           </template>
         </li>
-
       </ul>
     </div>
   </section>
 
-  <!-- ========== CTA ========== -->
   <section class="cta" id="contact">
     <div class="cta-pin">
       <div class="cta-sticky">
@@ -374,7 +249,7 @@
             <p class="cta-sub">
               If your transactions require precision and proactive leadership, Ascend Title was built for you. Let's get your next deal moving with a team that leads from day one.
             </p>
-            <a href="index.html#contact" class="btn btn-ghost" data-magnetic>
+            <a href="/#contact" class="btn btn-ghost" data-magnetic>
               <span class="btn-arrow btn-arrow-left"><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></span>
               <span class="btn-label">Get Started</span>
               <span class="btn-arrow btn-arrow-right"><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></span>
@@ -385,55 +260,4 @@
     </div>
   </section>
 
-  <!-- ========== FOOTER ========== -->
-  <footer class="footer" id="footer">
-    <div class="footer-content container">
-      <div class="footer-main">
-        <div class="footer-col footer-col--intro">
-          <h2 class="footer-heading">We close<br>nationally.</h2>
-          <a href="index.html#contact" class="footer-brief">
-            <span>Start a project</span>
-            <svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg>
-          </a>
-          <a href="mailto:orders@ascendtitle.com" class="footer-email">orders@ascendtitle.com</a>
-        </div>
-        <div class="footer-col">
-          <h5 class="footer-label">Quick Links</h5>
-          <a href="index.html#about">About</a>
-          <a href="index.html#services">Services</a>
-          <a href="index.html#resources">Resources</a>
-          <a href="index.html#contact">Contact</a>
-        </div>
-        <div class="footer-col">
-          <h5 class="footer-label">Services</h5>
-          <a href="#">Commercial</a>
-          <a href="#">Residential</a>
-          <a href="#">National</a>
-          <a href="#">Full Escrow</a>
-        </div>
-        <div class="footer-col">
-          <h5 class="footer-label">Socials</h5>
-          <a href="#">Instagram</a>
-          <a href="#">LinkedIn</a>
-          <a href="#">Facebook</a>
-        </div>
-      </div>
-
-      <div class="footer-divider"></div>
-
-      <div class="footer-bottom">
-        <span>&copy; 2026 Ascend Title</span>
-        <a href="https://gcnymarketing.com/" target="_blank" rel="noopener" class="footer-logo-link" aria-label="GCNY Marketing">
-          <img src="Elements/gcny logo icon.png" alt="GCNY Marketing" class="footer-logo" />
-        </a>
-      </div>
-    </div>
-
-    <div class="footer-brand" aria-hidden="true">
-      <span class="footer-brand-word">ASCEND</span>
-    </div>
-  </footer>
-
-  <script src="script.js?v=about-1"></script>
-</body>
-</html>
+</Layout>

@@ -1,138 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ascend Title — A Higher Standard of Closing</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/png" href="Logo/Favicon.png" />
-  <link rel="stylesheet" href="styles.css?v=team-window-1" />
-</head>
-<body>
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout
+  title="Ascend Title — A Higher Standard of Closing"
+  scrollCursor={true}
+>
 
-  <!-- ========== Inline SVG defs (reusable chevron mark) ========== -->
-  <svg width="0" height="0" aria-hidden="true" style="position:absolute">
-    <defs>
-      <symbol id="chevron-a" viewBox="0 0 100 100">
-        <path d="M42 10 L58 10 L90 90 L75 90 L50 28 L25 90 L10 90 Z" fill="currentColor"/>
-      </symbol>
-      <symbol id="arrow" viewBox="0 0 16.58 6.15">
-        <line x1="0" y1="3.08" x2="15.5" y2="3.08" stroke="currentColor" fill="none" stroke-miterlimit="10"/>
-        <polyline points="13.12 0.35 15.87 3.11 13.17 5.8" stroke="currentColor" fill="none" stroke-miterlimit="10"/>
-      </symbol>
-      <!-- Serve-list line-art icons (drawn from the Icons.eps reference) -->
-      <symbol id="ic-developers" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="miter">
-        <polygon points="50,7 87.5,28.5 87.5,71.5 50,93 12.5,71.5 12.5,28.5"/>
-        <polygon points="50,50 50,7 87.5,28.5"/>
-        <polygon points="50,50 87.5,71.5 50,93"/>
-        <polygon points="50,50 12.5,71.5 12.5,28.5"/>
-      </symbol>
-      <symbol id="ic-investors" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="miter">
-        <polygon points="50,12 92,82 8,82"/>
-        <line x1="8" y1="82" x2="55" y2="58"/>
-        <line x1="92" y1="82" x2="55" y2="58"/>
-        <line x1="50" y1="12" x2="55" y2="58"/>
-      </symbol>
-      <symbol id="ic-brokers" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="miter">
-        <polygon points="50,8 92,50 50,92 8,50"/>
-        <line x1="50" y1="8" x2="50" y2="92"/>
-        <line x1="8" y1="50" x2="92" y2="50"/>
-        <line x1="29" y1="29" x2="71" y2="71"/>
-        <line x1="29" y1="71" x2="71" y2="29"/>
-      </symbol>
-      <symbol id="ic-lenders" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.2">
-        <circle cx="50" cy="34" r="22"/>
-        <circle cx="50" cy="66" r="22"/>
-      </symbol>
-      <symbol id="ic-attorneys" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="miter">
-        <polygon points="15,8 85,8 50,50"/>
-        <polygon points="50,50 85,92 15,92"/>
-        <line x1="25" y1="22" x2="75" y2="22"/>
-        <line x1="32" y1="32" x2="68" y2="32"/>
-        <line x1="40" y1="42" x2="60" y2="42"/>
-        <line x1="40" y1="58" x2="60" y2="58"/>
-        <line x1="32" y1="68" x2="68" y2="68"/>
-        <line x1="25" y1="78" x2="75" y2="78"/>
-      </symbol>
-      <linearGradient id="silver" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stop-color="#f5f9ff"/>
-        <stop offset="40%" stop-color="#c9d6e5"/>
-        <stop offset="70%" stop-color="#8aa3c0"/>
-        <stop offset="100%" stop-color="#e8eef5"/>
-      </linearGradient>
-    </defs>
-  </svg>
-
-  <!-- Custom cursor -->
-  <div class="cursor" aria-hidden="true"></div>
-  <div class="cursor-dot" aria-hidden="true"></div>
-
-  <!-- Scroll cursor (appears over the hero) -->
-  <div class="scroll-cursor-wrap" aria-hidden="true">
-    <div class="scroll-cursor">
-      <span>Scroll</span>
-    </div>
-  </div>
-
-
-  <!-- ========== SIDE DRAWER (contact) ========== -->
-  <aside class="drawer" id="drawer" aria-hidden="true" aria-label="Contact">
-    <button class="drawer-backdrop" data-drawer-close aria-label="Close menu"></button>
-    <div class="drawer-panel">
-      <!-- Slanted line watermark echoes the hero -->
-      <div class="drawer-watermark" aria-hidden="true"></div>
-
-      <div class="drawer-top">
-        <button class="drawer-close" data-drawer-close aria-label="Close menu">
-          <span class="close-x" aria-hidden="true"><span></span><span></span></span>
-        </button>
-      </div>
-
-      <div class="drawer-body">
-        <h2 class="drawer-title">Let's close<br><em>your next<br>deal.</em></h2>
-
-        <ul class="drawer-contacts">
-          <li>
-            <a href="tel:2016015700" class="drawer-value"><span class="drawer-link-text">201.601.5700</span></a>
-          </li>
-          <li>
-            <a href="mailto:orders@ascendtitle.com" class="drawer-value"><span class="drawer-link-text">orders@ascendtitle.com</span></a>
-          </li>
-          <li>
-            <span class="drawer-value drawer-value-static">
-              440 Sylvan Avenue, Suite 240<br>Englewood Cliffs, NJ 07632
-            </span>
-          </li>
-          <li>
-            <span class="drawer-value drawer-value-static">
-              1600 Ave of the States<br>Lakewood, NJ 08701
-            </span>
-          </li>
-        </ul>
-
-      </div>
-    </div>
-  </aside>
-
-  <!-- ========================================================== -->
-  <!-- HERO — Reverse scroll-morph (starts full image, shrinks to slant) -->
-  <!-- ========================================================== -->
   <header class="hero hero-reverse" id="home">
-    <!-- Nav sits inside hero, non-sticky — scrolls away with the hero -->
     <nav class="nav" aria-label="Main">
       <div class="nav-inner">
-        <a href="#home" class="logo" aria-label="Ascend Title home">
-          <img src="Logo/Logo white.png" alt="Ascend Title" class="logo-img" />
+        <a href="/#home" class="logo" aria-label="Ascend Title home">
+          <img src="/Logo/Logo white.png" alt="Ascend Title" class="logo-img" />
         </a>
         <ul class="nav-links">
-          <li><a href="#home" class="nav-link active">Home</a></li>
-          <li><a href="#about" class="nav-link">About</a></li>
-          <li><a href="#services" class="nav-link">Services</a></li>
-          <li><a href="#resources" class="nav-link">Resources</a></li>
-          <li><a href="#login" class="nav-link">Login</a></li>
-          <li><a href="#contact" class="nav-link">Contact</a></li>
+          <li><a href="/#home" class="nav-link active">Home</a></li>
+          <li><a href="/about" class="nav-link">About</a></li>
+          <li><a href="/services" class="nav-link">Services</a></li>
+          <li><a href="/#resources" class="nav-link">Resources</a></li>
+          <li><a href="/#login" class="nav-link">Login</a></li>
+          <li><a href="/#contact" class="nav-link">Contact</a></li>
         </ul>
         <button class="menu-btn" aria-label="Open contact menu" aria-expanded="false" aria-controls="drawer">
           <span class="menu-icon" aria-hidden="true">
@@ -145,7 +31,6 @@
     </nav>
 
     <div class="hero-sticky">
-      <!-- Navy base, then image clipped to a growing parallelogram on top -->
       <div class="hero-navy" aria-hidden="true"></div>
       <div class="hero-image" aria-hidden="true"></div>
 
@@ -153,7 +38,7 @@
         <h1 class="hero-title">A Higher<br>Standard<br>of Closing</h1>
         <div class="hero-side">
           <p class="hero-sub">Unrivaled expertise in commercial and residential title insurance.</p>
-          <a href="#about" class="btn btn-ghost">
+          <a href="/#about" class="btn btn-ghost">
             <span class="btn-arrow btn-arrow-left"><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></span>
             <span class="btn-label">Get Started</span>
             <span class="btn-arrow btn-arrow-right"><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></span>
@@ -163,14 +48,12 @@
     </div>
   </header>
 
-  <!-- ========== ABOUT ========== -->
   <section class="about" id="about">
     <div class="container">
       <h2 class="about-title" data-split-fill>Ascend Title is a national title and escrow firm built on four decades of experience. We navigate complex commercial and residential transactions across all 50 states.</h2>
     </div>
   </section>
 
-  <!-- ========== SERVICES (sticky stacked cards) ========== -->
   <section class="services-stack" id="services">
     <div class="container">
       <div class="stack-list">
@@ -225,7 +108,6 @@
     </div>
   </section>
 
-  <!-- ========== EXCELLENCE ========== -->
   <section class="excellence">
     <div class="ex-pin">
       <div class="ex-sticky">
@@ -264,7 +146,6 @@
     </div>
   </section>
 
-  <!-- ========== TEAM ========== -->
   <section class="team">
     <div class="container">
       <div class="team-header">
@@ -301,56 +182,52 @@
     </div>
   </section>
 
-  <!-- ========== UNDERWRITERS — marquee + center circle ========== -->
   <section class="underwriters">
     <div class="uw-marquee" aria-hidden="true">
       <div class="marquee-track">
-        <img src="Logo/Logo.png" alt="Ascend" class="uw-logo" />
+        <img src="/Logo/Logo.png" alt="Ascend" class="uw-logo" />
         <span class="uw-slash"></span>
-        <img src="Logo/Logo.png" alt="Ascend" class="uw-logo" />
+        <img src="/Logo/Logo.png" alt="Ascend" class="uw-logo" />
         <span class="uw-slash"></span>
-        <img src="Logo/Logo.png" alt="Ascend" class="uw-logo" />
+        <img src="/Logo/Logo.png" alt="Ascend" class="uw-logo" />
         <span class="uw-slash"></span>
-        <img src="Logo/Logo.png" alt="Ascend" class="uw-logo" />
+        <img src="/Logo/Logo.png" alt="Ascend" class="uw-logo" />
         <span class="uw-slash"></span>
-        <img src="Logo/Logo.png" alt="Ascend" class="uw-logo" />
+        <img src="/Logo/Logo.png" alt="Ascend" class="uw-logo" />
         <span class="uw-slash"></span>
-        <img src="Logo/Logo.png" alt="Ascend" class="uw-logo" />
+        <img src="/Logo/Logo.png" alt="Ascend" class="uw-logo" />
         <span class="uw-slash"></span>
-        <img src="Logo/Logo.png" alt="Ascend" class="uw-logo" />
+        <img src="/Logo/Logo.png" alt="Ascend" class="uw-logo" />
         <span class="uw-slash"></span>
-        <img src="Logo/Logo.png" alt="Ascend" class="uw-logo" />
+        <img src="/Logo/Logo.png" alt="Ascend" class="uw-logo" />
         <span class="uw-slash"></span>
-        <!-- duplicate for seamless loop -->
-        <img src="Logo/Logo.png" alt="Ascend" class="uw-logo" />
+        <img src="/Logo/Logo.png" alt="Ascend" class="uw-logo" />
         <span class="uw-slash"></span>
-        <img src="Logo/Logo.png" alt="Ascend" class="uw-logo" />
+        <img src="/Logo/Logo.png" alt="Ascend" class="uw-logo" />
         <span class="uw-slash"></span>
-        <img src="Logo/Logo.png" alt="Ascend" class="uw-logo" />
+        <img src="/Logo/Logo.png" alt="Ascend" class="uw-logo" />
         <span class="uw-slash"></span>
-        <img src="Logo/Logo.png" alt="Ascend" class="uw-logo" />
+        <img src="/Logo/Logo.png" alt="Ascend" class="uw-logo" />
         <span class="uw-slash"></span>
-        <img src="Logo/Logo.png" alt="Ascend" class="uw-logo" />
+        <img src="/Logo/Logo.png" alt="Ascend" class="uw-logo" />
         <span class="uw-slash"></span>
-        <img src="Logo/Logo.png" alt="Ascend" class="uw-logo" />
+        <img src="/Logo/Logo.png" alt="Ascend" class="uw-logo" />
         <span class="uw-slash"></span>
-        <img src="Logo/Logo.png" alt="Ascend" class="uw-logo" />
+        <img src="/Logo/Logo.png" alt="Ascend" class="uw-logo" />
         <span class="uw-slash"></span>
-        <img src="Logo/Logo.png" alt="Ascend" class="uw-logo" />
+        <img src="/Logo/Logo.png" alt="Ascend" class="uw-logo" />
         <span class="uw-slash"></span>
       </div>
     </div>
-
   </section>
 
-  <!-- ========== WHO WE SERVE ========== -->
   <section class="serve">
     <div class="container">
       <div class="serve-grid">
         <div class="serve-left">
           <span class="eyebrow reveal"><span class="eyebrow-dash"></span>Who We Serve</span>
           <h2 class="serve-title reveal">Built for the professionals behind every serious deal.</h2>
-          <a href="#contact" class="btn btn-ghost reveal serve-cta" data-magnetic>
+          <a href="/#contact" class="btn btn-ghost reveal serve-cta" data-magnetic>
             <span class="btn-arrow btn-arrow-left"><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></span>
             <span class="btn-label">Get In Touch</span>
             <span class="btn-arrow btn-arrow-right"><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></span>
@@ -367,7 +244,6 @@
     </div>
   </section>
 
-  <!-- ========== CTA ========== -->
   <section class="cta angle-top" id="contact">
     <div class="cta-pin">
       <div class="cta-sticky">
@@ -400,56 +276,4 @@
     </div>
   </section>
 
-  <!-- ========== FOOTER — fixed at bottom, CTA reveals it on scroll ========== -->
-  <footer class="footer" id="footer">
-    <div class="footer-content container">
-      <div class="footer-main">
-        <div class="footer-col footer-col--intro">
-          <h2 class="footer-heading">We close<br>nationally.</h2>
-          <a href="#contact" class="footer-brief">
-            <span>Start a project</span>
-            <svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg>
-          </a>
-          <a href="mailto:orders@ascendtitle.com" class="footer-email">orders@ascendtitle.com</a>
-        </div>
-        <div class="footer-col">
-          <h5 class="footer-label">Quick Links</h5>
-          <a href="#about">About</a>
-          <a href="#services">Services</a>
-          <a href="#resources">Resources</a>
-          <a href="#contact">Contact</a>
-        </div>
-        <div class="footer-col">
-          <h5 class="footer-label">Services</h5>
-          <a href="#">Commercial</a>
-          <a href="#">Residential</a>
-          <a href="#">National</a>
-          <a href="#">Full Escrow</a>
-        </div>
-        <div class="footer-col">
-          <h5 class="footer-label">Socials</h5>
-          <a href="#">Instagram</a>
-          <a href="#">LinkedIn</a>
-          <a href="#">Facebook</a>
-        </div>
-      </div>
-
-      <div class="footer-divider"></div>
-
-      <div class="footer-bottom">
-        <span>&copy; 2026 Ascend Title</span>
-        <a href="https://gcnymarketing.com/" target="_blank" rel="noopener" class="footer-logo-link" aria-label="GCNY Marketing">
-          <img src="Elements/gcny logo icon.png" alt="GCNY Marketing" class="footer-logo" />
-        </a>
-      </div>
-    </div>
-
-    <!-- Giant brand text static at the bottom -->
-    <div class="footer-brand" aria-hidden="true">
-      <span class="footer-brand-word">ASCEND</span>
-    </div>
-  </footer>
-
-  <script src="script.js?v=team-window-1"></script>
-</body>
-</html>
+</Layout>

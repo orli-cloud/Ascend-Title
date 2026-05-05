@@ -1,85 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Services — Ascend Title</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/png" href="Logo/Favicon.png" />
-  <link rel="stylesheet" href="styles.css?v=services-1" />
-</head>
-<body class="page-about page-services">
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout
+  title="Services — Ascend Title"
+  bodyClass="page-about page-services"
+>
 
-  <!-- ========== Inline SVG defs ========== -->
-  <svg width="0" height="0" aria-hidden="true" style="position:absolute">
-    <defs>
-      <symbol id="arrow" viewBox="0 0 16.58 6.15">
-        <line x1="0" y1="3.08" x2="15.5" y2="3.08" stroke="currentColor" fill="none" stroke-miterlimit="10"/>
-        <polyline points="13.12 0.35 15.87 3.11 13.17 5.8" stroke="currentColor" fill="none" stroke-miterlimit="10"/>
-      </symbol>
-    </defs>
-  </svg>
-
-  <!-- Custom cursor -->
-  <div class="cursor" aria-hidden="true"></div>
-  <div class="cursor-dot" aria-hidden="true"></div>
-
-  <!-- ========== SIDE DRAWER (contact) ========== -->
-  <aside class="drawer" id="drawer" aria-hidden="true" aria-label="Contact">
-    <button class="drawer-backdrop" data-drawer-close aria-label="Close menu"></button>
-    <div class="drawer-panel">
-      <div class="drawer-watermark" aria-hidden="true"></div>
-
-      <div class="drawer-top">
-        <button class="drawer-close" data-drawer-close aria-label="Close menu">
-          <span class="close-x" aria-hidden="true"><span></span><span></span></span>
-        </button>
-      </div>
-
-      <div class="drawer-body">
-        <h2 class="drawer-title">Let's close<br><em>your next<br>deal.</em></h2>
-
-        <ul class="drawer-contacts">
-          <li>
-            <a href="tel:2016015700" class="drawer-value"><span class="drawer-link-text">201.601.5700</span></a>
-          </li>
-          <li>
-            <a href="mailto:orders@ascendtitle.com" class="drawer-value"><span class="drawer-link-text">orders@ascendtitle.com</span></a>
-          </li>
-          <li>
-            <span class="drawer-value drawer-value-static">
-              440 Sylvan Avenue, Suite 240<br>Englewood Cliffs, NJ 07632
-            </span>
-          </li>
-          <li>
-            <span class="drawer-value drawer-value-static">
-              1600 Ave of the States<br>Lakewood, NJ 08701
-            </span>
-          </li>
-        </ul>
-
-      </div>
-    </div>
-  </aside>
-
-  <!-- ========================================================== -->
-  <!-- HERO — slim services hero (single screen, slanted backdrop) -->
-  <!-- ========================================================== -->
   <header class="hero hero-about" id="home">
     <nav class="nav" aria-label="Main">
       <div class="nav-inner">
-        <a href="index.html" class="logo" aria-label="Ascend Title home">
-          <img src="Logo/Logo white.png" alt="Ascend Title" class="logo-img" />
+        <a href="/" class="logo" aria-label="Ascend Title home">
+          <img src="/Logo/Logo white.png" alt="Ascend Title" class="logo-img" />
         </a>
         <ul class="nav-links">
-          <li><a href="index.html" class="nav-link">Home</a></li>
-          <li><a href="about.html" class="nav-link">About</a></li>
-          <li><a href="services.html" class="nav-link nav-link--current" aria-current="page">Services</a></li>
-          <li><a href="index.html#resources" class="nav-link">Resources</a></li>
-          <li><a href="index.html#login" class="nav-link">Login</a></li>
-          <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+          <li><a href="/" class="nav-link">Home</a></li>
+          <li><a href="/about" class="nav-link">About</a></li>
+          <li><a href="/services" class="nav-link nav-link--current" aria-current="page">Services</a></li>
+          <li><a href="/#resources" class="nav-link">Resources</a></li>
+          <li><a href="/#login" class="nav-link">Login</a></li>
+          <li><a href="/#contact" class="nav-link">Contact</a></li>
         </ul>
         <button class="menu-btn" aria-label="Open contact menu" aria-expanded="false" aria-controls="drawer">
           <span class="menu-icon" aria-hidden="true">
@@ -110,18 +49,15 @@
     </div>
   </header>
 
-  <!-- Scroll cursor — only visible when hovering inside the services stack -->
   <div class="svc-cursor" aria-hidden="true">
     <svg class="svc-cursor-arrow" viewBox="0 0 12 6"><polyline points="1,5 6,1 11,5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
     <span class="svc-cursor-label">Scroll</span>
     <svg class="svc-cursor-arrow" viewBox="0 0 12 6"><polyline points="1,1 6,5 11,1" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
   </div>
 
-  <!-- ========== STACKED SERVICES — bg slides behind fixed text, text reveals between services ========== -->
   <section class="svc-stack" id="services-stack">
     <div class="svc-stage" aria-label="Services">
 
-      <!-- Background layers — each slides up to cover the previous color -->
       <div class="svc-bg-stack" aria-hidden="true">
         <div class="svc-bg svc-bg--paper"      data-bg="0"></div>
         <div class="svc-bg svc-bg--paper-warm" data-bg="1"></div>
@@ -131,7 +67,6 @@
         <div class="svc-bg svc-bg--navy"       data-bg="5"></div>
       </div>
 
-      <!-- 3D cube — rotates to a new pose for each service -->
       <div class="svc-shape-stage" aria-hidden="true">
         <div class="svc-shape">
           <div class="svc-shape-face svc-shape-face--front"></div>
@@ -143,7 +78,6 @@
         </div>
       </div>
 
-      <!-- Dot pagination, vertical, left side -->
       <ol class="svc-dots" aria-label="Service progress">
         <li><a class="svc-dot is-active" href="#commercial"   data-dot="0" aria-label="Commercial Services"></a></li>
         <li><a class="svc-dot"            href="#residential"  data-dot="1" aria-label="Residential Services"></a></li>
@@ -153,7 +87,6 @@
         <li><a class="svc-dot"            href="#transaction"  data-dot="5" aria-label="Complete Transaction Management"></a></li>
       </ol>
 
-      <!-- Text layer — fixed in place, content reveals between services -->
       <div class="svc-text-stack">
         <article class="svc-text is-active" data-text="0" data-tone="ink" id="commercial">
           <div class="container svc-text-inner">
@@ -205,7 +138,6 @@
       </div>
     </div>
 
-    <!-- 6 snap markers, one per service — gives every service a full 100vh of scroll -->
     <div class="svc-track" data-track="0" aria-hidden="true"></div>
     <div class="svc-track" data-track="1" aria-hidden="true"></div>
     <div class="svc-track" data-track="2" aria-hidden="true"></div>
@@ -214,7 +146,6 @@
     <div class="svc-track" data-track="5" aria-hidden="true"></div>
   </section>
 
-  <!-- ========== CTA ========== -->
   <section class="cta" id="contact">
     <div class="cta-pin">
       <div class="cta-sticky">
@@ -236,7 +167,7 @@
             <p class="cta-sub">
               If your transactions require precision and proactive leadership, Ascend Title was built for you. Let's get your next deal moving with a team that leads from day one.
             </p>
-            <a href="index.html#contact" class="btn btn-ghost" data-magnetic>
+            <a href="/#contact" class="btn btn-ghost" data-magnetic>
               <span class="btn-arrow btn-arrow-left"><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></span>
               <span class="btn-label">Get Started</span>
               <span class="btn-arrow btn-arrow-right"><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></span>
@@ -247,56 +178,4 @@
     </div>
   </section>
 
-  <!-- ========== FOOTER ========== -->
-  <footer class="footer" id="footer">
-    <div class="footer-content container">
-      <div class="footer-main">
-        <div class="footer-col footer-col--intro">
-          <h2 class="footer-heading">We close<br>nationally.</h2>
-          <a href="index.html#contact" class="footer-brief">
-            <span>Start a project</span>
-            <svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg>
-          </a>
-          <a href="mailto:orders@ascendtitle.com" class="footer-email">orders@ascendtitle.com</a>
-        </div>
-        <div class="footer-col">
-          <h5 class="footer-label">Quick Links</h5>
-          <a href="index.html">Home</a>
-          <a href="about.html">About</a>
-          <a href="services.html">Services</a>
-          <a href="index.html#resources">Resources</a>
-          <a href="index.html#contact">Contact</a>
-        </div>
-        <div class="footer-col">
-          <h5 class="footer-label">Services</h5>
-          <a href="services.html#commercial">Commercial</a>
-          <a href="services.html#residential">Residential</a>
-          <a href="services.html#national">National</a>
-          <a href="services.html#escrow">Full Escrow</a>
-        </div>
-        <div class="footer-col">
-          <h5 class="footer-label">Socials</h5>
-          <a href="#">Instagram</a>
-          <a href="#">LinkedIn</a>
-          <a href="#">Facebook</a>
-        </div>
-      </div>
-
-      <div class="footer-divider"></div>
-
-      <div class="footer-bottom">
-        <span>&copy; 2026 Ascend Title</span>
-        <a href="https://gcnymarketing.com/" target="_blank" rel="noopener" class="footer-logo-link" aria-label="GCNY Marketing">
-          <img src="Elements/gcny logo icon.png" alt="GCNY Marketing" class="footer-logo" />
-        </a>
-      </div>
-    </div>
-
-    <div class="footer-brand" aria-hidden="true">
-      <span class="footer-brand-word">ASCEND</span>
-    </div>
-  </footer>
-
-  <script src="script.js?v=services-1"></script>
-</body>
-</html>
+</Layout>

@@ -27,6 +27,23 @@ Images/*
 Logo/Branding/*.pdf
 Logo/Fonts/*.pdf
 
+# Same rules for the Astro public/ duplicates
+public/Bios/*
+!public/Bios/Team 3.jpg
+!public/Bios/team isolated.png
+!public/Bios/chaim__sam_ parnes.jpg
+!public/Bios/david_berney.jpg
+!public/Bios/judah_strauss.jpg
+!public/Bios/manny_lerman.jpg
+!public/Bios/brocha_babad.jpg
+!public/Bios/Him-figure.svg
+!public/Bios/Her-figure.svg
+public/Images/*
+!public/Images/619.jpg
+!public/Images/5209.jpg
+public/Logo/Branding/*.pdf
+public/Logo/Fonts/*.pdf
+
 # OS
 .DS_Store
 Thumbs.db

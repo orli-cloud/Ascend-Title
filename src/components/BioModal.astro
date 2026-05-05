@@ -1,0 +1,19 @@
+---
+// Bio modal used on the about page (and anywhere team cards open profile detail).
+---
+<div class="bio-modal" id="bio-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="bio-modal-name">
+  <button class="bio-modal-backdrop" data-bio-close aria-label="Close bio"></button>
+  <div class="bio-modal-card">
+    <button class="bio-modal-close" data-bio-close aria-label="Close bio">
+      <span class="close-x" aria-hidden="true"><span></span><span></span></span>
+    </button>
+    <div class="bio-modal-grid">
+      <div class="bio-modal-img" id="bio-modal-img" aria-hidden="true"></div>
+      <div class="bio-modal-body">
+        <span class="eyebrow"><span class="eyebrow-dash"></span><span id="bio-modal-role">Role</span></span>
+        <h3 class="bio-modal-name" id="bio-modal-name">Name</h3>
+        <div class="bio-modal-text" id="bio-modal-text"></div>
+      </div>
+    </div>
+  </div>
+</div>

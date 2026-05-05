@@ -1,0 +1,50 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout
+  title="Not Found — Ascend Title"
+  bodyClass="page-404"
+>
+
+  <header class="hero hero-404" id="home">
+    <nav class="nav" aria-label="Main">
+      <div class="nav-inner">
+        <a href="/" class="logo" aria-label="Ascend Title home">
+          <img src="/Logo/Logo white.png" alt="Ascend Title" class="logo-img" />
+        </a>
+        <ul class="nav-links">
+          <li><a href="/" class="nav-link">Home</a></li>
+          <li><a href="/about" class="nav-link">About</a></li>
+          <li><a href="/services" class="nav-link">Services</a></li>
+          <li><a href="/#resources" class="nav-link">Resources</a></li>
+          <li><a href="/#login" class="nav-link">Login</a></li>
+          <li><a href="/#contact" class="nav-link">Contact</a></li>
+        </ul>
+        <button class="menu-btn" aria-label="Open contact menu" aria-expanded="false" aria-controls="drawer">
+          <span class="menu-icon" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </button>
+      </div>
+    </nav>
+
+    <div class="hero-404-stage">
+      <div class="hero-navy" aria-hidden="true"></div>
+      <div class="hero-image" aria-hidden="true"></div>
+
+      <div class="hero-404-content">
+        <h1 class="hero-404-num">404</h1>
+        <p class="hero-404-msg">Oops! This page was not found.</p>
+        <a href="/" class="btn btn-ghost">
+          <span class="btn-arrow btn-arrow-left"><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></span>
+          <span class="btn-label">Take me home</span>
+          <span class="btn-arrow btn-arrow-right"><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+</Layout>
