@@ -165,14 +165,7 @@ h1, h2, h3, h4, h5, h6 { margin: 0; font-weight: 400; letter-spacing: -0.02em; }
    Custom cursor
    ----------------------------------------------------------------- */
 .cursor, .cursor-dot {
-  position: fixed;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  z-index: 9999;
-  mix-blend-mode: difference;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  display: none !important;
 }
 .cursor {
   width: 36px; height: 36px;
@@ -807,7 +800,7 @@ body.drawer-open { overflow: hidden; }
 }
 .hero-sub {
   font-family: var(--sans);
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.6;
   color: rgba(255,255,255,0.9);
   max-width: 300px;
@@ -939,7 +932,7 @@ body.drawer-open { overflow: hidden; }
   transition: color 0.5s var(--ease-out);
 }
 .service-desc {
-  font-size: 14.5px;
+  font-size: 16px;
   line-height: 1.65;
   color: var(--ink-60);
   margin: 14px auto 0;
@@ -1168,7 +1161,7 @@ body.drawer-open { overflow: hidden; }
   transition: color 0.05s linear;
 }
 .stack-card-desc {
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.65;
   color: var(--ink-60);
   margin: 0;
@@ -1356,7 +1349,7 @@ body.drawer-open { overflow: hidden; }
   transition: opacity 0.45s var(--ease-out), transform 0.45s var(--ease-out);
 }
 .ex-desc {
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.65;
   margin: 0;
   max-width: 360px;
@@ -1501,12 +1494,13 @@ body.drawer-open { overflow: hidden; }
   will-change: background-position;
 }
 .team-image-bg {
-  background-image: url('Bios/Team%203.jpg');
+  background-image: url('Images/619.jpg');
   z-index: 0;
 }
 /* Slant sandwich: between bg photo (z:0) and cutout (z:2), so it appears
    to sweep through the picture *behind* the people. */
 .team-image-slant {
+  display: none;
   position: absolute;
   top: -10%;
   bottom: -10%;
@@ -1519,8 +1513,7 @@ body.drawer-open { overflow: hidden; }
   animation: team-slant-sweep 4s linear infinite;
 }
 .team-image-cutout {
-  background-image: url('Bios/team%20isolated.png');
-  z-index: 2;
+  display: none;
 }
 .team-image-shine {
   position: absolute; inset: 0;
@@ -1810,7 +1803,7 @@ body.drawer-open { overflow: hidden; }
   letter-spacing: -0.028em;
 }
 .cta-sub {
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.65;
   color: rgba(255,255,255,0.72);
   max-width: 640px;
@@ -1975,22 +1968,26 @@ body > section { position: relative; z-index: 2; }
 .footer-logo-link:hover { opacity: 1; }
 .footer-logo { height: 22px; width: auto; display: block; }
 
-/* Giant brand word — static at the bottom of the footer */
+/* Giant brand word — static at the bottom of the footer, aligned to footer content edges */
 .footer-brand {
   position: relative;
-  overflow: hidden;
-  padding: 0;
-  text-align: center;
+  width: 100%;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--pad-x);
+  container-type: inline-size;
+  text-align: left;
 }
 .footer-brand-word {
   display: block;
   font-family: var(--serif);
-  font-size: clamp(120px, 26vw, 420px);
+  font-size: 28cqw;
   font-weight: 400;
-  line-height: 0.82;
+  line-height: 0.72;
   letter-spacing: -0.045em;
   color: #fff;
-  margin-bottom: -6%;  /* clip the descenders like Lento */
+  opacity: 0.32;
+  margin: 0;
   white-space: nowrap;
 }
 
@@ -1998,7 +1995,6 @@ body > section { position: relative; z-index: 2; }
   .footer { height: 180vh; }
   .footer-main { grid-template-columns: 1fr 1fr; gap: 40px; }
   .footer-bottom { flex-direction: column; gap: 12px; align-items: flex-start; }
-  .footer-brand-word { font-size: 30vw; }
 }
 @media (max-width: 600px) {
   .footer-main { grid-template-columns: 1fr; gap: 30px; padding-bottom: 40px; }
@@ -2171,7 +2167,7 @@ body > section { position: relative; z-index: 2; }
     flex-direction: column;
   }
   .stack-card-title { font-size: clamp(26px, 4.6vw, 36px); margin-bottom: 14px; }
-  .stack-card-desc { font-size: 14.5px; }
+  .stack-card-desc { font-size: 16px; }
   .stack-arrow {
     position: relative;
     right: auto;
@@ -2196,7 +2192,7 @@ body > section { position: relative; z-index: 2; }
   }
   .ex-slashes span { width: 3px; }
   .ex-title { white-space: normal; font-size: clamp(26px, 4.4vw, 36px); margin-bottom: 14px; }
-  .ex-desc { max-width: 100%; font-size: 14.5px; }
+  .ex-desc { max-width: 100%; font-size: 16px; }
 
   /* UNDERWRITERS — slimmer marquee */
   .uw-logo { height: 28px; }
@@ -2211,15 +2207,13 @@ body > section { position: relative; z-index: 2; }
     padding: 0 var(--pad-x);
   }
   .cta-title { font-size: clamp(30px, 5.6vw, 48px); }
-  .cta-sub { font-size: 14.5px; }
+  .cta-sub { font-size: 16px; }
 
   /* TEAM — ensure image is visible and stats list comfortable */
   .team-image { min-height: 280px; }
   .team-stats { width: 100%; }
   .team-header-row { flex-wrap: wrap; gap: 16px; }
 
-  /* FOOTER — brand word smaller so it doesn't clip */
-  .footer-brand-word { font-size: 24vw; }
 }
 
 /* ---- Mobile (≤600px): tighter typography, tap targets ---- */
@@ -2252,7 +2246,6 @@ body > section { position: relative; z-index: 2; }
   .cta-title { font-size: clamp(26px, 7.2vw, 38px); }
   .cta-final { padding: 0 var(--pad-x); }
 
-  .footer-brand-word { font-size: 22vw; letter-spacing: -0.04em; }
   .footer-content { padding: 30px var(--pad-x) 50px; }
   .footer-heading { font-size: clamp(28px, 7vw, 38px); }
 
@@ -2295,7 +2288,7 @@ body > section { position: relative; z-index: 2; }
 .page-about .hero-image {
   --hero-mask-w: 1;
   --s: 0.95;
-  background: url('background.jpg') center / cover no-repeat fixed;
+  background: url('Images/5209.jpg') center / cover no-repeat fixed;
   background-color: #10293D;
   /* Backslash slant ( \ ), centered around 65% horizontal */
   clip-path: polygon(
@@ -2327,7 +2320,15 @@ body > section { position: relative; z-index: 2; }
 .page-about .hero-about-story {
   grid-template-columns: 1fr;
   margin: clamp(16px, 2.5vh, 32px) auto 0 0;
-  max-width: 78ch;
+  max-width: 56ch;
+}
+.page-about .hero-about-story .story-body::before {
+  content: "";
+  float: right;
+  width: 6vh;
+  height: 22vh;
+  shape-outside: polygon(0 0, 100% 0, 100% 100%);
+  -webkit-shape-outside: polygon(0 0, 100% 0, 100% 100%);
 }
 @media (max-width: 960px) {
   .page-about .hero-about,
@@ -2412,7 +2413,7 @@ body > section { position: relative; z-index: 2; }
   color: rgba(255,255,255,0.92);
 }
 .hero-about-story .story-body {
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.75;
   color: rgba(255,255,255,0.78);
   margin: 0;
@@ -2543,7 +2544,7 @@ body > section { position: relative; z-index: 2; }
   margin: 0;
 }
 .principle-desc {
-  font-size: 14.5px;
+  font-size: 16px;
   line-height: 1.6;
   color: var(--ink-60);
   margin: 0;
@@ -2858,7 +2859,7 @@ body > section { position: relative; z-index: 2; }
   margin: 0 0 22px;
 }
 .bio-modal-text p {
-  font-size: 14.5px;
+  font-size: 16px;
   line-height: 1.75;
   color: var(--ink-80);
   margin: 0 0 16px;
@@ -2967,9 +2968,37 @@ body.bio-modal-open { overflow: hidden; }
   35%  { opacity: 1; }
   100% { opacity: 1; transform: translateX(var(--echo-x, 0)); }
 }
+
+/* Hover — each stripe lifts and brightens independently. Uses `translate`
+   (separate from `transform`) so the entrance translateX animation isn't
+   disturbed. Pointer events follow clip-path, so only the parallelogram
+   itself is hoverable. */
+.page-services .hero-image,
+.page-services .hero-shape-echo {
+  pointer-events: auto;
+  transition:
+    translate 0.55s cubic-bezier(0.19, 1, 0.22, 1),
+    filter 0.45s ease,
+    background-color 0.45s ease;
+}
+.page-services .hero-image:hover {
+  translate: 0 -14px;
+  filter: brightness(1.22) saturate(1.08);
+  z-index: 5;
+}
+.page-services .hero-shape-echo:hover {
+  translate: 0 -14px;
+  background: rgba(255, 255, 255, calc(var(--echo-alpha, 0.08) + 0.14));
+  z-index: 5;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .page-services .hero-image { animation: none; }
   .page-services .hero-shape-echo { animation: none; opacity: 1; }
+  .page-services .hero-image,
+  .page-services .hero-shape-echo { transition: none; }
+  .page-services .hero-image:hover,
+  .page-services .hero-shape-echo:hover { translate: 0 0; }
 }
 
 /* Layout — text on left (default flex-start) */
@@ -3390,7 +3419,7 @@ body.svc-cursor-active .svc-dot { cursor: pointer; }
 }
 .svc-text-body {
   font-family: var(--sans);
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.75;
   margin: 0;
   max-width: 56ch;

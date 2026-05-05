@@ -21,7 +21,9 @@ Bios/_originals/
 !Bios/Him-figure.svg
 !Bios/Her-figure.svg
 Inspo/
-Images/
+Images/*
+!Images/619.jpg
+!Images/5209.jpg
 Logo/Branding/*.pdf
 Logo/Fonts/*.pdf
 
@@ -40,7 +42,9 @@ desktop.ini
 *.log
 npm-debug.log*
 
-# Node tooling (image optimizer deps)
+# Node tooling
 node_modules/
-package-lock.json
-package.json
+
+# Astro build output
+dist/
+.astro/
