@@ -22,7 +22,12 @@ Bios/_originals/
 !Bios/Her-figure.svg
 Inspo/
 Images/*
+!Images/1.jpg
+!Images/359.jpg
+!Images/386.jpg
 !Images/619.jpg
+!Images/1126.jpg
+!Images/5093.jpg
 !Images/5209.jpg
 Logo/Branding/*.pdf
 Logo/Fonts/*.pdf
@@ -39,7 +44,12 @@ public/Bios/*
 !public/Bios/Him-figure.svg
 !public/Bios/Her-figure.svg
 public/Images/*
+!public/Images/1.jpg
+!public/Images/359.jpg
+!public/Images/386.jpg
 !public/Images/619.jpg
+!public/Images/1126.jpg
+!public/Images/5093.jpg
 !public/Images/5209.jpg
 public/Logo/Branding/*.pdf
 public/Logo/Fonts/*.pdf
