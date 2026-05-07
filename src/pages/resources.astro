@@ -1,0 +1,221 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout
+  title="Resources — Ascend Title"
+  bodyClass="page-about page-resources"
+>
+
+  <header class="hero hero-about" id="home">
+    <nav class="nav" aria-label="Main">
+      <div class="nav-inner">
+        <a href="/" class="logo" aria-label="Ascend Title home">
+          <img src="/Logo/Logo white.png" alt="Ascend Title" class="logo-img" />
+        </a>
+        <ul class="nav-links">
+          <li><a href="/" class="nav-link">Home</a></li>
+          <li><a href="/about" class="nav-link">About</a></li>
+          <li><a href="/services" class="nav-link">Services</a></li>
+          <li><a href="/portfolio" class="nav-link">Portfolio</a></li>
+          <li><a href="/resources" class="nav-link active">Resources</a></li>
+          <li><a href="https://ascendra.qualia.io/" class="nav-link" target="_blank" rel="noopener">Login</a></li>
+          <li><a href="/contact" class="nav-link">Contact</a></li>
+        </ul>
+        <button class="menu-btn" aria-label="Open contact menu" aria-expanded="false" aria-controls="drawer">
+          <span class="menu-icon" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </button>
+      </div>
+    </nav>
+
+    <div class="hero-about-stage">
+      <div class="hero-navy" aria-hidden="true"></div>
+
+      <div class="hero-about-content resources-hero-grid">
+        <div class="resources-hero-titles">
+          <span class="eyebrow eyebrow-light"><span class="eyebrow-dash"></span>Resources</span>
+          <h1 class="hero-title hero-about-title">Tools &amp; Answers<br>for Every Closing</h1>
+        </div>
+        <div class="resources-hero-slant" aria-hidden="true"></div>
+        <div class="resources-hero-para">
+          <p class="story-body">
+            Quick reference tools and clear answers to the questions that come up most — everything you need to keep your transaction moving.
+          </p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="resources-section resources-calc" id="calculator">
+    <div class="container">
+      <div class="resources-head">
+        <h2 class="resources-title">Closing Cost <em>Calculator</em></h2>
+      </div>
+
+      <div class="calc-tabs" role="tablist">
+        <button data-mode="purchase" class="calc-tab is-active" type="button" role="tab">Purchase</button>
+        <button data-mode="refinance" class="calc-tab" type="button" role="tab">Refinance</button>
+        <button data-mode="seller" class="calc-tab" type="button" role="tab">Seller Net Sheet</button>
+      </div>
+
+      <div class="calc-grid">
+        <div class="calc-form">
+          <div class="calc-field">
+            <label for="calc-state">State</label>
+            <select id="calc-state">
+              <option value="NJ">New Jersey</option>
+              <option value="NY">New York</option>
+              <option value="FL">Florida</option>
+              <option value="CA">California</option>
+              <option value="TX">Texas</option>
+              <option value="PA">Pennsylvania</option>
+              <option value="IL">Illinois</option>
+              <option value="GA">Georgia</option>
+              <option value="OTHER">Other state</option>
+            </select>
+          </div>
+          <div class="calc-field">
+            <label for="calc-propType">Property Type</label>
+            <select id="calc-propType">
+              <option value="residential">Residential</option>
+              <option value="commercial">Commercial</option>
+            </select>
+          </div>
+          <div class="calc-field" id="calc-priceField">
+            <label id="calc-priceLabel" for="calc-price">Purchase Price</label>
+            <div class="calc-input-wrap">
+              <span class="calc-dollar">$</span>
+              <input type="text" id="calc-price" value="500,000" inputmode="numeric" />
+            </div>
+          </div>
+          <div class="calc-field" id="calc-loanField">
+            <label id="calc-loanLabel" for="calc-loan">Loan Amount</label>
+            <div class="calc-input-wrap">
+              <span class="calc-dollar">$</span>
+              <input type="text" id="calc-loan" value="400,000" inputmode="numeric" />
+            </div>
+          </div>
+          <div class="calc-field" id="calc-commField" style="display:none;">
+            <label for="calc-commission">Agent Commission (%)</label>
+            <input type="text" id="calc-commission" value="5" inputmode="decimal" />
+          </div>
+          <div class="calc-field" id="calc-payoffField" style="display:none;">
+            <label for="calc-payoff">Existing Loan Payoff</label>
+            <div class="calc-input-wrap">
+              <span class="calc-dollar">$</span>
+              <input type="text" id="calc-payoff" value="300,000" inputmode="numeric" />
+            </div>
+          </div>
+          <button id="calc-btn" type="button" class="btn btn-ghost calc-submit" data-magnetic>
+            <span class="btn-arrow btn-arrow-left"><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></span>
+            <span class="btn-label">Calculate Estimate</span>
+            <span class="btn-arrow btn-arrow-right"><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></span>
+          </button>
+        </div>
+
+        <div class="calc-result-col">
+          <div class="calc-result-card">
+            <p class="calc-result-eyebrow" id="calc-totalLabel">Estimated Total</p>
+            <p class="calc-result-figure" id="calc-total">$0</p>
+            <div class="calc-divider"></div>
+            <div id="calc-breakdown">
+              <p class="calc-hint">Enter your details to see a full breakdown</p>
+            </div>
+          </div>
+          <p class="calc-disclaimer">Estimates only. Final figures provided at closing. Rates vary by underwriter, county, and transaction details.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="resources-section resources-faq" id="faq">
+    <div class="container">
+      <div class="resources-head">
+        <span class="eyebrow"><span class="eyebrow-dash"></span>Looking for Answers?</span>
+        <h2 class="resources-title">Frequently Asked Questions</h2>
+      </div>
+      <ul class="faq-list">
+        <li class="faq-item">
+          <details>
+            <summary>
+              <span class="faq-q">Why is title insurance important?</span>
+              <span class="faq-icon" aria-hidden="true"></span>
+            </summary>
+            <div class="faq-a">
+              <p>Title insurance protects buyers and lenders from financial loss caused by title defects that may not appear during a standard title search, such as undisclosed heirs, recording errors, or previously unknown liens. It ensures that ownership rights remain protected long after the transaction closes.</p>
+            </div>
+          </details>
+        </li>
+        <li class="faq-item">
+          <details>
+            <summary>
+              <span class="faq-q">How long does the title process typically take?</span>
+              <span class="faq-icon" aria-hidden="true"></span>
+            </summary>
+            <div class="faq-a">
+              <p>The timeline can vary depending on the complexity of the transaction, jurisdiction, and any issues discovered during the title search. In most cases, the title review and preparation process runs in parallel with the broader transaction timeline, allowing closings to proceed efficiently once all requirements are satisfied.</p>
+            </div>
+          </details>
+        </li>
+        <li class="faq-item">
+          <details>
+            <summary>
+              <span class="faq-q">What happens if a title issue is discovered during the search?</span>
+              <span class="faq-icon" aria-hidden="true"></span>
+            </summary>
+            <div class="faq-a">
+              <p>If a defect or lien is identified, our team works to resolve it before closing. This may involve clearing prior liens, correcting documentation, or coordinating with relevant parties to ensure the title is fully marketable. Addressing these issues early helps prevent delays and protects all parties involved.</p>
+            </div>
+          </details>
+        </li>
+        <li class="faq-item">
+          <details>
+            <summary>
+              <span class="faq-q">Can Ascend Title support transactions across multiple states?</span>
+              <span class="faq-icon" aria-hidden="true"></span>
+            </summary>
+            <div class="faq-a">
+              <p>Yes. Our national capabilities allow us to coordinate transactions across all 50 states. We work closely with local partners and apply deep knowledge of jurisdictional requirements to ensure each transaction complies with local regulations while maintaining a seamless closing process.</p>
+            </div>
+          </details>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="cta" id="contact">
+    <div class="cta-pin">
+      <div class="cta-sticky">
+        <div class="cta-base" aria-hidden="true"></div>
+        <div class="cta-intro cta-intro--under"><span>Let's<br>Build</span></div>
+        <div class="cta-reveal" aria-hidden="true">
+          <div class="cta-bg">
+            <div class="bg-image"></div>
+            <div class="bg-overlay"></div>
+            <div class="bg-shimmer"></div>
+          </div>
+        </div>
+        <div class="cta-intro cta-intro--over" aria-hidden="true"><span>Let's<br>Build</span></div>
+        <div class="cta-final">
+          <div class="container">
+            <h2 class="cta-title">
+              Bring your deal to the closing table with confidence and ease.
+            </h2>
+            <p class="cta-sub">
+              If your transactions require precision and proactive leadership, Ascend Title was built for you. Let's get your next deal moving with a team that leads from day one.
+            </p>
+            <a href="/contact" class="btn btn-ghost" data-magnetic>
+              <span class="btn-arrow btn-arrow-left"><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></span>
+              <span class="btn-label">Get Started</span>
+              <span class="btn-arrow btn-arrow-right"><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</Layout>

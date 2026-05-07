@@ -1,0 +1,220 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout
+  title="Contact — Ascend Title"
+  bodyClass="page-about page-contact"
+>
+
+  <header class="hero hero-about" id="home">
+    <nav class="nav" aria-label="Main">
+      <div class="nav-inner">
+        <a href="/" class="logo" aria-label="Ascend Title home">
+          <img src="/Logo/Logo white.png" alt="Ascend Title" class="logo-img" />
+        </a>
+        <ul class="nav-links">
+          <li><a href="/" class="nav-link">Home</a></li>
+          <li><a href="/about" class="nav-link">About</a></li>
+          <li><a href="/services" class="nav-link">Services</a></li>
+          <li><a href="/portfolio" class="nav-link">Portfolio</a></li>
+          <li><a href="/resources" class="nav-link">Resources</a></li>
+          <li><a href="https://ascendra.qualia.io/" class="nav-link" target="_blank" rel="noopener">Login</a></li>
+          <li><a href="/contact" class="nav-link active">Contact</a></li>
+        </ul>
+        <button class="menu-btn" aria-label="Open contact menu" aria-expanded="false" aria-controls="drawer">
+          <span class="menu-icon" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </button>
+      </div>
+    </nav>
+
+    <div class="hero-about-stage">
+      <div class="hero-navy" aria-hidden="true"></div>
+
+      <div class="hero-about-content contact-hero-grid">
+        <div class="contact-hero-titles">
+          <span class="eyebrow eyebrow-light"><span class="eyebrow-dash"></span>Contact</span>
+          <h1 class="hero-title hero-about-title">Raise Your<br>Closing Standards</h1>
+        </div>
+        <div class="contact-hero-slant" aria-hidden="true"></div>
+        <div class="contact-hero-info">
+          <ul class="contact-quick">
+            <li><a href="tel:2016015700" class="contact-quick-value">201.601.5700</a></li>
+            <li><a href="mailto:orders@ascendtitle.com" class="contact-quick-value">orders@ascendtitle.com</a></li>
+            <li>
+              <span class="contact-quick-value contact-quick-value--static">
+                440 Sylvan Avenue, Suite 240<br>Englewood Cliffs, NJ 07632
+              </span>
+            </li>
+            <li>
+              <span class="contact-quick-value contact-quick-value--static">
+                1600 Ave of the States, Suite 212<br>Lakewood, NJ 08701
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="contact-section" id="order">
+    <div class="container">
+      <div class="contact-head">
+        <span class="eyebrow"><span class="eyebrow-dash"></span>Submit a Request</span>
+        <h2 class="contact-title">Start Your <em>Next Deal</em></h2>
+      </div>
+
+      <form class="contact-form" id="contactForm" novalidate>
+        <div class="contact-form-row contact-form-row--meta">
+          <div class="contact-field">
+            <label for="cf-date">Date</label>
+            <input type="date" id="cf-date" name="date" />
+          </div>
+          <div class="contact-field contact-field--type" role="group" aria-labelledby="cf-type-label">
+            <span class="contact-field-label" id="cf-type-label">Transaction Type</span>
+            <div class="contact-radio-group">
+              <label class="contact-radio">
+                <input type="radio" name="type" value="purchase" checked />
+                <span>Purchase</span>
+              </label>
+              <label class="contact-radio">
+                <input type="radio" name="type" value="refinance" />
+                <span>Refinance</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <fieldset class="contact-fieldset">
+          <legend class="contact-legend">Requester's Information</legend>
+          <div class="contact-form-row">
+            <div class="contact-field">
+              <label for="cf-name">Name</label>
+              <input type="text" id="cf-name" name="name" autocomplete="name" />
+            </div>
+            <div class="contact-field">
+              <label for="cf-address">Address</label>
+              <input type="text" id="cf-address" name="address" autocomplete="street-address" />
+            </div>
+          </div>
+          <div class="contact-form-row">
+            <div class="contact-field">
+              <label for="cf-phone">Phone Number</label>
+              <input type="tel" id="cf-phone" name="phone" autocomplete="tel" />
+            </div>
+            <div class="contact-field">
+              <label for="cf-email">Email Address</label>
+              <input type="email" id="cf-email" name="email" autocomplete="email" />
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="contact-fieldset">
+          <legend class="contact-legend">Transaction Details</legend>
+          <div class="contact-form-row">
+            <div class="contact-field contact-field--full">
+              <label for="cf-owners">Present Owner(s)</label>
+              <input type="text" id="cf-owners" name="owners" />
+            </div>
+          </div>
+          <div class="contact-form-row">
+            <div class="contact-field contact-field--full">
+              <label for="cf-purchasers">Purchaser(s)</label>
+              <input type="text" id="cf-purchasers" name="purchasers" />
+            </div>
+          </div>
+          <div class="contact-form-row">
+            <div class="contact-field contact-field--full">
+              <label for="cf-lender">Lender</label>
+              <input type="text" id="cf-lender" name="lender" />
+            </div>
+          </div>
+          <div class="contact-form-row">
+            <div class="contact-field">
+              <label for="cf-loan">Loan Amount</label>
+              <div class="contact-input-wrap">
+                <span class="contact-dollar">$</span>
+                <input type="text" id="cf-loan" name="loan" inputmode="numeric" placeholder="0" />
+              </div>
+            </div>
+            <div class="contact-field">
+              <label for="cf-price">Purchase Price</label>
+              <div class="contact-input-wrap">
+                <span class="contact-dollar">$</span>
+                <input type="text" id="cf-price" name="price" inputmode="numeric" placeholder="0" />
+              </div>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="contact-fieldset">
+          <legend class="contact-legend">Order Options</legend>
+          <div class="contact-form-row contact-form-row--toggles">
+            <div class="contact-field" role="group" aria-labelledby="cf-rush-label">
+              <span class="contact-field-label" id="cf-rush-label">Rush Order?</span>
+              <div class="contact-radio-group">
+                <label class="contact-radio">
+                  <input type="radio" name="rush" value="yes" />
+                  <span>Yes</span>
+                </label>
+                <label class="contact-radio">
+                  <input type="radio" name="rush" value="no" checked />
+                  <span>No</span>
+                </label>
+              </div>
+            </div>
+            <div class="contact-field" role="group" aria-labelledby="cf-prior-label">
+              <span class="contact-field-label" id="cf-prior-label">Prior Owner's Policy Available?</span>
+              <div class="contact-radio-group">
+                <label class="contact-radio">
+                  <input type="radio" name="prior" value="yes" />
+                  <span>Yes</span>
+                </label>
+                <label class="contact-radio">
+                  <input type="radio" name="prior" value="no" checked />
+                  <span>No</span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <p class="contact-helper">If a prior owner's policy exists, please attach it after submitting this request.</p>
+        </fieldset>
+
+        <fieldset class="contact-fieldset">
+          <legend class="contact-legend">Property &amp; Notes</legend>
+          <div class="contact-form-row">
+            <div class="contact-field contact-field--full">
+              <label for="cf-legal">Legal Description</label>
+              <textarea id="cf-legal" name="legal" rows="3"></textarea>
+            </div>
+          </div>
+          <div class="contact-form-row">
+            <div class="contact-field contact-field--full">
+              <label for="cf-comments">Comments</label>
+              <textarea id="cf-comments" name="comments" rows="3"></textarea>
+            </div>
+          </div>
+          <div class="contact-form-row">
+            <div class="contact-field contact-field--full">
+              <label for="cf-special">Special Instructions</label>
+              <textarea id="cf-special" name="special" rows="3"></textarea>
+            </div>
+          </div>
+        </fieldset>
+
+        <div class="contact-form-actions">
+          <button type="submit" class="btn btn-outline contact-submit" data-magnetic>
+            <span class="btn-arrow btn-arrow-left"><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></span>
+            <span class="btn-label">Submit Request</span>
+            <span class="btn-arrow btn-arrow-right"><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></span>
+          </button>
+          <p class="contact-disclaimer">A team member will reach out within one business day to confirm your order.</p>
+        </div>
+      </form>
+    </div>
+  </section>
+
+</Layout>

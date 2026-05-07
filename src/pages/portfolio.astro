@@ -1,0 +1,100 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const projects = [
+  { loc: 'New York, NY',     title: 'Manhattan Tower',    type: 'Commercial',   size: '$48M',  img: '/Images/386.jpg' },
+  { loc: 'Miami, FL',        title: 'Coastal Estates',    type: 'Residential',  size: '$12M',  img: '/Images/1126.jpg' },
+  { loc: 'Dallas, TX',       title: 'Industrial Park',    type: 'Commercial',   size: '$87M',  img: '/Images/5093.jpg' },
+  { loc: 'Chicago, IL',      title: 'Riverfront Lofts',   type: 'Residential',  size: '$24M',  img: '/Images/359.jpg' },
+  { loc: 'San Francisco, CA',title: 'Bay Plaza',          type: 'Commercial',   size: '$63M',  img: '/Images/5209.jpg' },
+  { loc: 'Los Angeles, CA',  title: 'Golden Mile',        type: 'Residential',  size: '$19M',  img: '/Images/619.jpg' },
+];
+---
+<Layout
+  title="Portfolio — Ascend Title"
+  bodyClass="page-portfolio"
+>
+
+  <nav class="nav" aria-label="Main">
+    <div class="nav-inner">
+      <a href="/" class="logo" aria-label="Ascend Title home">
+        <img src="/Logo/Logo white.png" alt="Ascend Title" class="logo-img" />
+      </a>
+      <ul class="nav-links">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/about" class="nav-link">About</a></li>
+        <li><a href="/services" class="nav-link">Services</a></li>
+        <li><a href="/portfolio" class="nav-link active">Portfolio</a></li>
+        <li><a href="/resources" class="nav-link">Resources</a></li>
+        <li><a href="https://ascendra.qualia.io/" class="nav-link" target="_blank" rel="noopener">Login</a></li>
+        <li><a href="/contact" class="nav-link">Contact</a></li>
+      </ul>
+      <button class="menu-btn" aria-label="Open contact menu" aria-expanded="false" aria-controls="drawer">
+        <span class="menu-icon" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
+    </div>
+  </nav>
+
+  <section class="portfolio-section portfolio-section--first" id="projects" aria-labelledby="portfolio-heading">
+    <div class="container">
+      <div class="portfolio-head">
+        <span class="eyebrow"><span class="eyebrow-dash"></span>Explore Ascend Title</span>
+        <h2 class="portfolio-title">Proven results across all <em>50 states</em></h2>
+      </div>
+
+      <ul class="portfolio-grid">
+        {projects.map((p) => (
+          <li class="portfolio-card reveal">
+            <div class="portfolio-card-img" style={`background-image:url('${p.img}')`} aria-hidden="true"></div>
+            <div class="portfolio-card-meta">
+              <span class="portfolio-card-loc">{p.loc}</span>
+              <h3 class="portfolio-card-title">{p.title}</h3>
+              <div class="portfolio-card-stats">
+                <span>{p.type}</span>
+                <span class="portfolio-card-dot" aria-hidden="true"></span>
+                <span>{p.size}</span>
+              </div>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="cta" id="contact">
+    <div class="cta-pin">
+      <div class="cta-sticky">
+        <div class="cta-base" aria-hidden="true"></div>
+        <div class="cta-intro cta-intro--under"><span>Let's<br>Build</span></div>
+        <div class="cta-reveal" aria-hidden="true">
+          <div class="cta-bg">
+            <div class="bg-image"></div>
+            <div class="bg-overlay"></div>
+            <div class="bg-shimmer"></div>
+          </div>
+        </div>
+        <div class="cta-intro cta-intro--over" aria-hidden="true"><span>Let's<br>Build</span></div>
+        <div class="cta-final">
+          <div class="container">
+            <h2 class="cta-title">
+              Bring your deal to the closing table with confidence and ease.
+            </h2>
+            <p class="cta-sub">
+              If your transactions require precision and proactive leadership, Ascend Title was built for you. Let's get your next deal moving with a team that leads from day one.
+            </p>
+            <a href="/contact" class="btn btn-ghost" data-magnetic>
+              <span class="btn-arrow btn-arrow-left"><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></span>
+              <span class="btn-label">Get Started</span>
+              <span class="btn-arrow btn-arrow-right"><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</Layout>

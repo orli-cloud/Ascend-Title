@@ -17,9 +17,10 @@ import Layout from '../layouts/Layout.astro';
           <li><a href="/" class="nav-link">Home</a></li>
           <li><a href="/about" class="nav-link active">About</a></li>
           <li><a href="/services" class="nav-link">Services</a></li>
-          <li><a href="/#resources" class="nav-link">Resources</a></li>
-          <li><a href="/#login" class="nav-link">Login</a></li>
-          <li><a href="/#contact" class="nav-link">Contact</a></li>
+          <li><a href="/portfolio" class="nav-link">Portfolio</a></li>
+          <li><a href="/resources" class="nav-link">Resources</a></li>
+          <li><a href="https://ascendra.qualia.io/" class="nav-link" target="_blank" rel="noopener">Login</a></li>
+          <li><a href="/contact" class="nav-link">Contact</a></li>
         </ul>
         <button class="menu-btn" aria-label="Open contact menu" aria-expanded="false" aria-controls="drawer">
           <span class="menu-icon" aria-hidden="true">
@@ -40,29 +41,18 @@ import Layout from '../layouts/Layout.astro';
         <h1 class="hero-title hero-about-title">Where Smooth<br>Closings Begin</h1>
         <div class="hero-about-story">
           <p class="story-body">
-            Industry veterans <em>Sam Parnes</em> and <em>David Berney</em> spent years navigating complex title transactions, building a reputation for skill, reliability, and client dedication. After decades in the title industry, they set out to build a company where that level of commitment would be the standard. Bringing together a select team of top-tier professionals who share the same passion, expertise, and commitment to their clients, Ascend Title was built to deliver an enhanced level of service and a closing experience clients can fully rely on.
+            Industry veterans <em>Sam Parnes</em> and <em>David Berney</em> spent decades navigating complex title transactions, earning a reputation for skill and client dedication. They founded Ascend Title to make that standard the norm, assembling a select team of top-tier professionals to deliver a closing experience clients can fully rely on.
           </p>
         </div>
       </div>
     </div>
   </header>
 
-  <section class="story" id="story">
-    <div class="story-pull">
-      <div class="container">
-        <h2 class="story-pull-title" data-split-fill>We uphold a higher standard, grounded in a philosophy of exceptional client care. Our commitment is to deliver a superior title experience in which the client's needs remain at the center of everything we do.</h2>
-      </div>
-    </div>
-  </section>
-
-  <section class="excellence excellence--values" id="principles">
+  <section class="excellence excellence--values" id="story">
     <div class="ex-pin">
       <div class="ex-sticky">
         <div class="container">
-          <div class="excellence-head">
-            <span class="eyebrow reveal"><span class="eyebrow-dash"></span>Guiding Principles</span>
-            <h2 class="excellence-title" data-split-fill>Values That Define Us</h2>
-          </div>
+          <h2 class="story-pull-title" data-split-fill>We uphold a higher standard, grounded in a philosophy of exceptional client care. Our commitment is to deliver a superior title experience in which the client's needs remain at the center of everything we do.</h2>
           <div class="ex-accordion">
             <div class="ex-panel ex-panel--dark is-active" data-panel="0">
               <div class="ex-panel-inner">
@@ -139,21 +129,6 @@ import Layout from '../layouts/Layout.astro';
 
         <li class="bio-card reveal" data-stagger="2">
           <button class="bio-trigger" type="button" data-bio-open>
-            <span class="bio-img bio-img--mono" data-initials="MS" aria-hidden="true"></span>
-            <span class="bio-meta">
-              <span class="bio-name">Menucha Stern</span>
-              <span class="bio-role">Chief Operating Officer</span>
-            </span>
-          </button>
-          <template class="bio-full">
-            <p>Menucha Stern serves as Chief Operating Officer of Ascend Title, where she oversees daily operations, national workflows, and strategic execution across the organization. With a strong background in title management and multi-state operations, Menucha plays a critical role in building scalable systems, strengthening compliance standards, and ensuring a seamless closing experience for clients and partners.</p>
-            <p>Prior to joining Ascend Title, Menucha led national title operations and managed complex, high-volume transactions across multiple jurisdictions, further developing her expertise in title production, underwriting coordination, and operational oversight.</p>
-            <p>Known for her precision, strategic thinking, and commitment to high standards, Menucha is dedicated to creating efficient systems that support growth while maintaining exceptional service. Her leadership ensures that Ascend Title operates with clarity, consistency, and a client-first mindset at every level.</p>
-          </template>
-        </li>
-
-        <li class="bio-card reveal" data-stagger="3">
-          <button class="bio-trigger" type="button" data-bio-open>
             <span class="bio-img" style="background-image:url('/Bios/judah_strauss.jpg')" aria-hidden="true"></span>
             <span class="bio-meta">
               <span class="bio-name">Judah Strauss</span>
@@ -167,7 +142,7 @@ import Layout from '../layouts/Layout.astro';
           </template>
         </li>
 
-        <li class="bio-card reveal" data-stagger="0">
+        <li class="bio-card reveal" data-stagger="3">
           <button class="bio-trigger" type="button" data-bio-open>
             <span class="bio-img bio-img--mono" data-initials="AF" aria-hidden="true"></span>
             <span class="bio-meta">
@@ -182,7 +157,7 @@ import Layout from '../layouts/Layout.astro';
           </template>
         </li>
 
-        <li class="bio-card reveal" data-stagger="1">
+        <li class="bio-card reveal bio-card--row2" data-stagger="0">
           <button class="bio-trigger" type="button" data-bio-open>
             <span class="bio-img" style="background-image:url('/Bios/manny_lerman.jpg')" aria-hidden="true"></span>
             <span class="bio-meta">
@@ -197,7 +172,7 @@ import Layout from '../layouts/Layout.astro';
           </template>
         </li>
 
-        <li class="bio-card reveal" data-stagger="2">
+        <li class="bio-card reveal bio-card--row2" data-stagger="1">
           <button class="bio-trigger" type="button" data-bio-open>
             <span class="bio-img" style="background-image:url('/Bios/brocha_babad.jpg')" aria-hidden="true"></span>
             <span class="bio-meta">
@@ -211,7 +186,7 @@ import Layout from '../layouts/Layout.astro';
           </template>
         </li>
 
-        <li class="bio-card reveal" data-stagger="3">
+        <li class="bio-card reveal bio-card--row2" data-stagger="2">
           <button class="bio-trigger" type="button" data-bio-open>
             <span class="bio-img bio-img--mono" data-initials="MG" aria-hidden="true"></span>
             <span class="bio-meta">
@@ -249,7 +224,7 @@ import Layout from '../layouts/Layout.astro';
             <p class="cta-sub">
               If your transactions require precision and proactive leadership, Ascend Title was built for you. Let's get your next deal moving with a team that leads from day one.
             </p>
-            <a href="/#contact" class="btn btn-ghost" data-magnetic>
+            <a href="/contact" class="btn btn-ghost" data-magnetic>
               <span class="btn-arrow btn-arrow-left"><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></span>
               <span class="btn-label">Get Started</span>
               <span class="btn-arrow btn-arrow-right"><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></span>

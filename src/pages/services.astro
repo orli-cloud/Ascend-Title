@@ -15,10 +15,11 @@ import Layout from '../layouts/Layout.astro';
         <ul class="nav-links">
           <li><a href="/" class="nav-link">Home</a></li>
           <li><a href="/about" class="nav-link">About</a></li>
-          <li><a href="/services" class="nav-link nav-link--current" aria-current="page">Services</a></li>
-          <li><a href="/#resources" class="nav-link">Resources</a></li>
-          <li><a href="/#login" class="nav-link">Login</a></li>
-          <li><a href="/#contact" class="nav-link">Contact</a></li>
+          <li><a href="/services" class="nav-link active">Services</a></li>
+          <li><a href="/portfolio" class="nav-link">Portfolio</a></li>
+          <li><a href="/resources" class="nav-link">Resources</a></li>
+          <li><a href="https://ascendra.qualia.io/" class="nav-link" target="_blank" rel="noopener">Login</a></li>
+          <li><a href="/contact" class="nav-link">Contact</a></li>
         </ul>
         <button class="menu-btn" aria-label="Open contact menu" aria-expanded="false" aria-controls="drawer">
           <span class="menu-icon" aria-hidden="true">
@@ -167,7 +168,7 @@ import Layout from '../layouts/Layout.astro';
             <p class="cta-sub">
               If your transactions require precision and proactive leadership, Ascend Title was built for you. Let's get your next deal moving with a team that leads from day one.
             </p>
-            <a href="/#contact" class="btn btn-ghost" data-magnetic>
+            <a href="/contact" class="btn btn-ghost" data-magnetic>
               <span class="btn-arrow btn-arrow-left"><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></span>
               <span class="btn-label">Get Started</span>
               <span class="btn-arrow btn-arrow-right"><svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg></span>

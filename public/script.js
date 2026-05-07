@@ -278,6 +278,189 @@
   }
 
 
+  /* ---------- Closing Cost Calculator ---------- */
+  if (document.getElementById('calc-btn')) {
+    let calcMode = 'purchase';
+    const fmt = (n) => '$' + Math.round(n).toLocaleString();
+    const parseNum = (s) => parseFloat(String(s).replace(/[^0-9.]/g, '')) || 0;
+    const $ = (id) => document.getElementById(id);
+
+    // Placeholder rates — replace with actual underwriter rate tables before launch.
+    const ownerRates  = { NJ: 4.50, NY: 4.20, FL: 5.75, CA: 3.50, TX: 5.25, PA: 5.00, IL: 4.00, GA: 3.75, OTHER: 4.50 };
+    const lenderRates = { NJ: 2.50, NY: 2.00, FL: 0.25, CA: 1.75, TX: 0.10, PA: 2.25, IL: 2.00, GA: 1.85, OTHER: 2.25 };
+    const transferTax = { NJ: 0.85, NY: 0.40, FL: 0.70, CA: 0.11, TX: 0,    PA: 1.00, IL: 0.10, GA: 0.10, OTHER: 0.50 };
+    const mortgageTax = { NJ: 0,    NY: 1.05, FL: 0.35, CA: 0,    TX: 0,    PA: 0,    IL: 0,    GA: 0.30, OTHER: 0    };
+
+    ['calc-price', 'calc-loan', 'calc-payoff'].forEach((id) => {
+      const el = $(id);
+      if (!el) return;
+      el.addEventListener('input', () => {
+        const v = parseNum(el.value);
+        if (v) el.value = v.toLocaleString();
+      });
+    });
+
+    document.querySelectorAll('.calc-tab').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        calcMode = btn.dataset.mode;
+        document.querySelectorAll('.calc-tab').forEach((b) => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        updateCalcFields();
+        runCalc();
+      });
+    });
+
+    function updateCalcFields() {
+      const priceLbl = $('calc-priceLabel');
+      const loanLbl = $('calc-loanLabel');
+      const loanField = $('calc-loanField');
+      const commField = $('calc-commField');
+      const payoffField = $('calc-payoffField');
+      const totalLbl = $('calc-totalLabel');
+
+      if (calcMode === 'purchase') {
+        priceLbl.textContent = 'Purchase Price';
+        loanLbl.textContent  = 'Loan Amount';
+        loanField.style.display = '';
+        commField.style.display = 'none';
+        payoffField.style.display = 'none';
+        totalLbl.textContent = 'Estimated Buyer Closing Costs';
+      } else if (calcMode === 'refinance') {
+        priceLbl.textContent = 'Property Value';
+        loanLbl.textContent  = 'New Loan Amount';
+        loanField.style.display = '';
+        commField.style.display = 'none';
+        payoffField.style.display = 'none';
+        totalLbl.textContent = 'Estimated Refinance Costs';
+      } else {
+        priceLbl.textContent = 'Sale Price';
+        loanField.style.display = 'none';
+        commField.style.display = '';
+        payoffField.style.display = '';
+        totalLbl.textContent = 'Estimated Net to Seller';
+      }
+    }
+
+    function runCalc() {
+      const state = $('calc-state').value;
+      const propType = $('calc-propType').value;
+      const price = parseNum($('calc-price').value);
+      const loan = parseNum($('calc-loan').value);
+      if (!price) return;
+
+      const ownerRate  = ownerRates[state];
+      const lenderRate = lenderRates[state];
+      const tTax = transferTax[state];
+      const mTax = mortgageTax[state];
+
+      let rows = [];
+      let total = 0;
+
+      if (calcMode === 'purchase') {
+        const ownerPrem      = (price / 1000) * ownerRate;
+        const lenderPrem     = loan ? (loan / 1000) * lenderRate : 0;
+        const settlement     = propType === 'commercial' ? 1500 : 750;
+        const search         = propType === 'commercial' ? 600 : 350;
+        const recording      = 250;
+        const mortgageTaxAmt = loan * (mTax / 100);
+        const endorsements   = loan ? 150 : 0;
+        rows = [
+          ["Owner's Title Insurance", ownerPrem],
+          ["Lender's Title Insurance", lenderPrem],
+          ['Settlement / Closing Fee', settlement],
+          ['Title Search', search],
+          ['Recording Fees', recording],
+          ['Mortgage Tax', mortgageTaxAmt],
+          ['Endorsements', endorsements],
+        ].filter((r) => r[1] > 0);
+        total = rows.reduce((s, r) => s + r[1], 0);
+      } else if (calcMode === 'refinance') {
+        const lenderPrem     = (loan / 1000) * lenderRate * 0.7;
+        const mortgageTaxAmt = loan * (mTax / 100);
+        rows = [
+          ["Lender's Title Insurance", lenderPrem],
+          ['Settlement Fee', 600],
+          ['Title Search', 300],
+          ['Recording Fees', 200],
+          ['Mortgage Tax', mortgageTaxAmt],
+          ['Endorsements', 150],
+        ].filter((r) => r[1] > 0);
+        total = rows.reduce((s, r) => s + r[1], 0);
+      } else {
+        const commission     = price * (parseNum($('calc-commission').value) / 100);
+        const payoff         = parseNum($('calc-payoff').value);
+        const transferTaxAmt = price * (tTax / 100);
+        const ownerPrem      = (price / 1000) * ownerRate;
+        const closingCosts   = commission + transferTaxAmt + 500 + ownerPrem + 150;
+        total = price - payoff - closingCosts;
+        rows = [
+          ['Sale Price', price],
+          ['Loan Payoff', -payoff],
+          ['Agent Commission', -commission],
+          ['Transfer Tax', -transferTaxAmt],
+          ["Owner's Title (Seller-Paid)", -ownerPrem],
+          ['Settlement Fee', -500],
+          ['Recording Fees', -150],
+        ];
+      }
+
+      $('calc-total').textContent = fmt(total);
+      const totalLabel = calcMode === 'seller' ? 'Estimated Net Proceeds' : 'Total';
+      $('calc-breakdown').innerHTML = rows.map((r) => {
+        const isNeg = r[1] < 0;
+        const val = (isNeg ? '-' : '') + fmt(Math.abs(r[1]));
+        return '<div class="calc-row"><span class="lbl">' + r[0] + '</span><span class="val">' + val + '</span></div>';
+      }).join('') + '<div class="calc-row calc-total-row"><span class="lbl">' + totalLabel + '</span><span class="val">' + fmt(total) + '</span></div>';
+    }
+
+    $('calc-btn').addEventListener('click', runCalc);
+    ['calc-state', 'calc-propType', 'calc-price', 'calc-loan', 'calc-commission', 'calc-payoff'].forEach((id) => {
+      const el = $(id);
+      if (el) el.addEventListener('change', runCalc);
+    });
+
+    runCalc();
+  }
+
+  /* ---------- FAQ: smooth slide-open/close for <details> ---------- */
+  document.querySelectorAll('.faq-item details').forEach((details) => {
+    const summary = details.querySelector('summary');
+    const content = details.querySelector('.faq-a');
+    if (!summary || !content) return;
+
+    summary.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (details.open) {
+        // Closing
+        const startHeight = content.scrollHeight;
+        content.style.height = startHeight + 'px';
+        // force reflow
+        content.offsetHeight;
+        content.style.height = '0px';
+        const onEnd = (ev) => {
+          if (ev.propertyName !== 'height') return;
+          details.open = false;
+          content.style.height = '';
+          content.removeEventListener('transitionend', onEnd);
+        };
+        content.addEventListener('transitionend', onEnd);
+      } else {
+        // Opening
+        details.open = true;
+        const targetHeight = content.scrollHeight;
+        content.style.height = '0px';
+        content.offsetHeight;
+        content.style.height = targetHeight + 'px';
+        const onEnd = (ev) => {
+          if (ev.propertyName !== 'height') return;
+          content.style.height = '';
+          content.removeEventListener('transitionend', onEnd);
+        };
+        content.addEventListener('transitionend', onEnd);
+      }
+    });
+  });
+
   /* ---------- Footer reveal — body padding-bottom matches footer height exactly ---------- */
   const footerEl = document.querySelector('.footer');
   if (footerEl) {
@@ -400,9 +583,9 @@
       else s = 41;
       ctaSticky.style.setProperty('--s', s.toFixed(2));
       ctaSticky.style.setProperty('--peel', `${(peelRaw * 72).toFixed(1)}%`);
-      if (ctaTitle) ctaTitle.classList.toggle('show', mainRaw > 0.60);
-      if (ctaSub) ctaSub.classList.toggle('show', mainRaw > 0.72);
-      if (ctaBtn) ctaBtn.classList.toggle('show', mainRaw > 0.84);
+      if (ctaTitle && mainRaw > 0.60) ctaTitle.classList.add('show');
+      if (ctaSub && mainRaw > 0.72) ctaSub.classList.add('show');
+      if (ctaBtn && mainRaw > 0.84) ctaBtn.classList.add('show');
     };
     updateCta();
     let ctaPending = false;
