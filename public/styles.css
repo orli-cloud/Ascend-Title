@@ -3963,7 +3963,7 @@ body.svc-cursor-active .svc-dot { cursor: pointer; }
 
 /* Portfolio page */
 .portfolio-section {
-  padding: clamp(80px, 12vh, 140px) 0;
+  padding: clamp(80px, 12vh, 140px) 0 clamp(120px, 18vh, 200px);
   background: var(--navy-900);
   color: #fff;
   position: relative;
@@ -3987,7 +3987,7 @@ body.svc-cursor-active .svc-dot { cursor: pointer; }
   letter-spacing: -0.022em;
   margin: 8px 0 0;
 }
-.portfolio-title em { font-style: italic; font-weight: 400; color: var(--navy-300); }
+.portfolio-title em { font-style: normal; font-weight: 400; color: #fff; }
 .portfolio-grid {
   list-style: none;
   margin: 0;

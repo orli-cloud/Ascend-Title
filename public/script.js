@@ -551,9 +551,13 @@
     const ctaTitle = ctaFinal.querySelector('.cta-title');
     const ctaSub = ctaFinal.querySelector('.cta-sub');
     const ctaBtn = ctaFinal.querySelector('.btn');
-    // Lock-in maxima so scrolling back up doesn't reverse the reveal
-    let maxRaw = 0;
-    let maxRevealRaw = 0;
+    // Track scroll direction + completion. Forward scroll plays the reveal as before;
+    // scrolling back UP after touching the CTA jumps straight to the final revealed
+    // state instead of running the slant/peel animation in reverse.
+    let lastScrollY = window.scrollY;
+    let progress = 0;          // current "raw" progress fed to the visuals
+    let progressReveal = 0;    // current entrance-scale progress
+    let firstCall = true;
     const updateCta = () => {
       const rect = ctaPin.getBoundingClientRect();
       const vh = window.innerHeight;
@@ -563,10 +567,6 @@
       const offset = vh * preRoll;
       const total = ctaPin.offsetHeight - vh - offset;
       const rawNow = total > 0 ? Math.max(0, Math.min(1, (-rect.top - offset) / total)) : 0;
-      if (rawNow > maxRaw) maxRaw = rawNow;
-      const raw = maxRaw;
-      const mainRaw = Math.min(1, raw / 0.70);
-      const peelRaw = Math.max(0, Math.min(1, (raw - 0.75) / 0.25));
       // Reveal-phase scale: only when a navy section precedes the CTA (homepage). It
       // grows tiny→full as the cover scrolls away. Without a cover (about page), there's
       // nothing for "Let's Build" to grow out from, so skip and keep scale at 1.
@@ -574,8 +574,29 @@
       const revealNow = enableGrowth
         ? Math.max(0, Math.min(1, -rect.top / (vh * 0.6)))
         : 1;
-      if (revealNow > maxRevealRaw) maxRevealRaw = revealNow;
-      const revealRaw = maxRevealRaw;
+      const scrollY = window.scrollY;
+      const goingUp = !firstCall && scrollY < lastScrollY;
+      lastScrollY = scrollY;
+      if (firstCall) {
+        // On initial render, if the user already loaded into / past the CTA section,
+        // skip straight to the fully-revealed state — no half-baked mid-reveal.
+        firstCall = false;
+        progress = (rawNow > 0) ? 1 : 0;
+        progressReveal = (revealNow > 0) ? 1 : revealNow;
+      } else if (goingUp && progress > 0 && rawNow < progress) {
+        // Scrolling back up after the reveal has started — snap to final state instead
+        // of running the animation backwards.
+        progress = 1;
+        progressReveal = 1;
+      } else {
+        // Normal forward scroll: animation tracks scroll position monotonically.
+        if (rawNow > progress) progress = rawNow;
+        if (revealNow > progressReveal) progressReveal = revealNow;
+      }
+      const raw = progress;
+      const revealRaw = progressReveal;
+      const mainRaw = Math.min(1, raw / 0.70);
+      const peelRaw = Math.max(0, Math.min(1, (raw - 0.75) / 0.25));
       const scale = enableGrowth ? (0.12 + revealRaw * 0.88) : 1;
       const slideT = Math.min(1, Math.max(0, (mainRaw - 0.10) / 0.15));
       const fadeOut = Math.max(0, Math.min(1, (mainRaw - 0.45) / 0.13));
