@@ -551,6 +551,9 @@
     const ctaTitle = ctaFinal.querySelector('.cta-title');
     const ctaSub = ctaFinal.querySelector('.cta-sub');
     const ctaBtn = ctaFinal.querySelector('.btn');
+    // Lock-in maxima so scrolling back up doesn't reverse the reveal
+    let maxRaw = 0;
+    let maxRevealRaw = 0;
     const updateCta = () => {
       const rect = ctaPin.getBoundingClientRect();
       const vh = window.innerHeight;
@@ -559,16 +562,20 @@
       const preRoll = parseFloat(getComputedStyle(document.body).getPropertyValue('--cta-pre-roll')) || 1.3;
       const offset = vh * preRoll;
       const total = ctaPin.offsetHeight - vh - offset;
-      const raw = total > 0 ? Math.max(0, Math.min(1, (-rect.top - offset) / total)) : 0;
+      const rawNow = total > 0 ? Math.max(0, Math.min(1, (-rect.top - offset) / total)) : 0;
+      if (rawNow > maxRaw) maxRaw = rawNow;
+      const raw = maxRaw;
       const mainRaw = Math.min(1, raw / 0.70);
       const peelRaw = Math.max(0, Math.min(1, (raw - 0.75) / 0.25));
       // Reveal-phase scale: only when a navy section precedes the CTA (homepage). It
       // grows tiny→full as the cover scrolls away. Without a cover (about page), there's
       // nothing for "Let's Build" to grow out from, so skip and keep scale at 1.
       const enableGrowth = preRoll >= 1.0;
-      const revealRaw = enableGrowth
+      const revealNow = enableGrowth
         ? Math.max(0, Math.min(1, -rect.top / (vh * 0.6)))
         : 1;
+      if (revealNow > maxRevealRaw) maxRevealRaw = revealNow;
+      const revealRaw = maxRevealRaw;
       const scale = enableGrowth ? (0.12 + revealRaw * 0.88) : 1;
       const slideT = Math.min(1, Math.max(0, (mainRaw - 0.10) / 0.15));
       const fadeOut = Math.max(0, Math.min(1, (mainRaw - 0.45) / 0.13));
