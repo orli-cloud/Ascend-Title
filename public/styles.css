@@ -1907,6 +1907,7 @@ body > section { position: relative; z-index: 2; }
   width: fit-content;
 }
 .footer-brief--socials { margin-top: 28px; }
+.footer-brief--contact { margin-top: 18px; }
 .footer-email {
   font-family: var(--serif);
   font-size: clamp(20px, 2.2vw, 30px);
@@ -2889,6 +2890,150 @@ body > section { position: relative; z-index: 2; }
 .bio-modal-text p:last-child { margin-bottom: 0; }
 
 body.bio-modal-open { overflow: hidden; }
+
+/* ---- Testimonials (about page) ---- */
+.testimonials {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: clamp(580px, 78vh, 760px);
+  background: #2B4E75;
+  color: #fff;
+  padding: clamp(80px, 10vh, 140px) 0;
+  overflow: hidden;
+  z-index: 2;
+  --testi-dur: 7s;
+}
+.testimonials .container { width: 100%; }
+/* Diagonal pinstripe motif — echoes the brand's slant treatment */
+.testimonials::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    115deg,
+    transparent 0 92px,
+    rgba(255, 255, 255, 0.035) 92px 93px
+  );
+  pointer-events: none;
+}
+/* Soft vignette to lift the type off the field */
+.testimonials::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(120% 80% at 50% 35%, rgba(255,255,255,0.05), transparent 60%);
+  pointer-events: none;
+}
+.testimonials .container { position: relative; z-index: 1; }
+.testimonials .eyebrow { color: rgba(255, 255, 255, 0.82); }
+.testimonials .eyebrow-dash { background: rgba(255, 255, 255, 0.45); }
+
+.testi-stage {
+  position: relative;
+  padding: clamp(40px, 6vh, 72px) 0 clamp(36px, 5vh, 56px);
+}
+.testi-mark {
+  position: absolute;
+  top: clamp(-30px, -3vh, -16px);
+  left: clamp(-12px, -1vw, -4px);
+  font-family: var(--serif);
+  font-size: clamp(180px, 22vw, 320px);
+  line-height: 0.82;
+  color: rgba(255, 255, 255, 0.08);
+  pointer-events: none;
+  user-select: none;
+}
+.testi-nums {
+  position: absolute;
+  top: clamp(22px, 3vh, 38px);
+  right: 0;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+  font-family: var(--sans);
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+.testi-num {
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  color: rgba(255, 255, 255, 0.42);
+  background: transparent;
+  border: 0;
+  padding: 6px 4px;
+  cursor: pointer;
+  transition: color 0.35s var(--ease-out), transform 0.35s var(--ease-out);
+}
+.testi-num:hover { color: rgba(255, 255, 255, 0.85); transform: translateY(-1px); }
+.testi-num:focus-visible { outline: none; color: #fff; }
+.testi-num.is-active { color: #fff; font-weight: 500; }
+.testi-num-sep {
+  color: rgba(255, 255, 255, 0.3);
+  pointer-events: none;
+  user-select: none;
+}
+
+.testi-track {
+  position: relative;
+  min-height: clamp(240px, 30vh, 340px);
+  max-width: 1080px;
+}
+.testi-card {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.65s var(--ease-out), transform 0.75s var(--ease-out);
+  pointer-events: none;
+}
+.testi-card[hidden] { display: block; }
+.testi-card.is-active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.testi-quote {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(22px, 2.6vw, 38px);
+  line-height: 1.28;
+  letter-spacing: -0.012em;
+  color: rgba(255, 255, 255, 0.96);
+  margin: 0 0 clamp(28px, 4vh, 44px);
+  max-width: 980px;
+}
+.testi-byline {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.testi-name {
+  font-family: var(--sans);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: #fff;
+}
+.testi-role {
+  font-family: var(--sans);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .testi-card { transition: none; }
+}
+
+@media (max-width: 720px) {
+  .testi-nums { position: static; margin: 0 0 18px; }
+  .testi-mark { font-size: clamp(140px, 42vw, 220px); top: -8px; }
+}
 
 /* ---- Responsive (about page) ---- */
 @media (max-width: 1024px) {

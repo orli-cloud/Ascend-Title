@@ -203,6 +203,111 @@ import Layout from '../layouts/Layout.astro';
     </div>
   </section>
 
+  <section class="testimonials" id="testimonials" aria-label="Testimonials">
+    <div class="container">
+      <div class="testi-stage reveal reveal-no-shift">
+        <span class="testi-mark" aria-hidden="true">&ldquo;</span>
+
+        <nav class="testi-nums" aria-label="Testimonial selector">
+          <button class="testi-num is-active" type="button" aria-current="true" data-tab="0">01</button>
+          <span class="testi-num-sep" aria-hidden="true">/</span>
+          <button class="testi-num" type="button" data-tab="1">02</button>
+          <span class="testi-num-sep" aria-hidden="true">/</span>
+          <button class="testi-num" type="button" data-tab="2">03</button>
+        </nav>
+
+        <div class="testi-track" aria-live="polite">
+          <article class="testi-card is-active" data-testi="0">
+            <p class="testi-quote">Ascend ran our deal like an extension of our team — calm, clear, and ahead of every hurdle. By the time we reached the table, the closing felt inevitable.</p>
+            <footer class="testi-byline">
+              <span class="testi-name">Jordan Reyes</span>
+              <span class="testi-role">Principal — Reyes &amp; Co. Real Estate</span>
+            </footer>
+          </article>
+
+          <article class="testi-card" data-testi="1" hidden>
+            <p class="testi-quote">Complex title work, handled with a steady hand. They flagged risks no one else caught and brought every party to the same page without drama.</p>
+            <footer class="testi-byline">
+              <span class="testi-name">Maya Chen</span>
+              <span class="testi-role">VP Acquisitions — Northline Capital</span>
+            </footer>
+          </article>
+
+          <article class="testi-card" data-testi="2" hidden>
+            <p class="testi-quote">Responsive, precise, and genuinely invested in the outcome. Ascend has earned a permanent seat at our closing table.</p>
+            <footer class="testi-byline">
+              <span class="testi-name">Daniel Stein</span>
+              <span class="testi-role">Founder — Stein Equity Partners</span>
+            </footer>
+          </article>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <script is:inline>
+    (() => {
+      const root = document.querySelector('.testimonials');
+      if (!root) return;
+      const cards = Array.from(root.querySelectorAll('.testi-card'));
+      const nums = Array.from(root.querySelectorAll('.testi-num'));
+      const DUR = 7000;
+      const prefersReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let idx = 0;
+      let timer = null;
+      let hovered = false;
+      let inView = false;
+
+      const setActive = (n) => {
+        const next = ((n % cards.length) + cards.length) % cards.length;
+        cards.forEach((c, i) => {
+          const on = i === next;
+          c.classList.toggle('is-active', on);
+          if (on) c.removeAttribute('hidden'); else c.setAttribute('hidden', '');
+        });
+        nums.forEach((b, i) => {
+          const on = i === next;
+          b.classList.toggle('is-active', on);
+          if (on) b.setAttribute('aria-current', 'true');
+          else b.removeAttribute('aria-current');
+        });
+        idx = next;
+      };
+
+      const stop = () => { if (timer) { clearInterval(timer); timer = null; } };
+      const start = () => {
+        if (prefersReduced || hovered || !inView) return;
+        stop();
+        timer = setInterval(() => setActive(idx + 1), DUR);
+      };
+
+      nums.forEach((b) => {
+        b.addEventListener('click', () => {
+          setActive(parseInt(b.dataset.tab, 10) || 0);
+          start();
+        });
+      });
+
+      root.addEventListener('mouseenter', () => { hovered = true; stop(); });
+      root.addEventListener('mouseleave', () => { hovered = false; start(); });
+      root.addEventListener('focusin', () => { hovered = true; stop(); });
+      root.addEventListener('focusout', (e) => {
+        if (!root.contains(e.relatedTarget)) { hovered = false; start(); }
+      });
+
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((e) => { inView = e.isIntersecting; inView ? start() : stop(); });
+        }, { threshold: 0.25 });
+        io.observe(root);
+      } else {
+        inView = true;
+        start();
+      }
+    })();
+  </script>
+
   <section class="cta" id="contact">
     <div class="cta-pin">
       <div class="cta-sticky">
