@@ -208,14 +208,6 @@ import Layout from '../layouts/Layout.astro';
       <div class="testi-stage reveal reveal-no-shift">
         <span class="testi-mark" aria-hidden="true">&ldquo;</span>
 
-        <nav class="testi-nums" aria-label="Testimonial selector">
-          <button class="testi-num is-active" type="button" aria-current="true" data-tab="0">01</button>
-          <span class="testi-num-sep" aria-hidden="true">/</span>
-          <button class="testi-num" type="button" data-tab="1">02</button>
-          <span class="testi-num-sep" aria-hidden="true">/</span>
-          <button class="testi-num" type="button" data-tab="2">03</button>
-        </nav>
-
         <div class="testi-track" aria-live="polite">
           <article class="testi-card is-active" data-testi="0">
             <p class="testi-quote">Ascend ran our deal like an extension of our team — calm, clear, and ahead of every hurdle. By the time we reached the table, the closing felt inevitable.</p>
@@ -240,6 +232,17 @@ import Layout from '../layouts/Layout.astro';
               <span class="testi-role">Founder — Stein Equity Partners</span>
             </footer>
           </article>
+
+          <nav class="testi-nums" aria-label="Testimonial selector">
+            <button class="testi-num is-active" type="button" aria-current="true" data-tab="0" aria-label="Show testimonial 1"><span class="testi-line" aria-hidden="true"></span></button>
+            <button class="testi-num" type="button" data-tab="1" aria-label="Show testimonial 2"><span class="testi-line" aria-hidden="true"></span></button>
+            <button class="testi-num" type="button" data-tab="2" aria-label="Show testimonial 3"><span class="testi-line" aria-hidden="true"></span></button>
+          </nav>
+
+          <a class="testi-review-link" href="https://search.google.com/local/writereview?placeid=ChIJ_8TlIp-DwYkRGek033s-OF0" target="_blank" rel="noopener">
+            Leave a review
+            <svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg>
+          </a>
         </div>
       </div>
 
@@ -252,6 +255,17 @@ import Layout from '../layouts/Layout.astro';
       if (!root) return;
       const cards = Array.from(root.querySelectorAll('.testi-card'));
       const nums = Array.from(root.querySelectorAll('.testi-num'));
+
+      // Wrap each word of every quote in a span so we can stagger their reveal.
+      cards.forEach((card) => {
+        const quote = card.querySelector('.testi-quote');
+        if (!quote || quote.dataset.split === '1') return;
+        const words = quote.textContent.trim().split(/\s+/);
+        quote.innerHTML = words
+          .map((w, i) => `<span class="testi-word" style="--i:${i}">${w}</span>`)
+          .join(' ');
+        quote.dataset.split = '1';
+      });
       const DUR = 7000;
       const prefersReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
       let idx = 0;
@@ -266,8 +280,9 @@ import Layout from '../layouts/Layout.astro';
           c.classList.toggle('is-active', on);
           if (on) c.removeAttribute('hidden'); else c.setAttribute('hidden', '');
         });
-        nums.forEach((b, i) => {
-          const on = i === next;
+        nums.forEach((b) => {
+          const tab = parseInt(b.dataset.tab, 10);
+          const on = tab === next;
           b.classList.toggle('is-active', on);
           if (on) b.setAttribute('aria-current', 'true');
           else b.removeAttribute('aria-current');

@@ -69,9 +69,9 @@ html {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
 }
-/* Enable scroll-snap on the page (html is the scroll container).
-   Proximity only, so other sections stay free-scrolling. */
-html:has(body.page-services) { scroll-snap-type: y proximity; }
+/* Scroll-snap intentionally disabled on services — the JS-driven service
+   highlighting still aligns visuals to scroll position, but free scrolling
+   feels smoother than browser snap (which can grab momentum mid-flight). */
 body {
   margin: 0;
   font-family: var(--sans);
@@ -2905,18 +2905,6 @@ body.bio-modal-open { overflow: hidden; }
   --testi-dur: 7s;
 }
 .testimonials .container { width: 100%; }
-/* Diagonal pinstripe motif — echoes the brand's slant treatment */
-.testimonials::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    115deg,
-    transparent 0 92px,
-    rgba(255, 255, 255, 0.035) 92px 93px
-  );
-  pointer-events: none;
-}
 /* Soft vignette to lift the type off the field */
 .testimonials::after {
   content: "";
@@ -2946,35 +2934,72 @@ body.bio-modal-open { overflow: hidden; }
 }
 .testi-nums {
   position: absolute;
-  top: clamp(22px, 3vh, 38px);
-  right: 0;
+  left: 0;
+  bottom: 0;
   display: inline-flex;
-  align-items: baseline;
+  align-items: stretch;
+  gap: 12px;
+  height: 44px;
+  z-index: 2;
+}
+.testi-review-link {
+  position: absolute;
+  right: 0;
+  bottom: 14px;
+  display: inline-flex;
+  align-items: center;
   gap: 10px;
   font-family: var(--sans);
-  font-size: 12px;
-  letter-spacing: 0.22em;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.82);
+  text-decoration: none;
+  padding-bottom: 4px;
+  transition: color 0.3s;
+  z-index: 2;
 }
+.testi-review-link .arrow-ic {
+  width: 16px; height: 8px;
+  fill: currentColor;
+  transition: transform 0.45s var(--ease-out);
+}
+.testi-review-link:hover .arrow-ic { transform: translateX(4px); }
+.testi-review-link::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0;
+  bottom: 0;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.55);
+  transform-origin: right;
+  transform: scaleX(1);
+}
+.testi-review-link:hover { color: #fff; }
+.testi-review-link:hover::after { animation: underline-sweep 0.75s var(--ease-expo); }
 .testi-num {
-  font: inherit;
-  letter-spacing: inherit;
-  text-transform: inherit;
-  color: rgba(255, 255, 255, 0.42);
   background: transparent;
   border: 0;
-  padding: 6px 4px;
+  padding: 0;
   cursor: pointer;
-  transition: color 0.35s var(--ease-out), transform 0.35s var(--ease-out);
+  display: inline-flex;
+  align-items: stretch;
+  justify-content: center;
 }
-.testi-num:hover { color: rgba(255, 255, 255, 0.85); transform: translateY(-1px); }
-.testi-num:focus-visible { outline: none; color: #fff; }
-.testi-num.is-active { color: #fff; font-weight: 500; }
-.testi-num-sep {
-  color: rgba(255, 255, 255, 0.3);
-  pointer-events: none;
-  user-select: none;
+.testi-num:focus-visible { outline: none; }
+.testi-line {
+  display: block;
+  width: 3px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.28);
+  transform: skewX(-18deg);
+  transform-origin: center;
+  transition: background-color 0.35s var(--ease-out);
 }
+.testi-num:hover .testi-line { background: rgba(255, 255, 255, 0.6); }
+.testi-num:focus-visible .testi-line { background: #fff; }
+.testi-num.is-active .testi-line { background: #fff; }
 
 .testi-track {
   position: relative;
@@ -2984,16 +3009,41 @@ body.bio-modal-open { overflow: hidden; }
 .testi-card {
   position: absolute;
   inset: 0;
-  opacity: 0;
-  transform: translateY(14px);
-  transition: opacity 0.65s var(--ease-out), transform 0.75s var(--ease-out);
   pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .testi-card[hidden] { display: block; }
-.testi-card.is-active {
+.testi-card.is-active { pointer-events: auto; }
+
+/* Word-stagger reveal for the quote — focus-in (no vertical motion) */
+.testi-word {
+  display: inline-block;
+  opacity: 0;
+  filter: blur(4px);
+  transition: opacity 0.6s ease-out, filter 0.65s ease-out;
+  will-change: opacity, filter;
+}
+.testi-card.is-active .testi-word {
   opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
+  filter: blur(0);
+  transition-delay: calc(var(--i) * 22ms);
+}
+
+/* Byline fades in (no vertical movement) shortly after the quote starts */
+.testi-name,
+.testi-role {
+  opacity: 0;
+  transition: opacity 0.55s ease-out;
+}
+.testi-card.is-active .testi-name {
+  opacity: 1;
+  transition-delay: 0.32s;
+}
+.testi-card.is-active .testi-role {
+  opacity: 1;
+  transition-delay: 0.44s;
 }
 .testi-quote {
   font-family: var(--serif);
@@ -3010,6 +3060,7 @@ body.bio-modal-open { overflow: hidden; }
   display: flex;
   flex-direction: column;
   gap: 4px;
+  padding-left: clamp(64px, 6vw, 88px);
 }
 .testi-name {
   font-family: var(--sans);
@@ -3027,11 +3078,12 @@ body.bio-modal-open { overflow: hidden; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .testi-card { transition: none; }
+  .testi-word,
+  .testi-name,
+  .testi-role { transition: none !important; transition-delay: 0s !important; }
 }
 
 @media (max-width: 720px) {
-  .testi-nums { position: static; margin: 0 0 18px; }
   .testi-mark { font-size: clamp(140px, 42vw, 220px); top: -8px; }
 }
 
@@ -3338,8 +3390,6 @@ body.bio-modal-open { overflow: hidden; }
 /* ---- Stacked sticky stage — each service slides up over previous ---- */
 .svc-stack {
   position: relative;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
 }
 .svc-stage {
   position: sticky;
@@ -3350,14 +3400,6 @@ body.bio-modal-open { overflow: hidden; }
 }
 .svc-track {
   height: 100vh;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-}
-/* Last track is just buffer scroll length so service 5 gets a full
-   100vh of viewing time. No snap there — user scrolls past it freely. */
-.svc-track:last-child {
-  scroll-snap-align: none;
-  scroll-snap-stop: normal;
 }
 
 /* Background layers — slide up to cover the previous color */
