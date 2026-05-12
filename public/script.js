@@ -986,4 +986,167 @@
     }, { passive: true });
     window.addEventListener('resize', updateTeamParallax);
   }
+
+  /* ---------- Notable Transactions slider (seamless infinite loop) ---------- */
+  const notableSlider = document.querySelector('.notable-slider');
+  if (notableSlider) {
+    const track = notableSlider.querySelector('.notable-track');
+    const prevBtn = document.querySelector('.notable-ctrl--prev');
+    const nextBtn = document.querySelector('.notable-ctrl--next');
+    const AUTO_MS = 2000;
+
+    /* ----- Duplicate the cards once so we can wrap silently at the
+       boundary. Because the duplicate set is visually identical to the
+       original, jumping scrollLeft from setWidth → 0 is invisible. ----- */
+    const originalCards = Array.from(track.children);
+    const originalCount = originalCards.length;
+    originalCards.forEach((card) => {
+      const clone = card.cloneNode(true);
+      clone.setAttribute('aria-hidden', 'true');
+      clone.dataset.clone = '1';
+      track.appendChild(clone);
+    });
+
+    const firstCard = track.children[0];
+    const trackGap = () => parseFloat(getComputedStyle(track).columnGap || '0') || 24;
+
+    let originalSetWidth = 0;
+    const measureSet = () => {
+      const gap = trackGap();
+      let total = 0;
+      for (let i = 0; i < originalCount; i++) {
+        total += track.children[i].getBoundingClientRect().width + gap;
+      }
+      originalSetWidth = total;
+    };
+    measureSet();
+    window.addEventListener('resize', measureSet);
+
+    const stepSize = () => firstCard.getBoundingClientRect().width + trackGap();
+
+    /* ----- Loop wrap: once scroll has settled past one set's width,
+       silently subtract that width so we're back at an equivalent
+       position in the originals. Strictly > so an exact teleport to
+       originalSetWidth (used by the prev button) isn't undone. ----- */
+    let scrollEndTimer;
+    const wrapIfNeeded = () => {
+      if (originalSetWidth > 0 && notableSlider.scrollLeft > originalSetWidth) {
+        notableSlider.scrollLeft -= originalSetWidth;
+      }
+    };
+    notableSlider.addEventListener('scroll', () => {
+      clearTimeout(scrollEndTimer);
+      scrollEndTimer = setTimeout(wrapIfNeeded, 80);
+    }, { passive: true });
+
+    /* ----- Auto-scroll (pause on hover/focus/drag) ----- */
+    let autoTimer = null;
+    let paused = false;
+    const tick = () => {
+      notableSlider.scrollBy({ left: stepSize(), behavior: 'smooth' });
+    };
+    const startAuto = () => {
+      if (autoTimer || paused || prefersReduced) return;
+      autoTimer = setInterval(tick, AUTO_MS);
+    };
+    const stopAuto = () => {
+      if (autoTimer) { clearInterval(autoTimer); autoTimer = null; }
+    };
+    const pause = () => { paused = true; stopAuto(); };
+    const resume = () => { paused = false; startAuto(); };
+
+    notableSlider.addEventListener('mouseenter', pause);
+    notableSlider.addEventListener('mouseleave', resume);
+    notableSlider.addEventListener('focusin', pause);
+    notableSlider.addEventListener('focusout', (e) => {
+      if (!notableSlider.contains(e.relatedTarget)) resume();
+    });
+    [prevBtn, nextBtn].forEach((btn) => {
+      if (!btn) return;
+      btn.addEventListener('mouseenter', pause);
+      btn.addEventListener('mouseleave', resume);
+      btn.addEventListener('focus', pause);
+      btn.addEventListener('blur', resume);
+    });
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) stopAuto();
+      else if (!paused) startAuto();
+    });
+
+    /* ----- Prev/next ----- */
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        notableSlider.scrollBy({ left: stepSize(), behavior: 'smooth' });
+      });
+    }
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        // If at the very start, teleport instantly to the equivalent
+        // position one set forward so we can scroll backward seamlessly
+        // into the duplicate set (which looks identical to the originals).
+        if (notableSlider.scrollLeft <= 2) {
+          notableSlider.scrollLeft = originalSetWidth;
+        }
+        notableSlider.scrollBy({ left: -stepSize(), behavior: 'smooth' });
+      });
+    }
+
+    /* ----- Drag-to-scroll via Pointer Events (mouse only) ----- */
+    let isDown = false, startX = 0, startScroll = 0, moved = false, activePointer = null;
+    let snapRestoreTimer = null;
+
+    // Smoothly settle to the nearest card after a drag — looks much better
+    // than the browser's instant snap.
+    const settleToNearest = () => {
+      const step = stepSize();
+      if (step <= 0) return;
+      const targetIndex = Math.round(notableSlider.scrollLeft / step);
+      const targetScroll = targetIndex * step;
+      notableSlider.scrollTo({ left: targetScroll, behavior: 'smooth' });
+    };
+
+    notableSlider.addEventListener('pointerdown', (e) => {
+      if (e.pointerType !== 'mouse') return;
+      isDown = true;
+      moved = false;
+      startX = e.clientX;
+      startScroll = notableSlider.scrollLeft;
+      activePointer = e.pointerId;
+      notableSlider.setPointerCapture(e.pointerId);
+      notableSlider.classList.add('is-dragging');
+      notableSlider.style.scrollSnapType = 'none';
+      // Cancel any pending snap re-enable from a previous drag
+      clearTimeout(snapRestoreTimer);
+      pause();
+      e.preventDefault();
+    });
+    notableSlider.addEventListener('pointermove', (e) => {
+      if (!isDown || e.pointerId !== activePointer) return;
+      const dx = e.clientX - startX;
+      if (Math.abs(dx) > 4) moved = true;
+      notableSlider.scrollLeft = startScroll - dx;
+    });
+    const endDrag = (e) => {
+      if (!isDown || (e && e.pointerId !== activePointer)) return;
+      isDown = false;
+      try { notableSlider.releasePointerCapture(activePointer); } catch (_) {}
+      activePointer = null;
+      notableSlider.classList.remove('is-dragging');
+      // Smooth-scroll to nearest snap point. Keep scroll-snap-type
+      // disabled until the animation completes so the browser doesn't
+      // step on it with an instant snap of its own.
+      settleToNearest();
+      snapRestoreTimer = setTimeout(() => {
+        notableSlider.style.scrollSnapType = '';
+      }, 700);
+      if (!notableSlider.matches(':hover')) resume();
+    };
+    notableSlider.addEventListener('pointerup', endDrag);
+    notableSlider.addEventListener('pointercancel', endDrag);
+    notableSlider.addEventListener('click', (e) => {
+      if (moved) { e.preventDefault(); e.stopPropagation(); }
+    }, true);
+
+    startAuto();
+  }
 })();

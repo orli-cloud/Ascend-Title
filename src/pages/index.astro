@@ -1,5 +1,15 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+const transactions = [
+  { loc: 'Manhattan, NY',  title: 'Park Avenue Trust',     type: 'Refinance',   size: '$220M', img: '/Images/386.jpg' },
+  { loc: 'Boston, MA',     title: 'Seaport Boulevard',     type: 'Commercial',  size: '$165M', img: '/Images/1.jpg' },
+  { loc: 'Brooklyn, NY',   title: 'Industry City Phase IV', type: 'Commercial', size: '$112M', img: '/Images/5093.jpg' },
+  { loc: 'Seattle, WA',    title: 'South Lake Union Tower', type: 'Commercial', size: '$94M',  img: '/Images/5209.jpg' },
+  { loc: 'Miami, FL',      title: 'Brickell Riverview',    type: 'Mixed-Use',   size: '$74M',  img: '/Images/1126.jpg' },
+  { loc: 'Austin, TX',     title: 'Domain Northridge',     type: 'Residential', size: '$58M',  img: '/Images/359.jpg' },
+  { loc: 'Charlotte, NC',  title: 'Uptown Crossing',       type: 'Residential', size: '$31M',  img: '/Images/619.jpg' },
+];
 ---
 <Layout
   title="Ascend Title — A Higher Standard of Closing"
@@ -241,6 +251,44 @@ import Layout from '../layouts/Layout.astro';
           <li class="reveal serve-from-right" data-stagger="4"><svg class="serve-icon" aria-hidden="true"><use href="#ic-attorneys"/></svg><span class="serve-text">Attorneys</span></li>
         </ul>
       </div>
+    </div>
+  </section>
+
+  <section class="notable" aria-labelledby="notable-heading">
+    <div class="container">
+      <div class="notable-head-row">
+        <div class="notable-head">
+          <span class="eyebrow reveal"><span class="eyebrow-dash"></span>Notable Transactions</span>
+          <h2 class="notable-title reveal" id="notable-heading">Recently closed, <em>real impact.</em></h2>
+        </div>
+        <div class="notable-controls">
+          <button class="notable-ctrl notable-ctrl--prev" type="button" aria-label="Previous transactions">
+            <svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg>
+          </button>
+          <button class="notable-ctrl notable-ctrl--next" type="button" aria-label="Next transactions">
+            <svg class="arrow-ic" aria-hidden="true"><use href="#arrow"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="notable-slider" role="region" aria-label="Recent closed deals — scroll horizontally">
+      <ul class="notable-track">
+        {transactions.map((t) => (
+          <li class="notable-card">
+            <div class="notable-card-img" style={`background-image:url('${t.img}')`} aria-hidden="true"></div>
+            <div class="notable-card-meta">
+              <span class="notable-card-loc">{t.loc}</span>
+              <h3 class="notable-card-title">{t.title}</h3>
+              <div class="notable-card-stats">
+                <span>{t.type}</span>
+                <span class="notable-card-dot" aria-hidden="true"></span>
+                <span>{t.size}</span>
+              </div>
+            </div>
+          </li>
+        ))}
+      </ul>
     </div>
   </section>
 

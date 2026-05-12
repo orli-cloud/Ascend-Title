@@ -4287,6 +4287,162 @@ body.svc-cursor-active .svc-dot { cursor: pointer; }
   .portfolio-card .portfolio-card-img::before { transition-delay: 0ms; }
 }
 
+/* ============================================================
+   NOTABLE TRANSACTIONS — horizontal slider on home page
+   ============================================================ */
+.notable {
+  background: var(--navy-900);
+  color: #fff;
+  padding: clamp(100px, 14vh, 160px) 0 clamp(110px, 15vh, 160px);
+  position: relative;
+}
+.notable-head-row {
+  margin: 0 0 clamp(40px, 6vh, 72px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+}
+.notable-head {
+  max-width: 880px;
+}
+.notable-head .eyebrow { color: rgba(255,255,255,0.78); }
+.notable-head .eyebrow-dash { background: rgba(255,255,255,0.55); }
+.notable-title {
+  font-family: var(--serif);
+  font-size: clamp(34px, 4vw, 60px);
+  line-height: 1.08;
+  font-weight: 400;
+  color: #fff;
+  letter-spacing: -0.022em;
+  margin: 8px 0 0;
+}
+.notable-title em { font-style: italic; font-weight: 400; color: #fff; }
+.notable-controls {
+  display: inline-flex;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.notable-ctrl {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s var(--ease-out), border-color 0.3s var(--ease-out), transform 0.3s var(--ease-out), opacity 0.3s var(--ease-out);
+}
+.notable-ctrl:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.55);
+}
+.notable-ctrl:active { transform: scale(0.96); }
+.notable-ctrl:disabled {
+  opacity: 0.32;
+  cursor: default;
+}
+.notable-ctrl .arrow-ic {
+  width: 18px;
+  height: 9px;
+  fill: currentColor;
+}
+.notable-ctrl--prev .arrow-ic { transform: rotate(180deg); }
+.notable-slider {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  scroll-snap-type: x mandatory;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  /* keep snap aligned with the visual edge where cards begin */
+  scroll-padding-left: max(var(--pad-x), calc((100vw - var(--max-w)) / 2 + var(--pad-x)));
+}
+.notable-slider.is-dragging { cursor: grabbing; }
+.notable-slider.is-dragging * { cursor: grabbing; pointer-events: none; }
+.notable-slider::-webkit-scrollbar { display: none; }
+.notable-track {
+  list-style: none;
+  margin: 0;
+  display: flex;
+  gap: clamp(20px, 2vw, 36px);
+  padding: 4px 0 8px;
+  /* Left padding aligns the first card with the container's content edge;
+     right padding lets the last card breathe at the end of the scroll. */
+  padding-left: max(var(--pad-x), calc((100vw - var(--max-w)) / 2 + var(--pad-x)));
+  padding-right: var(--pad-x);
+}
+.notable-card {
+  flex: 0 0 clamp(260px, 26vw, 360px);
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+}
+.notable-card-img {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: #10293D center / cover no-repeat;
+  overflow: hidden;
+  transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.notable-card-img::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(6, 25, 43, 0) 45%, rgba(6, 25, 43, 0.55) 100%);
+  pointer-events: none;
+}
+.notable-card:hover .notable-card-img { transform: translateY(-4px); }
+.notable-card-meta {
+  padding: 20px 4px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.notable-card-loc {
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.62);
+}
+.notable-card-title {
+  font-family: var(--serif);
+  font-size: clamp(20px, 1.6vw, 26px);
+  line-height: 1.15;
+  font-weight: 400;
+  color: #fff;
+  letter-spacing: -0.012em;
+  margin: 2px 0 0;
+}
+.notable-card-stats {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+  font-family: var(--sans);
+  font-size: 14px;
+  color: rgba(255,255,255,0.62);
+}
+.notable-card-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.32);
+}
+@media (max-width: 720px) {
+  .notable-card { flex-basis: 78vw; }
+  .notable { padding: clamp(70px, 10vh, 110px) 0 clamp(80px, 12vh, 130px); }
+  .notable-head-row { flex-direction: column; align-items: flex-start; gap: 18px; }
+  .notable-ctrl { width: 48px; height: 48px; }
+}
+
 /* ===== Contact page ===== */
 
 /* Override the page-about 94vh forced height so the hero hugs its content */
