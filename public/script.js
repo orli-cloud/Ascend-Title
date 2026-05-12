@@ -696,13 +696,18 @@
   /* Team image now uses background-attachment: fixed for a "window into the
      navy bg" effect — no rotation/sizing JS needed. */
 
-  /* ---------- Excellence accordion (scroll-pinned, sequential) ---------- */
+  /* ---------- Excellence accordion (scroll-pinned, continuous) ---------- */
   const exPanels = document.querySelectorAll('.ex-panel');
   const exPin = document.querySelector('.ex-pin');
   if (exPanels.length && exPin) {
+    const EX_FLEX_MIN = 1;
+    const EX_FLEX_MAX = 4.5;
     const updateEx = () => {
       if (window.innerWidth <= 960) {
-        exPanels.forEach((p) => p.classList.add('is-active'));
+        exPanels.forEach((p) => {
+          p.classList.add('is-active');
+          p.style.removeProperty('--ex-flex');
+        });
         return;
       }
       const rect = exPin.getBoundingClientRect();
@@ -711,8 +716,20 @@
       const scrolled = Math.min(scrollable, Math.max(0, -rect.top));
       const progress = scrollable > 0 ? scrolled / scrollable : 0;
       const n = exPanels.length;
-      const idx = Math.min(n - 1, Math.floor(progress * n));
-      exPanels.forEach((p, i) => p.classList.toggle('is-active', i === idx));
+      // Continuous floating-point focus follows scroll directly so each
+      // panel grows/shrinks in lockstep with the wheel.
+      const focus = Math.max(0, Math.min(n - 1, progress * (n - 1)));
+      exPanels.forEach((p, i) => {
+        const dist = Math.min(1, Math.abs(i - focus));
+        const w = 1 - dist;
+        const eased = w * w * (3 - 2 * w); // smoothstep
+        const flexVal = EX_FLEX_MIN + (EX_FLEX_MAX - EX_FLEX_MIN) * eased;
+        p.style.setProperty('--ex-flex', flexVal.toFixed(3));
+        // Content reveal pivots on the nearest panel; fade-out is fast
+        // (CSS), so the leaving panel's text disappears before any
+        // visible squash from the flex change.
+        p.classList.toggle('is-active', i === Math.round(focus));
+      });
     };
     updateEx();
     let exPending = false;

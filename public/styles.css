@@ -1235,7 +1235,7 @@ body.drawer-open { overflow: hidden; }
 }
 .ex-pin {
   position: relative;
-  height: 400vh;
+  height: 300vh;
 }
 /* About-page values has 4 panels — give each panel the same per-panel scroll length */
 .excellence--values .ex-pin { height: 500vh; }
@@ -1287,17 +1287,13 @@ body.drawer-open { overflow: hidden; }
   --ex-slant: 80px;
 }
 .ex-panel {
-  flex: 1;
+  flex: var(--ex-flex, 1);
   min-width: 0;
   position: relative;
   overflow: hidden;
   cursor: pointer;
-  transition: flex 0.85s var(--ease-expo);
   /* Parallelogram, forward-slash slant */
   clip-path: polygon(var(--ex-slant) 0, 100% 0, calc(100% - var(--ex-slant)) 100%, 0 100%);
-}
-.ex-panel.is-active {
-  flex: 4.5;
 }
 .ex-panel--light { background: var(--blue-mid); color: #fff; }
 .ex-panel--blue-soft { background: #3d6587; color: #fff; }
@@ -1318,6 +1314,9 @@ body.drawer-open { overflow: hidden; }
   justify-content: flex-end;
   align-items: flex-start;
   text-align: left;
+  /* Lock the content's natural layout so it never reflows/compresses
+     as the panel shrinks — the panel's overflow:hidden just clips it. */
+  min-width: max-content;
 }
 .ex-num {
   font-family: var(--sans);
@@ -1335,7 +1334,9 @@ body.drawer-open { overflow: hidden; }
   height: 32px;
   opacity: 0;
   transform: translateY(10px);
-  transition: opacity 0.45s var(--ease-out), transform 0.45s var(--ease-out);
+  /* Fast default = quick fade-out when is-active is removed, so the
+     leaving panel's content disappears before any visible squash. */
+  transition: opacity 0.15s ease-out, transform 0.15s ease-out;
 }
 .ex-slashes span {
   display: block;
@@ -1349,7 +1350,8 @@ body.drawer-open { overflow: hidden; }
 .ex-panel.is-active .ex-slashes {
   opacity: 1;
   transform: translateY(0);
-  transition-delay: 0.22s;
+  /* Snappy layered reveal */
+  transition: opacity 0.22s var(--ease-out) 0.04s, transform 0.22s var(--ease-out) 0.04s;
 }
 .ex-title {
   font-family: var(--serif);
@@ -1361,7 +1363,7 @@ body.drawer-open { overflow: hidden; }
   white-space: nowrap;
   opacity: 0;
   transform: translateY(10px);
-  transition: opacity 0.45s var(--ease-out), transform 0.45s var(--ease-out);
+  transition: opacity 0.15s ease-out, transform 0.15s ease-out;
 }
 .ex-desc {
   font-size: 16px;
@@ -1370,7 +1372,7 @@ body.drawer-open { overflow: hidden; }
   max-width: 360px;
   opacity: 0;
   transform: translateY(10px);
-  transition: opacity 0.45s var(--ease-out), transform 0.45s var(--ease-out);
+  transition: opacity 0.15s ease-out, transform 0.15s ease-out;
 }
 .ex-panel--light .ex-desc { color: rgba(255,255,255,0.82); }
 .ex-panel--mid  .ex-desc { color: var(--ink-60); }
@@ -1379,12 +1381,12 @@ body.drawer-open { overflow: hidden; }
 .ex-panel.is-active .ex-title {
   opacity: 1;
   transform: translateY(0);
-  transition-delay: 0.3s;
+  transition: opacity 0.25s var(--ease-out) 0.1s, transform 0.25s var(--ease-out) 0.1s;
 }
 .ex-panel.is-active .ex-desc {
   opacity: 1;
   transform: translateY(0);
-  transition-delay: 0.42s;
+  transition: opacity 0.28s var(--ease-out) 0.18s, transform 0.28s var(--ease-out) 0.18s;
 }
 
 @media (max-width: 960px) {
@@ -2206,6 +2208,7 @@ body > section { position: relative; z-index: 2; }
     padding: 32px 26px !important;
     justify-content: center;
     align-items: flex-start;
+    min-width: 0;
   }
   .ex-slashes {
     margin: 0 0 14px 0;
