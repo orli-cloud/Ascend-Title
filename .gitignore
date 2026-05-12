@@ -29,6 +29,8 @@ Images/*
 !Images/1126.jpg
 !Images/5093.jpg
 !Images/5209.jpg
+!Images/shake.jpg
+!Images/team.jpg
 Logo/Branding/*.pdf
 Logo/Fonts/*.pdf
 
@@ -51,6 +53,8 @@ public/Images/*
 !public/Images/1126.jpg
 !public/Images/5093.jpg
 !public/Images/5209.jpg
+!public/Images/shake.jpg
+!public/Images/team.jpg
 public/Logo/Branding/*.pdf
 public/Logo/Fonts/*.pdf
 

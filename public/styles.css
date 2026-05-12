@@ -1511,7 +1511,7 @@ body.drawer-open { overflow: hidden; }
   will-change: background-position;
 }
 .team-image-bg {
-  background-image: url('Images/619.jpg');
+  background-image: url('Images/team.jpg');
   z-index: 0;
 }
 /* Slant sandwich: between bg photo (z:0) and cutout (z:2), so it appears
@@ -2313,7 +2313,7 @@ body > section { position: relative; z-index: 2; }
 .page-about .hero-image {
   --hero-mask-w: 1;
   --s: 0.95;
-  background: url('/Images/5093.jpg') 72% calc(50% + 4vh) / auto 58vh no-repeat;
+  background: url('/Images/shake.jpg') 72% calc(50% + 4vh) / auto 58vh no-repeat;
   background-color: #10293D;
   /* Backslash slant ( \ ), centered around 72% horizontal, nudged down */
   clip-path: polygon(
